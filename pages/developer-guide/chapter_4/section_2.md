@@ -103,7 +103,7 @@ brew install \
     # Optional syslog-ng module dependencies
     hiredis \
     # Do not use the homebrew provided one, see bellow!
-    # libdbi \ 
+    # libdbi 
     libmaxminddb \
     libnet \
     librdkafka \
