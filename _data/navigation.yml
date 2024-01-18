@@ -1,0 +1,112 @@
+# Top menubar and sidebar navigator links
+main:
+  - title: "Getting started to ..."
+    url: /
+  - title: "install on different platforms"
+    url: chapters/chapter_0
+    children:
+      - title: "Ubuntu"
+        url: chapters/chapter_0/section_1
+      - title: "openSUSE"
+        url: chapters/chapter_0/section_2
+      - title: "macOS"
+        url: chapters/chapter_0/section_3
+      - title: "FreeBSD"
+        url: chapters/chapter_0/section_4
+  - title: "get familiar with the structure"
+    url: chapters/chapter_1
+    children:
+      - title: "project structure"
+        url: chapters/chapter_1/section_1
+      - title: "git structure"
+        url: chapters/chapter_1/section_2
+  - title: "compile first"
+    url: chapters/chapter_2
+    children:
+      - title: "fetching dependencies"
+        url: chapters/chapter_2/section_1
+      - title: "compile"
+        url: chapters/chapter_2/section_2
+      - title: "testing"
+        url: chapters/chapter_2/section_3
+      - title: "install"
+        url: chapters/chapter_2/section_4
+  - title: "run first"
+    url: #chapters/chapter_3
+    children:
+      - title: "write your first config"
+        url: #chapters/chapter_3/section_1
+      - title: "syslog-ng"
+        url: #chapters/chapter_3/section_2
+      - title: "debugging syslog-ng"
+        url: chapters/chapter_3/section_3
+  - title: "create platform specific builds"
+    url: chapters/chapter_4
+    children:
+      - title: "cross compiling"
+        #url: #chapters/chapter_4/section_1
+      - title: "macOS"
+        url: chapters/chapter_4/section_2        
+  - title: "contribute"
+    url: chapters/chapter_5
+    children:
+      - title: "tools"
+        url: chapters/chapter_5/section_1
+      - title: "issues"
+        url: chapters/chapter_5/section_2
+      - title: "features"
+        url: chapters/chapter_5/section_3
+      - title: "bugs"
+        url: chapters/chapter_5/section_4
+      - title: "process"
+        url: chapters/chapter_5/section_5
+      - title: "commits"
+        url: chapters/chapter_5/section_6
+      - title: "licensing"
+        url: chapters/chapter_5/section_7
+  - title: "examples"
+    url: chapters/chapter_5
+    children:
+      - title: "Simple Python Destination"
+        url: chapters/chapter_6/section_1
+      - title: "Simple Java Destination"
+        url: chapters/chapter_6/section_2
+      - title: "Python Kafka Destination"
+        url: chapters/chapter_6/section_3
+      - title: "Osquery and Elasticsearch"
+        url: chapters/chapter_6/section_4
+      - title: "Simple Threaded C Destination"
+        url: chapters/chapter_6/section_5
+      - title: "Simple Python Source"
+        url: chapters/chapter_6/section_6
+  - title: "docker images for syslog-ng"
+    url: chapters/chapter_7
+  - title: "plugin development"
+    url: chapters/chapter_
+    children:
+      - title: "Modules and Plugins"
+        url: chapters/chapter_8/section_1
+      - title: "Source Driver"
+        url: chapters/chapter_8/section_2
+      - title: "Parser"
+        url: chapters/chapter_8/section_3
+      - title: "Filter Function"
+        url: chapters/chapter_8/section_4
+      - title: "Template Function"
+        url: chapters/chapter_8/section_5
+        
+
+
+  # - title: ""
+  #   url: chapters/chapter_7
+  #   children:
+  #     - title: ""
+  #       url: chapters/chapter_7/section_1
+  #     - title: ""
+  #       url: chapters/chapter_7/section_2
+  #     - title: ""
+  #       url: chapters/chapter_7/section_3
+  #     - title: ""
+  #       url: chapters/chapter_7/section_4
+  #     - title: ""
+  #       url: chapters/chapter_7/section_5
