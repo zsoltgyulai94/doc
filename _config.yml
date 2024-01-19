@@ -19,7 +19,6 @@ plugins:
 # Reading Files
 include:
   - .htaccess
-  - pages
 exclude:
   - _______
   # - assets/js/plugins
