@@ -9,8 +9,8 @@ The syslog-ng application has been resurrected on macOS by our developer team. W
 
 At present we are not supporting macOS syslog-ng on our [official repository](http://www.github.com/balabit/syslog-ng) on GitHub. However, you can compile syslog-ng yourself following this guide.
 
-{: .notice}\
-**Note:** the guide is tested on ARM macOS Sonoma 14.2.1, Ventura 13.4, and Intel macOS Monterey 12.6.6 machines, we do our bests to keep it update, but your actual system may require additional steps or slightly different settings.
+**Note:** The guide is tested on ARM macOS Sonoma 14.2.1, Ventura 13.4, and Intel macOS Monterey 12.6.6 machines, we do our bests to keep it update, but your actual system may require additional steps or slightly different settings.
+{: .notice}
 
 ### Compiling from source
 
@@ -18,13 +18,14 @@ Like every project syslog-ng also uses different libraries and build-systems tha
 
 #### Dependencies
 
-1.  [Install Homebrew](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md) on your system.
+1. [Install Homebrew](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md) on your system.
 
-    {: .notice--info}\
-    **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [Here](https://mac.install.guide/homebrew/3.html) you can find an even more detailed instruction about the topic.
+   **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [Here](https://mac.install.guide/homebrew/3.html) you can find an even more detailed instruction about the topic.
+   {: .notice--info}
 
-    {: .notice}\
-    **Note:** This will install **Command Line Tools for Xcode** as well if not already presented on the system that would also be required anyway for a seamless syslog-ng build.
+   **Note:** This will install **Command Line Tools for Xcode** as well if not already presented on the system that would also be required anyway for a seamless syslog-ng build.
+   {: .notice}
+
 2. Perform `brew update` if you have not done it yet.
 3. The following packages should be installed for syslog-ng:
    * autoconf
@@ -56,8 +57,8 @@ Like every project syslog-ng also uses different libraries and build-systems tha
    * criterion
    * gcc@11
 
-{: .notice--info}\
 **Hint:** If you you have [syslog-ng installed via brew](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md), as a reference, you can check the dependencies of the brew built version [like this](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md)
+{: .notice--info}
 
 This is how it might look like if you start from the ground:
 
@@ -99,8 +100,6 @@ brew install \
     # gcc@11 - Optional, clang now should compile all modules nicely
 ```
 
-{: .notice}
-
 > **Note:**
 >
 > * bison is required to be installed when using homebrew, because the options provided by Apple Developer Tools are incomplete. (for example: missing -W option) The reason is why bison is ?>required to be installed from homebrew is that the -W option is supported only after 2.3.
@@ -108,66 +107,73 @@ brew install \
 > * openssl - since macOS provides LibreSSL by default, you might need to expand the search path of pkg-config to find the freshly installed openSSL, see bellow. (seems it was an issue only with 1.1.x version of openssl)
 > * libdbi and libdbi-drivers are [maintained and updated](https://syslog-macos-testing.gitbook.io/syslog-macos-testing/modules/afsql-1#dependencies) in syslog-ng OSE repositories, use the latest master version from there
 > * actual state of supported features, and the required dependencies can also be found [here](https://syslog-macos-testing.gitbook.io/syslog-macos-testing).
+{: .notice}
 
 #### Preparations
 
-1.  Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [just follow the instructions](https://mac.install.guide/homebrew/3.html)] during homebrew installastion.
+1. Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [just follow the instructions](https://mac.install.guide/homebrew/3.html)] during homebrew installastion.
 
-    In a nutshell, you either have to use `brew shellenv`, or set manually the env like this
+   In a nutshell, you either have to use `brew shellenv`, or set manually the env like this
 
-    ```shell
-    export HOMEBREW_PREFIX=$(brew --prefix)
-    export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
-    export HOMEBREW_REPOSITORY=${HOMEBREW_PREFIX}
-    export MANPATH=${HOMEBREW_PREFIX}/share/man:${MANPATH}
-    export INFOPATH=${HOMEBREW_PREFIX}/share/info:${INFOPATH}
-    export PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/opt/python/libexec/bin:$PATH
-    ```
-2.  Force the building process to use bison, net-snmp (and libnet if) installed through homebrew instead of provided by Apple Developer Tools and macOS.
+   ```shell
+   export HOMEBREW_PREFIX=$(brew --prefix)
+   export HOMEBREW_CELLAR=${HOMEBREW_PREFIX}/Cellar
+   export HOMEBREW_REPOSITORY=${HOMEBREW_PREFIX}
+   export MANPATH=${HOMEBREW_PREFIX}/share/man:${MANPATH}
+   export INFOPATH=${HOMEBREW_PREFIX}/share/info:${INFOPATH}
+   export PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:${HOMEBREW_PREFIX}/opt/python/libexec/bin:$PATH
+   ```
 
-    Add them to the `$PATH`
+2. Force the building process to use bison, net-snmp (and libnet if) installed through homebrew instead of provided by Apple Developer Tools and macOS.
 
-    ```shell
-    export PATH=${HOMEBREW_PREFIX}/opt/bison/bin:${HOMEBREW_PREFIX}/opt/libnet/bin:${HOMEBREW_PREFIX}/opt/net-snmp/bin:${PATH}
-    ```
-3.  Extend the search path of pkg-config to use the homebrew version of openssl, net-snmp and pkgconfig
+   Add them to the `$PATH`
 
-    ```shell
-    export PKG_CONFIG_PATH=${HOMEBREW_PREFIX}/opt/openssl/lib/pkgconfig:${HOMEBREW_PREFIX}/opt/net-snmp/lib/pkgconfig:${HOMEBREW_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}
-    ```
-4.  Some of the modules will not, or will incorrectly provide pkg-config support (even if added to PKG\_CONFIG\_PATH, e.g. libmaxminddb), to help the automatic configurations find them you can add brew to `CFLAGS`, `CPPFLAGS`, and `LDFLAGS`
+   ```shell
+   export PATH=${HOMEBREW_PREFIX}/opt/bison/bin:${HOMEBREW_PREFIX}/opt/libnet/bin:${HOMEBREW_PREFIX}/opt/net-snmp/bin:${PATH}
+   ```
 
-    ```shell
-    export CFLAGS="-I${HOMEBREW_PREFIX}/include/ ${CFLAGS}"
-    export CPPFLAGS="${CFLAGS} ${CPPFLAGS}"
-    export LDFLAGS="-L${HOMEBREW_PREFIX}/lib ${LDFLAGS}"
-    ```
+3. Extend the search path of pkg-config to use the homebrew version of openssl, net-snmp and pkgconfig
 
-    {: .notice} **Note:** it could also happen that you must provide here further library inlcude and lib paths, e.g. for openssl 1.1.x, etc.
-5.  If you wanted to use `gcc` then to force usage of the brew installed version you might want to add
+   ```shell
+   export PKG_CONFIG_PATH=${HOMEBREW_PREFIX}/opt/openssl/lib/pkgconfig:${HOMEBREW_PREFIX}/opt/net-snmp/lib/pkgconfig:${HOMEBREW_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}
+   ```
 
-    ```shell
-    ln -s ${HOMEBREW_PREFIX}/bin/gcc-11 ${HOMEBREW_PREFIX}/bin/gcc
-    ln -s ${HOMEBREW_PREFIX}/bin/g++-11 ${HOMEBREW_PREFIX}/bin/g++
-    ```
+4. Some of the modules will not, or will incorrectly provide pkg-config support (even if added to PKG\_CONFIG\_PATH, e.g. libmaxminddb), to help the automatic configurations find them you can add brew to `CFLAGS`, `CPPFLAGS`, and `LDFLAGS`
 
-    Double check the result
+   ```shell
+   export CFLAGS="-I${HOMEBREW_PREFIX}/include/ ${CFLAGS}"
+   export CPPFLAGS="${CFLAGS} ${CPPFLAGS}"
+   export LDFLAGS="-L${HOMEBREW_PREFIX}/lib ${LDFLAGS}"
+   ```
 
-    ```shell
-     gcc --version
-    ```
+   **Note:** It could also happen that you must provide here further library inlcude and lib paths, e.g. for openssl 1.1.x, etc.
+   {: .notice}
 
-    Expect something similar
+5. If you wanted to use `gcc` then to force usage of the brew installed version you might want to add
 
-    ```shell
-    gcc (Homebrew GCC 11.4.0) 11.4.0
-    ```
+   ```shell
+   ln -s ${HOMEBREW_PREFIX}/bin/gcc-11 ${HOMEBREW_PREFIX}/bin/gcc
+   ln -s ${HOMEBREW_PREFIX}/bin/g++-11 ${HOMEBREW_PREFIX}/bin/g++
+   ```
 
-    {: .notice} **Note:** the result of the default (clang) one that comes from the output of `/usr/bion/gcc` (which you have by default, and is a simple symlink that points to clang)
+   Double check the result
 
-    ```shell
-    Apple clang version 15.0.0 (clang-1500.1.0.2.5)
-    ```
+   ```shell
+   gcc --version
+   ```
+
+   Expect something similar
+
+   ```shell
+   gcc (Homebrew GCC 11.4.0) 11.4.0
+   ```
+
+   **Note:** The result of the default (clang) one that comes from the output of `/usr/bion/gcc` (which you have by default, and is a simple symlink that points to clang)
+   {: .notice}
+
+   ```shell
+   Apple clang version 15.0.0 (clang-1500.1.0.2.5)
+   ```
 
 #### Getting the source
 
@@ -187,7 +193,8 @@ export CC=gcc
 export CXX=g++
 ```
 
-{: .notice} **Note:** some parts will still be compiled with clang at the moment as gcc cannot compile e.g. the latest ObjectivC sources syslog-ng uses
+**Note:** Some parts will still be compiled with clang at the moment as gcc cannot compile e.g. the latest ObjectivC sources syslog-ng uses
+{: .notice}
 
 For clang (optional, macOS default)
 
@@ -198,7 +205,7 @@ export CXX=clang++
 
 #### Configuration
 
-**Using autotool**
+##### Using autotool
 
 ```shell
 ./autogen.sh
@@ -211,7 +218,8 @@ mkdir build; cd build
 ../configure --with-ivykis=system --with-systemd-journal=no --disable-java --disable-java-modules
 ```
 
-{: .notice--danger} **Warning:** By a good chance, you might want to install the self built instance first to a custom location to prevent overwriting a possibly already existing brew installation version. In that case pass `--prefix /full_path_of/installdir/` to the `configure` script in the above steps.
+**Warning:** By a good chance, you might want to install the self built instance first to a custom location to prevent overwriting a possibly already existing brew installation version. In that case pass `--prefix /full_path_of/installdir/` to the `configure` script in the above steps.
+{: .notice--danger}
 
 For a full feature set you can add further \`configure\`\` flags (excluded the not yet supported modules on macOS), for example
 
@@ -219,16 +227,15 @@ For a full feature set you can add further \`configure\`\` flags (excluded the n
 ../configure --enable-all-modules --with-ivykis=system --with-systemd-journal=no --disable-java --disable-java-modules --disable-smtp --disable-mqtt --disable-pacct --disable-grpc    
 ```
 
-{: .notice}
-
 > **Note:**
 >
 > * for various reasons not all modules can be configured, built and used on all macOS versions and architectures
 > * for using all the available modules you might have to install further dependencies
+{: .notice}
 
 For more details please see the [actual state of supported features, and the required dependencies](https://syslog-macos-testing.gitbook.io/syslog-macos-testing).
 
-**Using cmake**
+##### Using cmake
 
 For the full (currently) feature set you can use
 
@@ -238,7 +245,7 @@ cmake --install-prefix /full_path_of/installdir -B build . -Wno-dev -DIVYKIS_SOU
 
 #### Compile and install
 
-**autotools**
+##### autotools
 
 ```shell
 # add AM_DEFAULT_VERBOSITY=1 before -j4 option for detailed compilation logging
@@ -249,10 +256,10 @@ make install
 # make -j4 install
 ```
 
-{: .notice}\
-**Note:** for options and more information, read the [compile first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_2/README.md) guide.
+**Note:** For other options and more information, read the [compile first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_2/README.md) guide.
+{: .notice}
 
-**cmake**
+##### cmake
 
 ```shell
 # add -v as well for detailed compilation logging
@@ -267,8 +274,8 @@ In order to run the tests, you have to install first the [Criterion](https://git
 make check -j4
 ```
 
-{: .notice}\
-**Note:** for more read [testing first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_3/README.md) guide.
+**Note:** For more read [testing first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_3/README.md) guide.
+{: .notice}
 
 #### Run
 
@@ -276,5 +283,5 @@ make check -j4
 ./syslog-ng -F
 ```
 
-{: .notice}\
-**Note:** for more information read the [run first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_3/README.md) guide and the syslog-ng [documentation](http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html)
+**Note:** For more information read the [run first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_3/README.md) guide and the syslog-ng [documentation](http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html)
+{: .notice}
