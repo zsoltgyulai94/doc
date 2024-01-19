@@ -1,6 +1,5 @@
 # Base configuration
 
-#theme: jekyll-theme-minimal
 remote_theme: mmistakes/minimal-mistakes@4.24.0
 minimal_mistakes_skin: "midnight" # "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
@@ -31,12 +30,12 @@ sass:
   style: compressed # https://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
 
 # Title
-#name: DCgov Guides Template
+name: syslog-ng
 
 # Author/Organization info to be displayed in the templates
-# author:
-#   name: Office of the Chief Technology Officer
-#   url: http://octo.dc.gov
+author:
+  name: OpenSource Community
+  url: https://syslog-ng.com
 
 
 # When using this template with a project (repository) page set the baseurl to '/project-name'
@@ -85,8 +84,8 @@ paginate_path: /page:num/
 #         nav_fold: false
 
 # Search settings
-search: true #, false (default)
-search_full_content: true #, false (default)
+search: true
+search_full_content: true
 
 search_provider: lunr
 lunr:
@@ -118,13 +117,18 @@ kramdown:
   # enable_coderay: false
 
 atom_feed:
-  hide: true #, false (default)
+  hide: true
 
 compress_html:
   clippings: all
   ignore:
     envs: development  # disable compression in dev environment
 
+# These are introduced with our customized theme source, not part of mmistakes/minimal-mistakes
 
 # For copy button on code
-# enable_copy_code_button: true
+enable_copy_code_button: true
+
+# the inner page contet part width
+# Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
+page_content_width: 90%
