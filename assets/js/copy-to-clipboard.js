@@ -1,13 +1,10 @@
-// Code blocks use thecode html element, if we detect it, then 
-//    - we load the js 
-//    - traverse all code elements adding a custom id, and a button to copy their content
-//    - finally initialize the Clipboard buttons
+// Add copy to clipboard functionality to Code blocks
 
 // get all <code> elements
 var allCodeBlocksElements = $("code");
 
 allCodeBlocksElements.each(function (i) {
-  // Check if the code element is not embedded in a <p> or <li> but in .highlight
+  // Check if the code element is embedded in a .highlight
   if ($(this).closest('.highlight').length) {
     // add different id for each code block
     var currentId = "codeblock" + (i + 1);
@@ -16,11 +13,11 @@ allCodeBlocksElements.each(function (i) {
     // Get the original container of the code element
     var originalContainer = $(this).parent();
 
-    // Add a small header with "Copy to clipboard" text to the original container
+    // Add a small header with "Copy to clipboard" text to the parent of the original container
     var header = $('<div class="highlight-header"></div>');
     originalContainer.parent().prepend(header);
 
-    // trigger
+    // Set up the button
     var clipButton =
       '<button class="btn" data-clipboard-target="#' + currentId + '" onclick="copyToClipboard(this)">' +
       '<svg width="18" height="18" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm">' +
@@ -31,7 +28,7 @@ allCodeBlocksElements.each(function (i) {
         'Copy code' +
       '</button>';
 
-    // Add the button to the header and right-align it
+    // Add the button to the header
     header.append(clipButton);
   }
 });

@@ -31,8 +31,3 @@
     <script src="{{ script | relative_url }}"></script>
   {% endfor %}
 {% endif %}
-
-{% if site.page_content_width %}
-  <!-- Note: {{ site.page_content_width }} is the correct format here even tough the syntax highlghiter complains  -->
-  <style>#main {max-width:{{ site.page_content_width }};}</style>
-{% endif %}

@@ -14,7 +14,7 @@
   -webkit-animation-delay: 0.15s;
   animation-delay: 0.15s;
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     max-width: $max-width;
   }
 }
@@ -42,7 +42,7 @@ body {
     padding-right: $right-sidebar-width-narrow;
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     width: calc(100% - #{$right-sidebar-width});
     padding-right: $right-sidebar-width;
   }
@@ -211,8 +211,8 @@ body {
       padding-left: 1em;
       padding-right: 1em;
 
-      @include breakpoint($x-large) {
-        max-width: $x-large;
+      @include breakpoint($max-width) {
+        max-width: $max-width;
       }
     }
 
@@ -540,7 +540,7 @@ body {
     width: calc(100% - #{$right-sidebar-width-narrow});
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     width: calc(100% - #{$right-sidebar-width});
   }
 
@@ -566,7 +566,7 @@ body {
       padding-right: 0;
     }
 
-    @include breakpoint($x-large) {
+    @include breakpoint($max-width) {
       padding-right: 0;
     }
   }
@@ -576,7 +576,7 @@ body {
       padding-right: 0;
     }
 
-    @include breakpoint($x-large) {
+    @include breakpoint($max-width) {
       padding-right: 0;
     }
   }

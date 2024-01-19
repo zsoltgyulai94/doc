@@ -18,8 +18,8 @@
   -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 
-  @include breakpoint($x-large) {
-    max-width: $x-large;
+  @include breakpoint($max-width) {
+    max-width: $max-width;
   }
 
   ol {
@@ -32,7 +32,7 @@
       width: calc(100% - #{$right-sidebar-width-narrow});
     }
 
-    @include breakpoint($x-large) {
+    @include breakpoint($max-width) {
       width: calc(100% - #{$right-sidebar-width});
     }
   }

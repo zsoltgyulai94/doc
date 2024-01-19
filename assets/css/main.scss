@@ -5,5 +5,15 @@ search: false
 
 @charset "utf-8";
 
+// Seems only the main scss is processed, @included files are not
+// https: //stackoverflow.com/questions/34293733/jekyll-using-values-from-config-yml-in-scss-partial
+// https: //stackoverflow.com/questions/34274368/jekyll-using-values-from-config-yml-in-scss?rq=3
+//
+{% if site.page_content_width %}
+    $max-width: {{ site.page_content_width }} !default;
+{% else %}
+    $max-width: 1280px !default;
+{% endif %}
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials

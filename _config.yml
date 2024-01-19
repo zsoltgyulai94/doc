@@ -30,12 +30,13 @@ sass:
   style: compressed # https://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
 
 # Title
-name: syslog-ng
+#name: syslog-ng documentation
+masthead_title: syslog-ng documentation
 
 # Author/Organization info to be displayed in the templates
 author:
   name: OpenSource Community
-  url: https://syslog-ng.com
+  url: https://github.com/syslog-ng/syslog-ng
 
 
 # When using this template with a project (repository) page set the baseurl to '/project-name'
@@ -126,9 +127,12 @@ compress_html:
 
 # These are introduced with our customized theme source, not part of mmistakes/minimal-mistakes
 
-# For copy button on code
+# Option to add copy button to Code blocks
 enable_copy_code_button: true
 
-# the inner page contet part width
+# Option to set the width of the page inner content part
 # Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
 page_content_width: 90%
+
+# Option to hide masthead navigator in the page top bar
+hide_masthead_navigator: true

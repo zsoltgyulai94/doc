@@ -36,7 +36,7 @@
     }
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     width: calc(#{$right-sidebar-width} - 1em);
   }
 
@@ -99,7 +99,7 @@
     }
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     width: $right-sidebar-width;
     margin-right: -1 * $right-sidebar-width;
   }
@@ -112,7 +112,7 @@
     margin-right: 0;
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     margin-right: 0;
   }
 }
@@ -345,7 +345,7 @@
     }
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($max-width) {
     width: initial;
     margin-right: initial;
   }
