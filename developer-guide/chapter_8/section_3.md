@@ -1,6 +1,5 @@
 ---
 title: Parser
-permalink: /developer-guide/chapter_8/section_3
 toc: true
 ---
 

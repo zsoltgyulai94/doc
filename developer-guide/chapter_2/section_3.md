@@ -1,6 +1,5 @@
 ---
 title: Testing
-permalink: /developer-guide/chapter_2/section_3
 toc: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Plugin Development Guide
-permalink: /developer-guide/chapter_8/
+permalink: :path
 toc: true
 ---
 

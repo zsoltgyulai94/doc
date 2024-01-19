@@ -1,6 +1,6 @@
 ---
 title: Install syslog-ng on different platforms
-permalink: /developer-guide/chapter_0/
+permalink: :path
 toc: true
 ---
 
@@ -24,4 +24,3 @@ Installation guides using packages and source are also welcome.
 * use references to wikis, forums, and so on
 * try to use simple instructions
 * tag version-specific parts
-* discuss on [waffle.io](https://waffle.io/balabit/syslog-ng-gitbook)

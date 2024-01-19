@@ -1,6 +1,6 @@
 ---
 title: Create platform specific builds
-permalink: /developer-guide/chapter_4/
+permalink: :path
 toc: true
 ---
 

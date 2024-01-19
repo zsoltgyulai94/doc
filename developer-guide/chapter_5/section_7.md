@@ -1,6 +1,5 @@
 ---
 title: Process 
-permalink: /developer-guide/chapter_5/section_7
 toc: true
 ---
 

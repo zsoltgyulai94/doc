@@ -1,6 +1,5 @@
 ---
 title: Getting started with implementing Java destinations
-permalink: /developer-guide/chapter_6/section_2
 toc: true
 ---
 

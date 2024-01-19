@@ -1,6 +1,5 @@
 ---
 title: Template Function
-permalink: /developer-guide/chapter_8/section_5
 toc: true
 ---
 

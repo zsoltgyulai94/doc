@@ -1,6 +1,6 @@
 ---
 title: Contribution
-permalink: /developer-guide/chapter_5/
+permalink: :path
 toc: true
 ---
 

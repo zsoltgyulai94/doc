@@ -1,6 +1,5 @@
 ---
 title: FeeBSD
-permalink: /developer-guide/chapter_0/section_4
 toc: true
 ---
 

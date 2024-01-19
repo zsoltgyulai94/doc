@@ -1,6 +1,5 @@
 ---
 title: macOS
-permalink: /developer-guide/chapter_0/section_3/
 toc: true
 ---
 

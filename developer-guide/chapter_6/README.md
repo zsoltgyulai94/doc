@@ -1,6 +1,6 @@
 ---
 title: Tutorials
-permalink: /developer-guide/chapter_6/
+permalink: :path
 toc: true
 ---
 

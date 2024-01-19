@@ -1,6 +1,5 @@
 ---
 title: Compiling
-permalink: /developer-guide/chapter_2/section_2
 toc: true
 ---
 

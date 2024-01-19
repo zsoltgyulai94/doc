@@ -1,6 +1,5 @@
 ---
 title: openSUSE
-permalink: /developer-guide/chapter_0/section_2
 toc: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Compile first
-permalink: /developer-guide/chapter_2/
+permalink: :path
 toc: true
 ---
 

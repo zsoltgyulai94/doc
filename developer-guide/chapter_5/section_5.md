@@ -1,6 +1,5 @@
 ---
 title: Features
-permalink: /developer-guide/chapter_5/section_5
 toc: true
 ---
 

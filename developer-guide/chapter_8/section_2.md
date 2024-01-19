@@ -1,6 +1,5 @@
 ---
 title: Source Driver
-permalink: /developer-guide/chapter_8/section_2
 toc: true
 ---
 

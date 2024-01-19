@@ -1,7 +1,11 @@
 # Top menubar and sidebar navigator links
+# The name 'main' is referenced already in _config.yml change them synced if needed!
+#
 main:
+
   - title: "Getting started to ..."
     url: /
+
   - title: "install on different platforms"
     url: developer-guide/chapter_0
     children:
@@ -13,6 +17,7 @@ main:
         url: developer-guide/chapter_0/section_3
       - title: "FreeBSD"
         url: developer-guide/chapter_0/section_4
+
   - title: "get familiar with the structure"
     url: developer-guide/chapter_1
     children:
@@ -20,6 +25,7 @@ main:
         url: developer-guide/chapter_1/section_1
       - title: "git structure"
         url: developer-guide/chapter_1/section_2
+
   - title: "compile first"
     url: developer-guide/chapter_2
     children:
@@ -31,15 +37,17 @@ main:
         url: developer-guide/chapter_2/section_3
       - title: "install"
         url: developer-guide/chapter_2/section_4
+
   - title: "run first"
     url: #developer-guide/chapter_3
     children:
       - title: "write your first config"
-        url: #developer-guide/chapter_3/section_1
+        #url: developer-guide/chapter_3/section_1
       - title: "syslog-ng"
-        url: #developer-guide/chapter_3/section_2
+        #url: developer-guide/chapter_3/section_2
       - title: "debugging syslog-ng"
         url: developer-guide/chapter_3/section_3
+
   - title: "create platform specific builds"
     url: developer-guide/chapter_4
     children:
@@ -47,8 +55,10 @@ main:
         #url: #developer-guide/chapter_4/section_1
       - title: "macOS"
         url: developer-guide/chapter_4/section_2        
-      - title: "macOS status"
-        url: developer-guide/chapter_4/macos-testing-status
+        children:
+          - title: "macOS status"
+            url: developer-guide/chapter_4/macos-testing-status
+
   - title: "contribute"
     url: developer-guide/chapter_5
     children:
@@ -56,18 +66,19 @@ main:
         url: developer-guide/chapter_5/section_1
       - title: "issues"
         url: developer-guide/chapter_5/section_2
-      - title: "features"
-        url: developer-guide/chapter_5/section_3
       - title: "bugs"
-        url: developer-guide/chapter_5/section_4
-      - title: "process"
+        url: developer-guide/chapter_5/section_6
+      - title: "features"
         url: developer-guide/chapter_5/section_5
       - title: "commits"
-        url: developer-guide/chapter_5/section_6
-      - title: "licensing"
+        url: developer-guide/chapter_5/section_4
+      - title: "process"
         url: developer-guide/chapter_5/section_7
+      - title: "licensing"
+        #url: developer-guide/chapter_5/section_3
+
   - title: "examples"
-    url: developer-guide/chapter_5
+    url: developer-guide/chapter_6
     children:
       - title: "Simple Python Destination"
         url: developer-guide/chapter_6/section_1
@@ -81,10 +92,12 @@ main:
         url: developer-guide/chapter_6/section_5
       - title: "Simple Python Source"
         url: developer-guide/chapter_6/section_6
+
   - title: "docker images for syslog-ng"
     url: developer-guide/chapter_7
+
   - title: "plugin development"
-    url: developer-guide/chapter_
+    url: developer-guide/chapter_8
     children:
       - title: "Modules and Plugins"
         url: developer-guide/chapter_8/section_1
@@ -96,19 +109,3 @@ main:
         url: developer-guide/chapter_8/section_4
       - title: "Template Function"
         url: developer-guide/chapter_8/section_5
-        
-
-
-  # - title: ""
-  #   url: developer-guide/chapter_7
-  #   children:
-  #     - title: ""
-  #       url: developer-guide/chapter_7/section_1
-  #     - title: ""
-  #       url: developer-guide/chapter_7/section_2
-  #     - title: ""
-  #       url: developer-guide/chapter_7/section_3
-  #     - title: ""
-  #       url: developer-guide/chapter_7/section_4
-  #     - title: ""
-  #       url: developer-guide/chapter_7/section_5

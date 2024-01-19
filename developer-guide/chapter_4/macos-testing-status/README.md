@@ -3,7 +3,7 @@ title: GSOC - Project Report
 description: >-
   This testing effort was part of a Google Summer Of Code project, the details
   of which will be outlined here.
-permalink: /developer-guide/chapter_4/macos-testing-status/
+permalink: :path
 toc: true
 ---
 

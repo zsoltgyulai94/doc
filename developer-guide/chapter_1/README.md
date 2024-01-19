@@ -1,6 +1,6 @@
 ---
 title: Get familiar with the structure
-permalink: /developer-guide/chapter_1/
+permalink: :path
 toc: true
 ---
 

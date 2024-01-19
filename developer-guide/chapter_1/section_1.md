@@ -1,6 +1,5 @@
 ---
 title: Project structure
-permalink: /developer-guide/chapter_1/section_1
 toc: true
 ---
 

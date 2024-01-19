@@ -1,6 +1,5 @@
 ---
 title: Issues
-permalink: /developer-guide/chapter_5/section_2
 toc: true
 ---
 

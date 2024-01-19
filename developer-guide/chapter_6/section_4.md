@@ -1,6 +1,5 @@
 ---
 title: Osquery and Elasticsearch
-permalink: /developer-guide/chapter_6/section_4
 toc: true
 ---
 

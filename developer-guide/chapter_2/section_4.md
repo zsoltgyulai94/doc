@@ -1,6 +1,5 @@
 ---
 title: Install
-permalink: /developer-guide/chapter_2/section_4
 toc: true
 ---
 

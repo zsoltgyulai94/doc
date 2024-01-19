@@ -1,6 +1,5 @@
 ---
 title: Debugging
-permalink: /developer-guide/chapter_3/section_3
 toc: true
 ---
 

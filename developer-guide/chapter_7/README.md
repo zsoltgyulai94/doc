@@ -1,6 +1,6 @@
 ---
-title: docker images for syslog-ng
-permalink: /developer-guide/chapter_7/
+title: Docker images for syslog-ng
+permalink: :path
 toc: true
 ---
 

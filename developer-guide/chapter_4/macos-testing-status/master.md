@@ -1,6 +1,5 @@
 ---
 title: Testing Methodology
-#permalink: /dev-guide
 toc: true
 description: >-
   Only the building and the corresponding unit tests are guaranteed on x86

@@ -1,6 +1,5 @@
 ---
 title: Simple Threaded C Destination
-permalink: /developer-guide/chapter_6/section_5
 toc: true
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Modules and Plugins
-permalink: /developer-guide/chapter_8/section_1
 toc: true
 ---
 

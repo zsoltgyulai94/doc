@@ -1,6 +1,5 @@
 ---
 title: Simple Python Source
-permalink: /developer-guide/chapter_6/section_6
 toc: true
 ---
 

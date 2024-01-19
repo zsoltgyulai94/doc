@@ -1,6 +1,5 @@
 ---
 title: Commits
-permalink: /developer-guide/chapter_5/section_4
 toc: true
 ---
 

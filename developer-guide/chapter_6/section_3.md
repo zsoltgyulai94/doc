@@ -1,6 +1,5 @@
 ---
 title: Writing an Apache Kafka module in Python
-permalink: /developer-guide/chapter_6/section_3
 toc: true
 ---
 

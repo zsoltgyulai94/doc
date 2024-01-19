@@ -1,6 +1,5 @@
 ---
 title: Fetching dependencies
-permalink: /developer-guide/chapter_2/section_1
 toc: true
 ---
 

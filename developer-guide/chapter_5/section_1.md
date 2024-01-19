@@ -1,6 +1,5 @@
 ---
 title: Tools
-permalink: /developer-guide/chapter_5/section_1
 toc: true
 ---
 

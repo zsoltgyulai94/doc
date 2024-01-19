@@ -1,6 +1,5 @@
 ---
 title: Git structure
-permalink: /developer-guide/chapter_1/section_2
 toc: true
 ---
 

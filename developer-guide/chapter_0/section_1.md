@@ -1,6 +1,5 @@
 ---
 title: Debian and Ubuntu
-permalink: /developer-guide/chapter_0/section_1
 toc: true
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Getting started with implementing Python destinations
-permalink: /developer-guide/chapter_6/section_1
 toc: true
 ---
 

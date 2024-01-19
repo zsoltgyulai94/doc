@@ -1,6 +1,5 @@
 ---
 title: Filter Function
-permalink: /developer-guide/chapter_8/section_4
 toc: true
 ---
 
