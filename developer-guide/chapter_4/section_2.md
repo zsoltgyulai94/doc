@@ -3,24 +3,37 @@ title: macOS
 toc: true
 ---
 
+[ref:compile-first]: /developer-guide/chapter_2/section_2
+[ref:test-first]: /developer-guide/chapter_2/section_3
+[ref:run]: /developer-guide/chapter_3
+[ref:docs]: http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html
+[ref:homebrew]: http://brew.sh
+[ref:homebrew-install]: /developer-guide/chapter_0/section_3
+[ref:homebrew-install-detailed]: https://mac.install.guide/homebrew/3.html
+[ref:homebrew-ose-install]: /developer-guide/chapter_0/section_3/
+[ref:criterion]: https://github.com/Snaipe/Criterion
+[ref:macos-support]: /developer-guide/chapter_4/macos-testing-status
+[ref:libdbi-update]: /developer-guide/chapter_4/macos-testing-status/modules/afsql-1#dependencies
+[gh:ose-official]: <http://www.github.com/balabit/syslog-ng>
+
 ### Introduction
 
 The syslog-ng application has been resurrected on macOS by our developer team. We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
 
-At present we are not supporting macOS syslog-ng on our [official repository](http://www.github.com/balabit/syslog-ng) on GitHub. However, you can compile syslog-ng yourself following this guide.
+At present we are not supporting macOS syslog-ng on our [official repository][gh:ose-official] on GitHub. However, you can compile syslog-ng yourself following this guide.
 
 **Note:** The guide is tested on ARM macOS Sonoma 14.2.1, Ventura 13.4, and Intel macOS Monterey 12.6.6 machines, we do our bests to keep it update, but your actual system may require additional steps or slightly different settings.
 {: .notice}
 
 ### Compiling from source
 
-Like every project syslog-ng also uses different libraries and build-systems that must be installed for compiling and running properly. These dependencies can be satisfied by compiling every-each libs and tools manually, but it might be preferred to do it the easy way. [Homebrew](http://brew.sh) is a package manager for macOS that has great community and support. You can also use it to install the dependencies you need.
+Like every project syslog-ng also uses different libraries and build-systems that must be installed for compiling and running properly. These dependencies can be satisfied by compiling every-each libs and tools manually, but it might be preferred to do it the easy way. [Homebrew][ref:homebrew] is a package manager for macOS that has great community and support. You can also use it to install the dependencies you need.
 
 #### Dependencies
 
-1. [Install Homebrew](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md) on your system.
+1. [Install Homebrew][ref:homebrew-install] on your system.
 
-   **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [Here](https://mac.install.guide/homebrew/3.html) you can find an even more detailed instruction about the topic.
+   **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [Here][ref:homebrew-install-detailed] you can find an even more detailed instruction about the topic.
    {: .notice--info}
 
    **Note:** This will install **Command Line Tools for Xcode** as well if not already presented on the system that would also be required anyway for a seamless syslog-ng build.
@@ -57,7 +70,7 @@ Like every project syslog-ng also uses different libraries and build-systems tha
    * criterion
    * gcc@11
 
-**Hint:** If you you have [syslog-ng installed via brew](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md), as a reference, you can check the dependencies of the brew built version [like this](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_0/section\_3/README.md)
+**Hint:** If you you have [syslog-ng installed via brew][ref:homebrew-ose-install], as a reference, you can check the dependencies of the brew built version using `brew deps syslog-ng`
 {: .notice--info}
 
 This is how it might look like if you start from the ground:
@@ -105,13 +118,13 @@ brew install \
 > * bison is required to be installed when using homebrew, because the options provided by Apple Developer Tools are incomplete. (for example: missing -W option) The reason is why bison is ?>required to be installed from homebrew is that the -W option is supported only after 2.3.
 > * net-snmp might be needed as well when using homebrew, because the options provided by Apple Developer Tools are bogus a bit. The reason is why net-snmp might be required from homebrew is that the by default provided pkgconfig might give back bogus lib and include values.
 > * openssl - since macOS provides LibreSSL by default, you might need to expand the search path of pkg-config to find the freshly installed openSSL, see bellow. (seems it was an issue only with 1.1.x version of openssl)
-> * libdbi and libdbi-drivers are [maintained and updated](https://syslog-macos-testing.gitbook.io/syslog-macos-testing/modules/afsql-1#dependencies) in syslog-ng OSE repositories, use the latest master version from there
-> * actual state of supported features, and the required dependencies can also be found [here](https://syslog-macos-testing.gitbook.io/syslog-macos-testing).
+> * libdbi and libdbi-drivers are [maintained and updated][ref:libdbi-update] in syslog-ng OSE repositories, use the latest master version from there
+> * actual state of supported features, and the required dependencies can also be found [here][ref:macos-support].
 {: .notice}
 
 #### Preparations
 
-1. Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [just follow the instructions](https://mac.install.guide/homebrew/3.html)] during homebrew installastion.
+1. Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [just follow the instructions][ref:homebrew-install-detailed] during homebrew installation.
 
    In a nutshell, you either have to use `brew shellenv`, or set manually the env like this
 
@@ -233,7 +246,7 @@ For a full feature set you can add further \`configure\`\` flags (excluded the n
 > * for using all the available modules you might have to install further dependencies
 {: .notice}
 
-For more details please see the [actual state of supported features, and the required dependencies](https://syslog-macos-testing.gitbook.io/syslog-macos-testing).
+For more details please see the [actual state of supported features, and the required dependencies][ref:macos-support].
 
 ##### Using cmake
 
@@ -256,7 +269,7 @@ make install
 # make -j4 install
 ```
 
-**Note:** For other options and more information, read the [compile first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_2/README.md) guide.
+**Note:** For other options and more information, read the [compile first][ref:compile-first] guide.
 {: .notice}
 
 ##### cmake
@@ -268,13 +281,13 @@ cmake --build build/. --target install -j4
 
 #### Testing
 
-In order to run the tests, you have to install first the [Criterion](https://github.com/Snaipe/Criterion) testing framework (for example: `brew install criterion`), and re-[configure](section\_2.md#configuration) the build. After that use the command below:
+In order to run the tests, you have to install first the [Criterion][ref:criterion] testing framework (for example: `brew install criterion`), and re-[configure](section\_2.md#configuration) the build. After that use the command below:
 
 ```shell
 make check -j4
 ```
 
-**Note:** For more read [testing first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_2/section\_3/README.md) guide.
+**Note:** For more read [testing first][ref:test-first] guide.
 {: .notice}
 
 #### Run
@@ -283,5 +296,5 @@ make check -j4
 ./syslog-ng -F
 ```
 
-**Note:** For more information read the [run first](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_3/README.md) guide and the syslog-ng [documentation](http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html)
+**Note:** For more information read the [run first][ref:run] guide and the syslog-ng [documentation][ref:docs]
 {: .notice}

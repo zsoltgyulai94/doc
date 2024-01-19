@@ -3,22 +3,29 @@ title: macOS
 toc: true
 ---
 
+[ref:install]: /developer-guide/chapter_4/section_2
+[ref:compile]: /developer-guide/chapter_4/section_2
+[ref:freepascal-launchd]: https://wiki.freepascal.org/macOS_daemons_and_agents
+[ref:apple-launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
+[ref:homebrew]: http://brew.sh
+[gh:ose-official]: <http://www.github.com/balabit/syslog-ng>
+
 ### Introduction
 
 The syslog-ng application has been resurrected on macOS by our developer team. We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
 
-At present we are not supporting macOS syslog-ng on our [official repository](http://www.github.com/balabit/syslog-ng) on GitHub. However, you can install pre-built syslog-ng binaries from various sources or can compile yourself following [this guide](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_4/section\_2/README.md).
+At present we are not supporting macOS syslog-ng on our [official repository][gh:ose-official] on GitHub. However, you can install pre-built syslog-ng binaries from various sources or can compile yourself following [this guide][ref:compile].
 
-If you want to install syslog-ng on macOS you can use multiple packaga managers e.g. [homebrew](http://brew.sh)
+If you want to install syslog-ng on macOS you can use multiple packaga managers e.g. [homebrew][ref:homebrew]
 
 ### Homebrew
 
-First, check [this](https://github.com/syslog-ng/doc/blob/develop/chapters/chapter\_4/section\_2/README.md) if you have not got Homebrew installed and pre-configured yet.
+First, check [this][ref:install] if you have not got Homebrew installed and pre-configured yet.
 
-[Homebrew](http://brew.sh) has now different home directories on ARM and X86 systems, also the location could depend on your macOS version. We will reference to its home directory as `${HOMEBREW_PREFIX}` in this document, as if you follow the installation instructions above it will be set already correctly independenty of your system.
+[Homebrew][ref:homebrew] has now different home directories on ARM and X86 systems, also the location could depend on your macOS version. We will reference to its home directory as `${HOMEBREW_PREFIX}` in this document, as if you follow the installation instructions above it will be set already correctly independenty of your system.
 
-{: .notice--info}\
 **Hint**: you can use `export HOMEBREW_PREFIX=$(brew --prefix)` in your scripts or shell environments to get and reference the actual location of your homewbrew installation
+{: .notice--info}
 
 ### Checking dependencies
 
@@ -72,17 +79,17 @@ however this is not a persistent state, after a system restart syslog-ng will no
 
 To run it as a daemon that will automatically start at system startup and is kept alive you can use `launchd`
 
-You can find several pages about `launchd` and how to add System or User Launch Daemons, Agents to macOS like [this](https://wiki.freepascal.org/macOS\_daemons\_and\_agents), the official [Apple Developer page](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html), or simply `man launchd`, `man launchctl`, and `man launchd.plist`
+You can find several pages about `launchd` and how to add System or User Launch Daemons, Agents to macOS like [this][ref:freepascal-launchd], the official [Apple Developer page][ref:apple-launchd], or simply `man launchd`, `man launchctl`, and `man launchd.plist`
 
 #### Basic example of how to run it as a System Daemon
 
-1.  Create the following .plist file
+1. Create the following .plist file
 
-    ```plist
-    <?xml version="1.0" encoding="UTF-8"?>
-    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-    <plist version="1.0">
-    <dict>
+   ```config
+   <?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+   <plist version="1.0">
+   <dict>
        <key>Label</key>
        <string>com.syslog-ng.daemon</string>
        
@@ -101,16 +108,17 @@ You can find several pages about `launchd` and how to add System or User Launch 
        <string>/opt/homebrew/var/log/syslog-ng-daemon.stdout.log</string>
        <key>StandardErrorPath</key>
        <string>/opt/homebrew/var/log/syslog-ng-daemon.stderr.log</string>
-    </dict>
-    </plist>
-    ```
-2. name it e.g. `com.syslog-ng.daemon.plist`, and move it to `/Library/LaunchDaemons`
-3.  Set proper rights on the plist file
+   </dict>
+   </plist>
+   ```
 
-    ```shell
-    sudo chown root:wheel /Library/LaunchDaemons/com.syslog-ng.daemon.plist
-    sudo chmod 600 /Library/LaunchDaemons/com.syslog-ng.daemon.plist
-    ```
+2. name it e.g. `com.syslog-ng.daemon.plist`, and move it to `/Library/LaunchDaemons`
+3. Set proper rights on the plist file
+
+   ```shell
+   sudo chown root:wheel /Library/LaunchDaemons/com.syslog-ng.daemon.plist
+   sudo chmod 600 /Library/LaunchDaemons/com.syslog-ng.daemon.plist
+   ```
 
 That's all, macOS Launchd will take care of the rest, will start and keepalive the daemon after the next system restart
 
