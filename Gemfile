@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 
 # Hello! This is where you manage which Jekyll version is used to run.
@@ -9,14 +11,22 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 
-gem "github-pages", group: :jekyll_plugins
+#gem "github-pages", group: :jekyll_plugins
 
 # To upgrade, run `bundle update`.
 
-gem "jekyll"
+# Dependeny hell, let "minimal-mistakes-jekyll" decide and add missing ones one-by one
+#gem "jekyll", "~> 4.2"
+
 gem "minimal-mistakes-jekyll"
 
-gem "webrick", "~> 1.8"
+gem "jekyll-remote-theme"
+gem "rake"
+gem "csv"
+gem "base64"
+gem "bigdecimal"
+
+gem "faraday-retry"
 
 # The following plugins are automatically loaded by the theme-gem:
 #   gem "jekyll-paginate"
