@@ -9,20 +9,15 @@ plugins:
 - jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
 - jekyll-include-cache  # Liquid tag that caches Liquid includes.
 
-# whitelist:
-#   - jekyll-paginate
-#   - jekyll-sitemap
-#   - jekyll-include-cache
-
 # Reading Files
 include:
   - .htaccess
 exclude:
-  - _______
   # - assets/js/plugins
   # - assets/js/_main.js
   # - assets/js/vendor
   - Gemfile
+  - Gemfile.lock
 
 # Sass/SCSS
 sass:
@@ -60,7 +55,7 @@ defaults:
       toc_sticky: true
       #author_profile: true
       sidebar:
-        nav: "main"
+        nav: "nav"
 
 # Deafult permalink format
 # https://jekyllrb.com/docs/permalinks/
