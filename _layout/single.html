@@ -39,9 +39,7 @@ layout: default
             {% else %}
               {% assign subtitle = page.description %}
             {% endif %}
-            <h3 id="page-subtitle" class="page__subtitle p-name" itemprop="headline">
-              <a href="{{ page.url | absolute_url }}" class="u-url" itemprop="url">{{ subtitle | markdownify | remove: "<p>" | remove: "</p>" }}</a>
-            </h3>
+            <p id="page-subtitle" class="page__subtitle p-name" itemprop="headline">{{ subtitle }}</p>
           {% endif %}
           {% include page__meta.html %}
         </header>
