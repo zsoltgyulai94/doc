@@ -443,6 +443,15 @@
 
   a {
     color: inherit;
+    &:hover {
+      // This look better for me, but now we saty synced with the toc look
+      //@include yiq-contrasted($active-color);
+      text-decoration: underline;
+
+      .active {
+        color: $text-color;
+      }
+    }
   }
 
   .active {
@@ -450,7 +459,9 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     font-weight: bold;
-    text-decoration: underline;
+    // This look better for me, but now we saty synced with the toc look
+    //text-decoration: underline;
+    @include yiq-contrasted($active-color);
   }
 
   @include breakpoint(max-width $large - 1px) {
