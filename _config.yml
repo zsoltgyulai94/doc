@@ -9,6 +9,16 @@ plugins:
 - jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
 - jekyll-include-cache  # Liquid tag that caches Liquid includes.
 
+# Enable safe mode
+#safe: true
+
+# Whitelist plugins under safe mode.
+whitelist:
+  - jekyll-remote-theme
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-include-cache
+
 # Reading Files
 include:
   - .htaccess
@@ -18,6 +28,8 @@ exclude:
   # - assets/js/vendor
   - Gemfile
   - Gemfile.lock
+
+layouts_dir: _layout
 
 # Sass/SCSS
 sass:
