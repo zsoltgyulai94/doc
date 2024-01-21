@@ -30,9 +30,10 @@
     &.sticky {
       overflow-y: auto;
       /* calculate height of nav list
-         viewport height - nav height - masthead x-padding
+         viewport height - nav height - masthead y-padding
       */
-      max-height: calc(100vh - #{$nav-height} - 2em);
+      max-height: calc(100vh - #{$nav-height});
+      top: calc($masthead-sticky * 2 * #{$nav-height});
     }
   }
 
@@ -87,7 +88,7 @@
       @include clearfix();
       position: -webkit-sticky;
       position: sticky;
-      top: 2em;
+      top: calc((1 + $masthead-sticky) * 2 * #{$nav-height});
       float: right;
 
       .toc {

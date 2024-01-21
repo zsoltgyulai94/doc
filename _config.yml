@@ -142,5 +142,8 @@ enable_copy_code_button: true
 # Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
 page_content_width: 90%
 
-# Option to hide masthead navigator in the page top bar
-hide_masthead_navigator: true
+masthead:
+  # Option to hide masthead navigator in the page top bar
+  hide_navigator: true
+  # Option to make the masthead page top bar sticky
+  sticky: true
