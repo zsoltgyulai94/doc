@@ -58,6 +58,35 @@ nav:
         subnav:
           - title: "module support status"
             url: developer-guide/chapter_4/macos-testing-status
+            subnav:
+              - title: "affile"
+                url: developer-guide/chapter_4/macos-testing-status/modules/affile
+              - title: "afmongodb"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afmongodb
+              - title: "afprog"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afprog
+              - title: "afsmtp"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afsmtp
+              - title: "afsocket"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afsocket
+              - title: "afsql"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afsql
+              - title: "afuser"
+                url: developer-guide/chapter_4/macos-testing-status/modules/afuser
+              - title: "elasticsearch-http"
+                url: developer-guide/chapter_4/macos-testing-status/modules/elasticsearch-http
+              - title: "http"
+                url: developer-guide/chapter_4/macos-testing-status/modules/http
+              - title: "mod-python"
+                url: developer-guide/chapter_4/macos-testing-status/modules/mod-python
+              - title: "pseudofile"
+                url: developer-guide/chapter_4/macos-testing-status/modules/pseudofile
+              - title: "redis"
+                url: developer-guide/chapter_4/macos-testing-status/modules/redis
+              - title: "riemann"
+                url: developer-guide/chapter_4/macos-testing-status/modules/riemann
+              - title: "system-source"
+                url: developer-guide/chapter_4/macos-testing-status/modules/system-source
 
   - title: "contribute"
     url: developer-guide/chapter_5
