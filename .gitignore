@@ -12,7 +12,8 @@ _site
 
 # Ruby Gem
 *.gem
-.bundle
+# excluded in _config.yml instead
+#.bundle
 Gemfile.lock
 .vendor
 

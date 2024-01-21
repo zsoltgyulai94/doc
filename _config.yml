@@ -28,6 +28,7 @@ exclude:
   # - assets/js/vendor
   - Gemfile
   - Gemfile.lock
+  - .vendor/
 
 layouts_dir: _layout
 
