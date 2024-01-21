@@ -14,7 +14,7 @@ _site
 *.gem
 .bundle
 Gemfile.lock
-*vendor
+.vendor
 
 # Node.js and NPM
 node_modules
