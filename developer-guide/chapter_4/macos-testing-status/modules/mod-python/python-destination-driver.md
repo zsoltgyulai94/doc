@@ -1,11 +1,11 @@
 ---
+title: python() Destination Driver
 description: >-
   The Python destination allows you to write your own destination in Python. You
   can import external Python modules to process the messages, and send them to
   other services or servers.
+toc: true
 ---
-
-# python() Destination Driver\*
 
 ### Important Information <a href="#important-information" id="important-information"></a>
 
@@ -28,8 +28,57 @@ For this test, we will embed the Python class into the configuration file.
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
-@version: 3.33@include "scl.conf"​destination console{    file(/dev/stdout);};​source s_python{    python(        class("TestPython")        options(            "option1" "value1",            "option2" "value2"        )    );};​python {from syslogng import LogSourcefrom syslogng import LogMessageimport time​class TestPython(LogSource):    def init(self, options): # optional        print("init")        print(options)        self.exit = False        return True​    def deinit(self): # optional        print("deinit")​    def run(self): # mandatory        print("run")        while not self.exit:            # Must create a message            msg = LogMessage("this is a log message from Python Source")            self.post_message(msg)            time.sleep(1)​    def request_exit(self): # mandatory        print("exit")        self.exit = True};​log {    source(s_python);    destination(console);};
+```conf
+@version: 3.33
+@include "scl.conf"
+
+​destination console{
+  file(/dev/stdout);
+};
+
+​source s_python{
+  python(
+    class("TestPython")
+      options(
+        "option1" "value1",
+        "option2" "value2"
+      )
+    );
+  };
+
+  ​python {
+    from syslogng import LogSource
+    from syslogng import LogMessage
+    import time​class
+
+    TestPython(LogSource):
+
+    def init(self, options): # optional
+      print("init")
+      print(options)
+      self.exit = False
+      return True​
+
+    def deinit(self): # optional
+      print("deinit")
+
+    def run(self): # mandatory
+      print("run")
+      while not self.exit:
+        # Must create a message
+        msg = LogMessage("this is a log message from Python Source")
+        self.post_message(msg)
+        time.sleep(1)
+
+    def request_exit(self): # mandatory
+      print("exit")
+      self.exit = True
+  };
+
+  ​log {
+    source(s_python);
+    destination(console);
+  };
 ```
 
 ### Proof <a href="#proof" id="proof"></a>

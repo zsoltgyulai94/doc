@@ -31,17 +31,17 @@ Table of the testing status of the various modules.
 
  |                         Module                        | Plugins |    Intel    | Apple Silicon |
  | :---------------------------------------------------: | :-----: | :---------: | :-----------: |
- |             [afsocket](modules/afsocket/)             |    17   |    Tested   |     Tested    |
- |               [affile](modules/affile/)               |    6    |    Tested   |     Tested    |
- |              [afprog](modules/afprog-2/)              |    2    |    Tested   |     Tested    |
- |          [mod-python](modules/mod-python-7/)          |    7    |    Tested   |     Tested    |
- |       [system-source](modules/system-source-1/)       |    1    | Tested \[F] |  Tested \[F]  |
- |          [afmongodb](modules/afmongodb-1.md)          |    1    |    Tested   |     Tested    |
- |             [afsmtp](modules/afsmtp-1.md)             |    1    | Tested \[F] |  Tested \[F]  |
- |              [afsql](modules/afsql-1.md)              |    1    | Tested \[F] |  Tested \[F]  |
- |             [afuser](modules/afuser-1.md)             |    1    |    Tested   |     Tested    |
- | [elasticsearch-http](modules/elasticsearch-http-1.md) |    1    |    Tested   |     Tested    |
- |               [http](modules/http-1.md)               |    1    |    Tested   |     Tested    |
- |         [pseudofile](modules/pseudofile-1.md)         |    1    |    Tested   |     Tested    |
- |              [redis](modules/redis-1.md)              |    1    |    Tested   |     Tested    |
- |            [riemann](modules/riemann-1.md)            |    1    |    Tested   |     Tested    |
+ |             [affile](modules/affile/)            |    6    |    Tested   |     Tested    |
+ |          [afmongodb](modules/afmongodb)          |    1    |    Tested   |     Tested    |
+ |             [afprog](modules/afprog)             |    2    |    Tested   |     Tested    |
+ |             [afsmtp](modules/afsmtp)             |    1    | Tested \[F] |  Tested \[F]  |
+ |           [afsocket](modules/afsocket)           |    17   |    Tested   |     Tested    |
+ |              [afsql](modules/afsql)              |    1    | Tested \[F] |  Tested \[F]  |
+ |             [afuser](modules/afuser)             |    1    |    Tested   |     Tested    |
+ | [elasticsearch-http](modules/elasticsearch-http) |    1    |    Tested   |     Tested    |
+ |               [http](modules/http)               |    1    |    Tested   |     Tested    |
+ |         [mod-python](modules/mod-python)         |    7    |    Tested   |     Tested    |
+ |         [pseudofile](modules/pseudofile)         |    1    |    Tested   |     Tested    |
+ |              [redis](modules/redis)              |    1    |    Tested   |     Tested    |
+ |            [riemann](modules/riemann)            |    1    |    Tested   |     Tested    |
+ |      [system-source](modules/system-source)      |    1    | Tested \[F] |  Tested \[F]  |

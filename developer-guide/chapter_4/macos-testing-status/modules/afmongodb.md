@@ -1,16 +1,16 @@
 ---
+title: afmongodb
 description: >-
   The afmongodb module has only one driver, that is the mongodb() destination
   driver. The mongodb() driver sends messages to a MongoDB database.
+toc: true
 ---
-
-# afmongodb \[1]
 
 ### Important Information
 
 The syslog-ng OSE mongodb() driver is compatible with MongoDB server version 1.4 and newer. Using mongo() without any parameters uses the following default values:
 
-```
+```conf
 destination d_mongodb {
     mongodb(
         uri("mongodb://localhost:27017/syslog")
@@ -45,7 +45,7 @@ To do so,
 
 #### Configuration file used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

@@ -1,8 +1,8 @@
 ---
+title: pipe() Destination Driver
 description: The pipe() driver sends messages to a named pipe like /dev/xconsole.
+toc: true
 ---
-
-# pipe() Destination Driver
 
 ### Important Information
 
@@ -21,7 +21,7 @@ To test the pipe() destination driver, we create a pipe called "myPipe" and writ
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

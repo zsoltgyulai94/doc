@@ -1,8 +1,8 @@
 ---
+title: Using syslog()
 description: We assume the same certificate set-up as outlined in the TLS-Encryption post.
+toc: true
 ---
-
-# Using syslog()
 
 ### TLS-encryption using syslog() driver
 
@@ -12,7 +12,7 @@ To test the TLS-encryption using syslog() driver, we will run two instances of s
 
 _**Destination Configuration File (Client)**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 
@@ -48,7 +48,7 @@ log {
 
 _**Source Configuration File (Server)**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

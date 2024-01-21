@@ -1,10 +1,10 @@
 ---
+title: file() Destination Driver
 description: >-
   The file driver is one of the most important destination drivers in syslog-ng.
   It allows to output messages to the specified text file, or to a set of files.
+toc: true
 ---
-
-# file() Destination Driver
 
 ### Status
 
@@ -19,7 +19,7 @@ File() drivers are at the very core of syslog-ng. Chances are you are already us
 
 File() destination driver is also used to display any output on the console. The code snippet is shown below.&#x20;
 
-```
+```conf
 destination console{
     file(/dev/stdout);
 };
@@ -27,7 +27,7 @@ destination console{
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

@@ -1,11 +1,12 @@
 ---
+title: TLS-Encryption
 description: >-
   The syslog-ng application can send and receive log messages securely over the
   network using the Transport Layer Security (TLS) protocol using the network()
   and syslog() drivers.
+permalink: :path
+toc: true
 ---
-
-# TLS-Encryption
 
 ### Status
 
@@ -24,14 +25,14 @@ On a mac system, the default configuration file is stored at `/usr/local/etc`. S
 
 Below are the steps I took to set up the source instance of syslog-ng. The following commands will generate both the CA certificate as well as the private key. Of course, your private key should always stay private and the public key (ca-key) is what we will hand out to clients.
 
-{: .notice--info}\
-**Note:**\
-These instruction are pertaining to openssl, not LibreSSL which is the provided by macOS. You can check using the `openssl version` command. \
-\
+{: .notice--info}
+**Note:**
+These instruction are pertaining to openssl, not LibreSSL which is the provided by macOS. You can check using the `openssl version` command.
+
 If you need to have openssl@1.1 first in your PATH, run:\
 `echo 'export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"' >> ~/.zshrc`
 
-```
+```shell
 > cd /usr/local/etc
 > mkdir ssl
 > cd ssl
@@ -47,7 +48,7 @@ Now, to set up the destination instance of syslog-ng. In a multi-machine set up,
 
 We are basically sharing the public key of the certification with the client machines. We also view the hash of the certificate and create a symbolic link to the certificate.
 
-```
+```shell
 > cd /usr/local/etc/ssl
 > mkdir sslClient
 > mkdir ca.d
@@ -58,4 +59,4 @@ e81fe100
 > sudo ln -s ./cacert.pem e81fe100.0
 ```
 
-Now that we have the certificate made, and the appropriate keys shared, we can test the TLS-encrypted messaging using [network()](using-network.md) and [syslog()](using-syslog.md) drivers.
+Now that we have the certificate made, and the appropriate keys shared, we can test the TLS-encrypted messaging using [network()](using-network and [syslog()](using-syslog drivers.

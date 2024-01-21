@@ -1,10 +1,10 @@
 ---
+title: program() Destination Driver
 description: >-
   The program() driver starts an external application or script and sends the
   log messages to its standard input (stdin).
+toc: true
 ---
-
-# program() Destination Driver
 
 ### Important Information
 
@@ -25,7 +25,7 @@ To test the program() destination driver, we will make a shell script that recei
 
 #### Shell Script <a href="#shell-script" id="shell-script"></a>
 
-```
+```shell
 #!/bin/sh
 while read line ; do
 echo $line >> /Users/yash/Documents/test.txt
@@ -34,7 +34,7 @@ done
 
 #### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 
@@ -47,8 +47,8 @@ source custom
     );
 };
 
-destination d_prog { 
-    program("/Users/yash/Documents/script"); 
+destination d_prog {
+    program("/Users/yash/Documents/script");
 };
 
 

@@ -1,10 +1,10 @@
 ---
+title: Collecting local logs pre macOS 10.15 Catalina
 description: >-
   This post explains how you can collect local log messages and provides some
   details about the integration problems.
+toc: true
 ---
-
-# Collecting local logs pre macOS 10.15 Catalina
 
 An oversimplification of what the system() source does internally is that it reads the files where the given operating system's stores the logs. Unfortunately, the mapping for the same does not exist anymore for modern macOS operating systems, that resulted in a temporary solution in syslog-ng earlier.&#x20;
 

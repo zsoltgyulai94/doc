@@ -1,14 +1,13 @@
 ---
+title: afprog
 description: The afprog module provides program source & destination drivers for syslog-ng.
+permalink: :path
+toc: true
 ---
-
-# afprog \[2]
-
-
 
 ### Plugins
 
 |                         Plugin                         | Status |
 | :----------------------------------------------------: | :----: |
-|      [program (Source)](program-source-driver.md)      | Tested |
-| [program (Destination)](program-destination-driver.md) | Tested |
+|      [program (Source)](program-source-driver)      | Tested |
+| [program (Destination)](program-destination-driver) | Tested |

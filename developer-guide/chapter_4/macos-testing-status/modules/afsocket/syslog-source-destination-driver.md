@@ -1,10 +1,10 @@
 ---
+title: syslog() Source/Destination Driver
 description: >-
   The syslog() driver can be used to send and receive messages from the network
   using the standard IETF-syslog protocol.
+toc: true
 ---
-
-# syslog() Source/Destination Driver
 
 ### Important Information
 
@@ -32,7 +32,7 @@ To test the syslog driver -- both source and destination drivers, we will run tw
 
 _**Destination Configuration File**_
 
-```
+```conf
 #Detination 
 @version: 3.31
 @include "scl.conf"
@@ -88,7 +88,7 @@ log {
 
 _**Source Configuration File**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

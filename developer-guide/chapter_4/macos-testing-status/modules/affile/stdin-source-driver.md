@@ -1,8 +1,8 @@
 ---
+title: stdin() Source Driver
 description: The stdin() driver collects messages from the standard input stream.
+toc: true
 ---
-
-# stdin() Source Driver
 
 ### Important Information
 
@@ -21,7 +21,7 @@ To test the stdin() source driver, we run a very simple configuration file as sh
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

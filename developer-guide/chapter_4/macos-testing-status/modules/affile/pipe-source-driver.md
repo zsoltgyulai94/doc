@@ -1,10 +1,10 @@
 ---
+title: pipe() Source Driver
 description: >-
   The pipe source driver opens a named pipe with the specified name and listens
   for messages. It is used as the native message delivery protocol on HP-UX.
+toc: true
 ---
-
-# pipe() Source Driver
 
 ### Important Information
 
@@ -21,13 +21,13 @@ Pipe is very similar to the file() driver, but there are a few differences, for 
 
 To test the pipe() source driver, we can create a pipe using the mkfifo command. The mkfifo command basically lets you create FIFOs (a.k.a named pipes). Following is the syntax of the command:
 
-```
+```conf
 mkfifo [OPTION]... NAME...
 ```
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

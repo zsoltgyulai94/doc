@@ -1,11 +1,11 @@
 ---
+title: wildcard\_file() Source Driver
 description: >-
   The wildcard-file() source collects log messages from multiple plain-text
   files from multiple directories.The syslog-ng OSE application notices if a
   file is renamed or replaced with a new file.
+toc: true
 ---
-
-# wildcard\_file() Source Driver
 
 ### Status
 
@@ -24,7 +24,7 @@ To test the wildcard\_file source driver, we will use it to display the contents
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

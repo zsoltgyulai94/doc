@@ -1,10 +1,10 @@
 ---
+title: unix-stream() Source Driver
 description: >-
   The unix-stream() driver open an AF_UNIX socket and start listening on it for
   messages. The unix-stream() driver uses SOCK_STREAM semantics.
+toc: true
 ---
-
-# unix-stream() Source Driver
 
 ### Important Information
 
@@ -19,7 +19,7 @@ In the official documentation, `/dev/log` is the default entry for system loggin
 
 ### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

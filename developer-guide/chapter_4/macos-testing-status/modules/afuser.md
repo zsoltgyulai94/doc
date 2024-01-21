@@ -1,10 +1,10 @@
 ---
+title: afuser
 description: >-
   The afuser module has only one driver, that is the usertty() destination
   driver. The usertty() driver sends messages to a user terminal.
+toc: true
 ---
-
-# afuser \[1]
 
 ### Status
 
@@ -17,12 +17,12 @@ description: >-
 
 The usertty() driver has a single required argument, specifying a username who should receive a copy of matching messages. Use the asterisk \* to specify every user currently logged in to the system.
 
-{: .notice--info}\
+{: .notice--info}
 Note : The usertty() does not have any further options nor does it support templates.
 
 #### Configuration file used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
+```conf
 @version: 3.33
 @include "scl.conf"
 
@@ -35,8 +35,8 @@ source custom
     );
 };
 
-destination d_usertty { 
-    usertty("*"); 
+destination d_usertty {
+    usertty("*");
 };
 
 

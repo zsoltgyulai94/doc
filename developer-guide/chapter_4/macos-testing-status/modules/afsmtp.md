@@ -1,10 +1,10 @@
 ---
+title: afsmtp
 description: >-
   The smtp() driver sends email messages triggered by log messages. The smtp()
   driver uses SMTP, without needing external applications.
+toc: true
 ---
-
-# afsmtp \[1]
 
 ### Status
 

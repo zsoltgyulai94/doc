@@ -1,10 +1,10 @@
 ---
+title: python() Source Driver
 description: >-
   The Python source allows you to write your own source in Python. You can
   import external Python modules to receive or fetch the messages.
+toc: true
 ---
-
-# python() Source Driver
 
 ### Important Information
 
@@ -28,7 +28,7 @@ For this test, we will embed the Python class into the configuration file.&#x20;
 
 ### Configuration File Used
 
-```
+```conf
 @version: 3.33
 @include "scl.conf"
 

@@ -1,11 +1,11 @@
 ---
+title: pseudofile
 description: >-
   The pseudofile() destination driver is a very simple driver, aimed at
   delivering messages to special files. It opens and closes the file after each
   write operation, instead of keeping it open.
+toc: true
 ---
-
-# pseudofile \[1]
 
 ### Status
 
@@ -18,12 +18,12 @@ description: >-
 
 The pseudofile() driver has a single required argument, specifying a filename, that is, the file to write messages to, including the path.
 
-{: .notice--info}\
+{: .notice--info}
 Note: The pseudofile() driver does not support templates in the filename.
 
 #### Configuration file used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
+```conf
 @version: 3.33
 @include "scl.conf"
 
@@ -36,7 +36,7 @@ source custom
     );
 };
 
-destination d_pseudofile { 
+destination d_pseudofile {
     pseudofile("/dev/stdout" template("${ISODATE} ${HOST} ${MESSAGE}\n"));
 };
 
@@ -45,7 +45,6 @@ log {
     source(custom);
     destination(d_pseudofile);
 };
-
 ```
 
 ### Proof

@@ -1,11 +1,11 @@
 ---
+title: network() Source Driver
 description: >-
   The network() source driver can receive syslog messages conforming to RFC3164
   from the network using the TCP and UDP networking protocols. It belongs in the
   afsocket module.
+toc: true
 ---
-
-# network() Source Driver
 
 ### **Status**
 
@@ -24,7 +24,7 @@ The network source driver also includes TCP source listening on a TLS-encrypted 
 
 We can set up our syslog-ng configuration, such that it is listening for TCP and UDP protocol messages on the specified ports.
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

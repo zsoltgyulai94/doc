@@ -1,8 +1,8 @@
 ---
+title: Using network()
 description: We assume the same certificate set-up as outlined in the TLS-Encryption post.
+toc: true
 ---
-
-# Using network()
 
 ### TLS-encryption using network() driver
 
@@ -12,7 +12,7 @@ To test the TLS-encryption using network() driver, we will run two instances of 
 
 _**Destination Configuration File (Client)**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 
@@ -48,7 +48,7 @@ log {
 
 _**Source Configuration File (Server)**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

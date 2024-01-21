@@ -1,16 +1,17 @@
 ---
+title: affile
 description: The affile module provides file source & destination support for syslog-ng.
+permalink: :path
+toc: true
 ---
-
-# affile \[6]
 
 ### Plugins
 
 |                            Plugin                            | Status |
 | :----------------------------------------------------------: | :----: |
-|           [File ( Source )](file-source-driver.md)           | Tested |
-|      [File ( Destination )](file-destination-driver.md)      | Tested |
-|           [Pipe ( Source )](pipe-source-driver.md)           | Tested |
-|      [Pipe ( Destination )](pipe-destination-driver.md)      | Tested |
-| [Wildcard\_file ( Source )](wildcard\_file-source-driver.md) | Tested |
-|          [Stdin ( Source )](stdin-source-driver.md)          | Tested |
+|           [File ( Source )](file-source-driver)           | Tested |
+|      [File ( Destination )](file-destination-driver)      | Tested |
+|           [Pipe ( Source )](pipe-source-driver)           | Tested |
+|      [Pipe ( Destination )](pipe-destination-driver)      | Tested |
+| [Wildcard\_file ( Source )](wildcard_file-source-driver)  | Tested |
+|          [Stdin ( Source )](stdin-source-driver)          | Tested |

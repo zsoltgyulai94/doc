@@ -1,10 +1,10 @@
 ---
+title: unix-stream() Destination Driver
 description: >-
   The unix-stream() destination driver send messages to a UNIX domain socket in
   either SOCK_STREAM mode.
+toc: true
 ---
-
-# unix-stream() Destination Driver
 
 ### Important Information
 
@@ -25,7 +25,7 @@ To test the unix-dgram() drivers, we will run two instances of syslog-ng. One wh
 
 _**Source Configuration File**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 
@@ -52,7 +52,7 @@ log {
 
 _**Destination Configuration File**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

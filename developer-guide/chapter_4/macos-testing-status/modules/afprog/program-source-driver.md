@@ -1,10 +1,10 @@
 ---
+title: program() Source Driver
 description: >-
   The program driver starts an external application and reads messages from the
   standard output (stdout) of the application.
+toc: true
 ---
-
-# program() Source Driver
 
 ### Status
 
@@ -21,7 +21,7 @@ The program() source driver is mainly useful to receive log messages from daemon
 
 #### Shell Script
 
-```
+```shell
 #!/bin/bash
 while true
 do
@@ -32,7 +32,7 @@ done
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

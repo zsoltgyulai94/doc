@@ -1,11 +1,11 @@
 ---
+title: unix-dgram() Source/Destination Driver
 description: >-
   The unix-dgram() source driver open an AF_UNIX socket and start listening on
   it for messages. Whereas unix-dgram() destination driver send messages to a
   UNIX domain socket.
+toc: true
 ---
-
-# unix-dgram() Source/Destination Driver
 
 ### Important Information
 
@@ -25,7 +25,7 @@ To test the unix-dgram() drivers, we will run two instances of syslog-ng. One wh
 
 _**Source Configuration File**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 
@@ -52,7 +52,7 @@ log {
 
 _**Destination Configuration File**_
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

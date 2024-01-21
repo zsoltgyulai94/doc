@@ -1,13 +1,13 @@
 ---
+title: riemann
 description: >-
   The riemann module has only one driver, which is the riemann() destination
   driver. The riemann() driver sends your data (for example, metrics or events)
   to a Riemann monitoring system.
+toc: true
 ---
 
-# riemann \[1]
-
-### Status <a href="#status" id="status"></a>
+## Status <a href="#status" id="status"></a>
 
 | x86 | Works |
 | :-: | :---: |
@@ -30,7 +30,7 @@ To run riemann in the foreground, use: \
 
 However, you might run into the issue of not having a config file present depending on your mode of installation. We can make our own config file for the same.&#x20;
 
-```
+```conf
 ; -*- mode: clojure; -*-
 ; vim: filetype=clojure
 
@@ -56,7 +56,7 @@ However, you might run into the issue of not having a config file present depend
       ; Log expired events.
       (expired
         (fn [event] (info "expired" event))))))
-        
+
 ; Default Config File Till Now
 
 (streams
@@ -68,7 +68,7 @@ Where, the last added statement allows us to print incoming messages that have t
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
+```conf
 @version: 3.33
 @include "scl.conf"
 
@@ -87,18 +87,19 @@ source custom
 };
 
 destination d_riemann {
-	riemann(
-		# Explicitly specify the localhost.
-		server("127.0.0.1")
-		port(5555)
-		ttl("300.5")
-		metric(int("$SEQNUM"))
-		description("syslog-ng riemann test")
-		state("ok")
-		attributes(x-ultimate-answer("$(+ $PID 42)")
-				   key("MESSAGE", rekey(add-prefix("x-")) )
-				   )
-	);
+  riemann(
+    # Explicitly specify the localhost.
+    server("127.0.0.1")
+    port(5555)
+    ttl("300.5")
+    metric(int("$SEQNUM"))
+    description("syslog-ng riemann test")
+    state("ok")
+    attributes(
+      x-ultimate-answer("$(+ $PID 42)")
+      key("MESSAGE", rekey(add-prefix("x-")))
+    )
+  );
 };
 
 log {

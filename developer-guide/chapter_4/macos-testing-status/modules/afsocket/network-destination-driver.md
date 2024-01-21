@@ -1,10 +1,10 @@
 ---
+title: network() Destination Driver
 description: >-
   The network() destination driver can send syslog messages conforming to
   RFC3164 from the network using the TCP, TLS, and UDP networking protocols.
+toc: true
 ---
-
-# network() Destination Driver
 
 ## Status
 
@@ -22,11 +22,11 @@ The network destination driver also includes TCP transmission on a TLS-encrypted
 #### **Configuration Files Used**
 
 To test the network destination driver, we will run two instances of syslog-ng. One where we are transmitting data using the network destination driver that needs to be tested. And another that will listen for the data on the network pipeline established. \
-The network source driver used in the latter has been tested, click [here](network-source-driver.md) to read that.
+The network source driver used in the latter has been tested, click [here](network-source-driver) to read that.
 
 _**Destination Config File**_
 
-```
+```conf
 #Detination 
 @version: 3.31
 @include "scl.conf"
@@ -88,7 +88,7 @@ log {
 
 _**Source Config File**_
 
-```
+```conf
 #Source
 @version: 3.31
 @include "scl.conf"

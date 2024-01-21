@@ -1,10 +1,10 @@
 ---
+title: file() Source Driver
 description: >-
   The file() source driver is used to collect log messages from plain-text
   files, for example, from the logfiles of an Apache webserver.
+toc: true
 ---
-
-# file() Source Driver
 
 ### Status
 
@@ -21,7 +21,7 @@ File() drivers are at the very core of syslog-ng. Chances are you are already us
 
 We can use the file() source driver as a source for log messages instead of internal() or system(). To do so, we just need to use:
 
-```
+```conf
 source s_file {
     file("/var/log/messages");    #On Linux
     file("/var/log/system.log");  #On macOS
@@ -30,7 +30,7 @@ source s_file {
 
 #### Configuration File Used
 
-```
+```conf
 @version: 3.31
 @include "scl.conf"
 

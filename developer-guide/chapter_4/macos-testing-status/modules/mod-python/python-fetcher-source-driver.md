@@ -1,10 +1,10 @@
 ---
+title: python-fetcher() Source Driver
 description: >-
   The python-fetcher() source allows you to write your own source in Python. You
   can import external Python modules to receive or fetch the messages.
+toc: true
 ---
-
-# python-fetcher() Source Driver
 
 ### Important Information <a href="#important-information" id="important-information"></a>
 
@@ -25,7 +25,7 @@ Python sources consist of two parts. The first is a syslog-ng OSE source object 
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```
+```conf
 @version: 3.33
 @include "scl.conf"
 
