@@ -438,19 +438,14 @@
 }
 
 .nav__list .nav__items {
-  margin: 0;
+  // Also sets the identation of the embedded menu items this way
+  margin: 0.5em;
   font-size: 1.25rem;
 
   a {
     color: inherit;
     &:hover {
-      // This look better for me, but now we saty synced with the toc look
-      //@include yiq-contrasted($active-color);
       text-decoration: underline;
-
-      .active {
-        color: $text-color;
-      }
     }
   }
 
@@ -458,10 +453,23 @@
     margin-left: -0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    font-weight: bold;
-    // This look better for me, but now we saty synced with the toc look
-    //text-decoration: underline;
+    //font-weight: bold;
+
     @include yiq-contrasted($active-color);
+
+    &:not(.nav__sub-title) {
+      margin-left: -0.25em;
+      padding-left: 0.25em;
+      padding-right: 0.25em;
+      padding-top: 0.15em;
+      padding-bottom: 0.15em;
+    }
+
+    &.nav__sub-title {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   @include breakpoint(max-width $large - 1px) {
