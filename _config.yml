@@ -1,6 +1,7 @@
 # Base configuration
 
 remote_theme: mmistakes/minimal-mistakes@4.24.0
+#theme: minimal-mistakes-jekyll
 minimal_mistakes_skin: "midnight" # "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 plugins:
@@ -23,12 +24,22 @@ whitelist:
 include:
   - .htaccess
 exclude:
-  # - assets/js/plugins
-  # - assets/js/_main.js
-  # - assets/js/vendor
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - .vendor/
+  - .bundle
+  - .asset-cache
+  - .jekyll-assets-cache
+  - .sass-cache
   - Gemfile
   - Gemfile.lock
-  - .vendor/
+  - package.json
+  - package-lock.json
+  - node_modules
+# keep_files:
+#   - .git
+#   - .svn
 
 layouts_dir: _layout
 
@@ -141,6 +152,9 @@ enable_copy_code_button: true
 # Option to set the width of the page inner content part
 # Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
 page_content_width: 90%
+
+sidebar:
+  sticky: true
 
 masthead:
   # Option to hide masthead navigator in the page top bar

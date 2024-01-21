@@ -10,8 +10,14 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-
+#
 # To upgrade, run `bundle update`.
+
+# Doc mentiones only these if using remote
+# https://github.com/HofiOne/minimal-mistakes
+#
+#gem "github-pages", group: :jekyll_plugins
+#gem "jekyll-include-cache", group: :jekyll_plugins
 
 # Dependeny hell, let "minimal-mistakes-jekyll" decide and add missing ones one-by one
 #gem "jekyll", "~> 4.2"
