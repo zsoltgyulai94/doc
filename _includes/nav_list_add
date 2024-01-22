@@ -20,7 +20,11 @@
         {% assign nextLevelIndex = levelIndex | plus: 1 %}
         {% include nav_list_add nav=nav.subnav levelIndex=nextLevelIndex %}
       {% else %}
-        <a href="{{ nav.url | relative_url }}"{% if (nav.url == page.url or preFixed == page.url) %} class="{{active}}"{% endif %}>{{ nav.title }}</a>
+        {% if nav.url %}
+          <a href="{{ nav.url | relative_url }}"{% if (nav.url == page.url or preFixed == page.url) %} class="{{active}}"{% endif %}>{{ nav.title }}</a>
+        {% else %}
+          <span>{{ nav.title }}</span>
+        {% endif %}
       {% endif %}
     </li>
   {% endfor %}

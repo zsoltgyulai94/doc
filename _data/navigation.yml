@@ -5,6 +5,7 @@ nav:
 
   - title: "Getting started to ..."
     url: /
+    subnav: true
 
   - title: "install on different platforms"
     url: developer-guide/chapter_0
@@ -124,6 +125,7 @@ nav:
 
   - title: "docker images for syslog-ng"
     url: developer-guide/chapter_7
+    subnav: true
 
   - title: "plugin development"
     url: developer-guide/chapter_8
