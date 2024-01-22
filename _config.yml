@@ -13,6 +13,9 @@ plugins:
 # Enable safe mode
 #safe: true
 
+# Disable caching of content to disk in order to skip creating a .jekyll-cache or similar directory
+disable_disk_cache: true
+
 # Whitelist plugins under safe mode.
 whitelist:
   - jekyll-remote-theme
