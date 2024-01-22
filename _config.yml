@@ -4,17 +4,16 @@ remote_theme: mmistakes/minimal-mistakes@4.24.0
 #theme: minimal-mistakes-jekyll
 minimal_mistakes_skin: "midnight" # "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
-plugins:
-- jekyll-remote-theme
-- jekyll-sitemap        # Jekyll plugin to silently generate a sitemaps.org compliant sitemap for your Jekyll site.
-- jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
-- jekyll-include-cache  # Liquid tag that caches Liquid includes.
-
-# Enable safe mode
-#safe: true
-
 # Disable caching of content to disk in order to skip creating a .jekyll-cache or similar directory
 disable_disk_cache: true
+
+# If you’re publishing on GitHub Pages you should update only your _config.yml as GitHub Pages doesn’t load plugins via Bundler.
+#
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap        # Jekyll plugin to silently generate a sitemaps.org compliant sitemap for your Jekyll site.
+  - jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
+  - jekyll-include-cache  # Liquid tag that caches Liquid includes.
 
 # Whitelist plugins under safe mode.
 whitelist:
