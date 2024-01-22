@@ -15,7 +15,12 @@ source "https://rubygems.org"
 
 # Dependeny hell, let "minimal-mistakes-jekyll" decide and add missing ones one-by one
 #gem "jekyll", "~> 4.2"
-
+#
+# FIXME: Get rid of the chaos, use clean local theme copy, we added a bunch of enhancements already, so
+# we don't really need the bundled, updated version anymore
+#
+# https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+#
 gem "minimal-mistakes-jekyll"
 
 gem "rake"

@@ -1,5 +1,5 @@
 ---
-title: Administrator Guide
+title: Documentation Guide
 permalink: :path
 toc: true
 ---
