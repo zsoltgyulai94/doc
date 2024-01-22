@@ -1,0 +1,10 @@
+#!/bin/sh
+
+while true; do
+
+	rm -Rf _site
+
+	bundle exec jekyll serve --host=0.0.0.0 -l %@
+
+	echo -e "\n\n\n"
+done
