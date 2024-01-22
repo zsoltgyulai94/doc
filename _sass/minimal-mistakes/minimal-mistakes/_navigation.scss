@@ -18,8 +18,8 @@
   -webkit-animation-delay: 0.3s;
   animation-delay: 0.3s;
 
-  @include breakpoint($x-large) {
-    max-width: $x-large;
+  @include breakpoint($max-width) {
+    max-width: $max-width;
   }
 
   ol {
@@ -29,11 +29,11 @@
 
     @include breakpoint($large) {
       float: right;
-      width: calc(100% - #{$right-sidebar-width-narrow});
+      width: calc(100% - #{$left-sidebar-width-narrow});
     }
 
-    @include breakpoint($x-large) {
-      width: calc(100% - #{$right-sidebar-width});
+    @include breakpoint($max-width) {
+      width: calc(100% - #{$left-sidebar-width});
     }
   }
 
@@ -438,18 +438,38 @@
 }
 
 .nav__list .nav__items {
-  margin: 0;
+  // Also sets the identation of the embedded menu items this way
+  margin: 0.5em;
   font-size: 1.25rem;
 
   a {
     color: inherit;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .active {
     margin-left: -0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    font-weight: bold;
+    //font-weight: bold;
+
+    @include yiq-contrasted($active-color);
+
+    &:not(.nav__sub-title) {
+      margin-left: -0.25em;
+      padding-left: 0.25em;
+      padding-right: 0.25em;
+      padding-top: 0.15em;
+      padding-bottom: 0.15em;
+    }
+
+    &.nav__sub-title {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   @include breakpoint(max-width $large - 1px) {

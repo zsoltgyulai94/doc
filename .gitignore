@@ -12,9 +12,10 @@ _site
 
 # Ruby Gem
 *.gem
-.bundle
+# excluded in _config.yml instead
+#.bundle
 Gemfile.lock
-**/vendor/bundle
+.vendor
 
 # Node.js and NPM
 node_modules

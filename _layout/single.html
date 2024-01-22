@@ -33,6 +33,14 @@ layout: default
           {% if page.title %}<h1 id="page-title" class="page__title p-name" itemprop="headline">
             <a href="{{ page.url | absolute_url }}" class="u-url" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
           </h1>{% endif %}
+          {% if page.subtitle or page.description %}
+            {% if page.subtitle %}
+              {% assign subtitle = page.subtitle %}
+            {% else %}
+              {% assign subtitle = page.description %}
+            {% endif %}
+            <p id="page-subtitle" class="page__subtitle p-name" itemprop="headline">{{ subtitle }}</p>
+          {% endif %}
           {% include page__meta.html %}
         </header>
       {% endunless %}

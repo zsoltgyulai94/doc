@@ -2,28 +2,29 @@
    jQuery plugin settings and other scripts
    ========================================================================== */
 
-$(function() {
+$(function () {
   // FitVids init
   $("#main").fitVids();
 
   // Sticky sidebar
-  var stickySideBar = function() {
+  var initiallySticky = $(".sidebar").hasClass("sticky");
+  var stickySideBar = function () {
     var show =
       $(".author__urls-wrapper").find("button").length === 0
         ? $(window).width() > 1024 // width should match $large Sass variable
         : !$(".author__urls-wrapper").find("button").is(":visible");
     if (show) {
-      // fix
-      $(".sidebar").addClass("sticky");
+      if (initiallySticky) {
+        $(".sidebar").addClass("sticky");
+      }
     } else {
-      // unfix
       $(".sidebar").removeClass("sticky");
     }
   };
 
   stickySideBar();
 
-  $(window).resize(function() {
+  $(window).resize(function () {
     stickySideBar();
   });
 
@@ -128,7 +129,7 @@ $(function() {
       var anchor = document.createElement("a");
       anchor.className = 'header-link';
       anchor.href = '#' + id;
-      anchor.innerHTML = '<span class=\"sr-only\">Permalink</span><i class=\"fas fa-link\"></i>';
+      anchor.innerHTML = '<span class=\"sr-only\">Permalink</span><i class=\"fab fa-slack-hash\"></i>';
       anchor.title = "Permalink";
       $(this).append(anchor);
     }
