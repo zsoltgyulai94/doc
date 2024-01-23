@@ -78,4 +78,4 @@ May 15 17:21:51 linux-uv4b syslog-ng[1831]: syslog-ng starting up; version='3.5.
 May 15 17:27:38 linux-uv4b root: this is a test
 ```
 
-_Note:_ for more information, read the [run first](https://github.com/syslog-ng/doc/blob/develop/pages/developer-guide/chapter_\_0/chapters/chapter\_2/README.md) guide.
+_Note:_ for more information, read the [run first](https://github.com/syslog-ng/doc/blob/develop/pages/dev-guide/chapter_\_0/chapters/chapter\_2/README.md) guide.

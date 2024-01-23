@@ -95,6 +95,6 @@ syslogd_enable="NO"
 syslog_ng_enable="YES
 ```
 
-_Note:_ for more information read the [run first](https://github.com/syslog-ng/doc/blob/develop/pages/developer-guide/chapter_\_0/chapters/chapter\_2/README.md) guide.
+_Note:_ for more information read the [run first](https://github.com/syslog-ng/doc/blob/develop/pages/dev-guide/chapter_\_0/chapters/chapter\_2/README.md) guide.
 
 _Note:_ for more information read the syslog-ng [documentation](http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html)

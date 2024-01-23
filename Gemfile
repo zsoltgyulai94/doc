@@ -15,7 +15,12 @@ source "https://rubygems.org"
 
 # Dependeny hell, let "minimal-mistakes-jekyll" decide and add missing ones one-by one
 #gem "jekyll", "~> 4.2"
-
+#
+# FIXME: Get rid of the chaos, use clean local theme copy, we added a bunch of enhancements already, so
+# we don't really need the bundled, updated version anymore
+#
+# https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+#
 gem "minimal-mistakes-jekyll"
 
 gem "rake"
@@ -29,29 +34,20 @@ gem "faraday-retry"
 #    @level_override[Fiber.current] || @level
 gem "mercenary", "~> 0.4"
 
-# The following plugins are automatically loaded by the theme-gem:
-# ???
-#   gem "jekyll-remote-theme"
-#   gem "jekyll-paginate"
-#   gem "jekyll-sitemap"
-#   gem "jekyll-gist"
-#   gem "jekyll-feed"
-#   gem "jekyll-include-cache"
-#
 # Gems loaded irrespective of site configuration.
 # If you have any other plugins, put them here!
 # Cf. https://jekyllrb.com/docs/plugins/installation/
 group :jekyll_plugins do
 
     gem "jekyll-remote-theme"
-    gem "jekyll-paginate"
-    gem "jekyll-sitemap"
-    gem "jekyll-gist"
-    gem "jekyll-feed"
+    # gem "jekyll-paginate"
+    # gem "jekyll-sitemap"
+    # gem "jekyll-gist"
+    # gem "jekyll-feed"
 
     # Doc mentiones only these are needed if using remote
     # https://github.com/HofiOne/minimal-mistakes
     #
     gem "jekyll-include-cache"
-    #gem "github-pages"
+    # gem "github-pages"
 end

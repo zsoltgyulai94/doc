@@ -4,17 +4,16 @@ remote_theme: mmistakes/minimal-mistakes@4.24.0
 #theme: minimal-mistakes-jekyll
 minimal_mistakes_skin: "midnight" # "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
-plugins:
-- jekyll-remote-theme
-- jekyll-sitemap        # Jekyll plugin to silently generate a sitemaps.org compliant sitemap for your Jekyll site.
-- jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
-- jekyll-include-cache  # Liquid tag that caches Liquid includes.
-
-# Enable safe mode
-#safe: true
-
 # Disable caching of content to disk in order to skip creating a .jekyll-cache or similar directory
 disable_disk_cache: true
+
+# If you’re publishing on GitHub Pages you should update only your _config.yml as GitHub Pages doesn’t load plugins via Bundler.
+#
+plugins:
+  - jekyll-remote-theme
+  - jekyll-sitemap        # Jekyll plugin to silently generate a sitemaps.org compliant sitemap for your Jekyll site.
+  - jekyll-gist 	        # Liquid tag for displaying GitHub Gists in Jekyll sites.
+  - jekyll-include-cache  # Liquid tag that caches Liquid includes.
 
 # Whitelist plugins under safe mode.
 whitelist:
@@ -24,12 +23,15 @@ whitelist:
   - jekyll-include-cache
 
 # Reading Files
+# In Jekyll 3, the `exclude` configuration option replaces the default exclusion list.
+# In Jekyll 4, user-provided entries get added to the default exclusion list instead and the `include` option can be used to override the default exclusion list entries.
 include:
   - .htaccess
 exclude:
   - assets/js/plugins
   - assets/js/_main.js
   - assets/js/vendor
+  - .serve
   - .vendor/
   - .bundle
   - .asset-cache
@@ -65,7 +67,7 @@ author:
 # For user/organization pages set this to an empty string
 # When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
 # See http://jekyllrb.com/docs/github-pages/ for more info
-#baseurl: ''
+baseurl: /doc
 
 # Point the logo URL at a file in your repo or hosted elsewhere by your organization
 # logourl: /assets/img/dc_logo.png
@@ -73,18 +75,40 @@ author:
 
 # Defaults
 defaults:
-  # _pages
+  # All _pages
   - scope:
-      path: ""
       type: pages
     values:
       layout: single
       toc_sticky: true
-      #author_profile: true
       sidebar:
-        nav: "nav"
+        nav: ""
+  # Documentation guide _pages
+  - scope:
+      type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "doc-guide"
+    values:
+      sidebar:
+        nav: "doc-guide-nav"
+  # Administrator guide _pages
+  - scope:
+      type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "admin-guide"
+    values:
+      sidebar:
+        nav: "admin-guide-nav"
+  # Developer guide _pages
+  - scope:
+      type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "dev-guide"
+    values:
+      sidebar:
+        nav: "dev-guide-nav"
 
-# Deafult permalink format
+# Global defult permalink format
 # https://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:path/:basename
 paginate_path: /page:num/

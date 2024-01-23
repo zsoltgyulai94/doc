@@ -1,142 +1,163 @@
 # Top menubar and sidebar navigator links
 # The name 'main' is referenced already in _config.yml change them synced if needed!
 #
-nav:
+dev-guide-nav:
 
   - title: "Getting started to ..."
-    url: /
+    url: dev-guide
     subnav: true
 
   - title: "install on different platforms"
-    url: developer-guide/chapter_0
+    url: dev-guide/chapter_0
     subnav:
       - title: "Ubuntu"
-        url: developer-guide/chapter_0/section_1
+        url: dev-guide/chapter_0/section_1
       - title: "openSUSE"
-        url: developer-guide/chapter_0/section_2
+        url: dev-guide/chapter_0/section_2
       - title: "macOS"
-        url: developer-guide/chapter_0/section_3
+        url: dev-guide/chapter_0/section_3
       - title: "FreeBSD"
-        url: developer-guide/chapter_0/section_4
+        url: dev-guide/chapter_0/section_4
 
   - title: "get familiar with the structure"
-    url: developer-guide/chapter_1
+    url: dev-guide/chapter_1
     subnav:
       - title: "project structure"
-        url: developer-guide/chapter_1/section_1
+        url: dev-guide/chapter_1/section_1
       - title: "git structure"
-        url: developer-guide/chapter_1/section_2
+        url: dev-guide/chapter_1/section_2
 
   - title: "compile first"
-    url: developer-guide/chapter_2
+    url: dev-guide/chapter_2
     subnav:
       - title: "fetching dependencies"
-        url: developer-guide/chapter_2/section_1
+        url: dev-guide/chapter_2/section_1
       - title: "compile"
-        url: developer-guide/chapter_2/section_2
+        url: dev-guide/chapter_2/section_2
       - title: "testing"
-        url: developer-guide/chapter_2/section_3
+        url: dev-guide/chapter_2/section_3
       - title: "install"
-        url: developer-guide/chapter_2/section_4
+        url: dev-guide/chapter_2/section_4
 
   - title: "run first"
-    url: #developer-guide/chapter_3
+    url: #dev-guide/chapter_3
     subnav:
       - title: "write your first config"
-        #url: developer-guide/chapter_3/section_1
+        #url: dev-guide/chapter_3/section_1
       - title: "syslog-ng"
-        #url: developer-guide/chapter_3/section_2
+        #url: dev-guide/chapter_3/section_2
       - title: "debugging syslog-ng"
-        url: developer-guide/chapter_3/section_3
+        url: dev-guide/chapter_3/section_3
 
   - title: "create platform specific builds"
-    url: developer-guide/chapter_4
+    url: dev-guide/chapter_4
     subnav:
       - title: "cross compiling"
-        #url: #developer-guide/chapter_4/section_1
+        #url: #dev-guide/chapter_4/section_1
       - title: "macOS"
-        url: developer-guide/chapter_4/section_2        
+        url: dev-guide/chapter_4/section_2
         subnav:
           - title: "module support status"
-            url: developer-guide/chapter_4/macos-testing-status
+            url: dev-guide/chapter_4/macos-testing-status
             subnav:
               - title: "affile"
-                url: developer-guide/chapter_4/macos-testing-status/modules/affile
+                url: dev-guide/chapter_4/macos-testing-status/modules/affile
               - title: "afmongodb"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afmongodb
+                url: dev-guide/chapter_4/macos-testing-status/modules/afmongodb
               - title: "afprog"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afprog
+                url: dev-guide/chapter_4/macos-testing-status/modules/afprog
               - title: "afsmtp"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afsmtp
+                url: dev-guide/chapter_4/macos-testing-status/modules/afsmtp
               - title: "afsocket"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afsocket
+                url: dev-guide/chapter_4/macos-testing-status/modules/afsocket
               - title: "afsql"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afsql
+                url: dev-guide/chapter_4/macos-testing-status/modules/afsql
               - title: "afuser"
-                url: developer-guide/chapter_4/macos-testing-status/modules/afuser
+                url: dev-guide/chapter_4/macos-testing-status/modules/afuser
               - title: "elasticsearch-http"
-                url: developer-guide/chapter_4/macos-testing-status/modules/elasticsearch-http
+                url: dev-guide/chapter_4/macos-testing-status/modules/elasticsearch-http
               - title: "http"
-                url: developer-guide/chapter_4/macos-testing-status/modules/http
+                url: dev-guide/chapter_4/macos-testing-status/modules/http
               - title: "mod-python"
-                url: developer-guide/chapter_4/macos-testing-status/modules/mod-python
+                url: dev-guide/chapter_4/macos-testing-status/modules/mod-python
               - title: "pseudofile"
-                url: developer-guide/chapter_4/macos-testing-status/modules/pseudofile
+                url: dev-guide/chapter_4/macos-testing-status/modules/pseudofile
               - title: "redis"
-                url: developer-guide/chapter_4/macos-testing-status/modules/redis
+                url: dev-guide/chapter_4/macos-testing-status/modules/redis
               - title: "riemann"
-                url: developer-guide/chapter_4/macos-testing-status/modules/riemann
+                url: dev-guide/chapter_4/macos-testing-status/modules/riemann
               - title: "system-source"
-                url: developer-guide/chapter_4/macos-testing-status/modules/system-source
+                url: dev-guide/chapter_4/macos-testing-status/modules/system-source
 
   - title: "contribute"
-    url: developer-guide/chapter_5
+    url: dev-guide/chapter_5
     subnav:
       - title: "tools"
-        url: developer-guide/chapter_5/section_1
+        url: dev-guide/chapter_5/section_1
       - title: "issues"
-        url: developer-guide/chapter_5/section_2
+        url: dev-guide/chapter_5/section_2
       - title: "bugs"
-        url: developer-guide/chapter_5/section_6
+        url: dev-guide/chapter_5/section_6
       - title: "features"
-        url: developer-guide/chapter_5/section_5
+        url: dev-guide/chapter_5/section_5
       - title: "commits"
-        url: developer-guide/chapter_5/section_4
+        url: dev-guide/chapter_5/section_4
       - title: "process"
-        url: developer-guide/chapter_5/section_7
+        url: dev-guide/chapter_5/section_7
       - title: "licensing"
-        #url: developer-guide/chapter_5/section_3
+        #url: dev-guide/chapter_5/section_3
 
   - title: "examples"
-    url: developer-guide/chapter_6
+    url: dev-guide/chapter_6
     subnav:
       - title: "Simple Python Destination"
-        url: developer-guide/chapter_6/section_1
+        url: dev-guide/chapter_6/section_1
       - title: "Simple Java Destination"
-        url: developer-guide/chapter_6/section_2
+        url: dev-guide/chapter_6/section_2
       - title: "Python Kafka Destination"
-        url: developer-guide/chapter_6/section_3
+        url: dev-guide/chapter_6/section_3
       - title: "Osquery and Elasticsearch"
-        url: developer-guide/chapter_6/section_4
+        url: dev-guide/chapter_6/section_4
       - title: "Simple Threaded C Destination"
-        url: developer-guide/chapter_6/section_5
+        url: dev-guide/chapter_6/section_5
       - title: "Simple Python Source"
-        url: developer-guide/chapter_6/section_6
+        url: dev-guide/chapter_6/section_6
 
   - title: "docker images for syslog-ng"
-    url: developer-guide/chapter_7
+    url: dev-guide/chapter_7
     subnav: true
 
   - title: "plugin development"
-    url: developer-guide/chapter_8
+    url: dev-guide/chapter_8
     subnav:
       - title: "Modules and Plugins"
-        url: developer-guide/chapter_8/section_1
+        url: dev-guide/chapter_8/section_1
       - title: "Source Driver"
-        url: developer-guide/chapter_8/section_2
+        url: dev-guide/chapter_8/section_2
       - title: "Parser"
-        url: developer-guide/chapter_8/section_3
+        url: dev-guide/chapter_8/section_3
       - title: "Filter Function"
-        url: developer-guide/chapter_8/section_4
+        url: dev-guide/chapter_8/section_4
       - title: "Template Function"
-        url: developer-guide/chapter_8/section_5
+        url: dev-guide/chapter_8/section_5
+
+
+# Top menubar and sidebar navigator links in the Administration Guide
+# The name 'admin-guide-nav' is referenced already in _config.yml change them synced if needed!
+#
+admin-guide-nav:
+
+  - title: "Getting started to ..."
+    url: admin-guide
+    subnav: true
+
+
+
+# Top menubar and sidebar navigator links in the Documentation Guide
+# The name 'doc-guide-nav' is referenced already in _config.yml change them synced if needed!
+#
+doc-guide-nav:
+
+  - title: "Getting started to ..."
+    url: doc-guide
+    subnav: true

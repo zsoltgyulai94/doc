@@ -3,8 +3,8 @@ title: macOS
 toc: true
 ---
 
-[ref:install]: /developer-guide/chapter_4/section_2
-[ref:compile]: /developer-guide/chapter_4/section_2
+[ref:install]: /dev-guide/chapter_4/section_2
+[ref:compile]: /dev-guide/chapter_4/section_2
 [ref:freepascal-launchd]: https://wiki.freepascal.org/macOS_daemons_and_agents
 [ref:apple-launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 [ref:homebrew]: http://brew.sh
