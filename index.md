@@ -1,3 +1,10 @@
+---
+title: Introduction
+description:  >-
+  Welcome to the syslog-ng documentation center.<br/>
+  Here you can browse, search and contribute to most of the syslog-ng documentation.
+toc: false
+---
 
 [ref:admin-guide]: admin-guide
 [ref:dev-guide]: dev-guide
