@@ -4,8 +4,6 @@ remote_theme: mmistakes/minimal-mistakes@4.24.0
 #theme: minimal-mistakes-jekyll
 minimal_mistakes_skin: "midnight" # "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
-source: source
-
 # Disable caching of content to disk in order to skip creating a .jekyll-cache or similar directory
 disable_disk_cache: true
 
@@ -23,20 +21,35 @@ whitelist:
   - jekyll-gist
   - jekyll-include-cache
 
+# NOTE: Overiding theme defaults https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+#       Jekyll will look first to your site’s content before looking to the theme’s defaults for any requested file in the following folders:
+#         /assets
+#         /_data
+#         /_layouts
+#         /_includes
+#         /_sass
+# source:
+
 # Reading Files
-# In Jekyll 3, the `exclude` configuration option replaces the default exclusion list.
-# In Jekyll 4, user-provided entries get added to the default exclusion list instead and the `include` option can be used to override the default exclusion list entries.
+#
 # Every file or directory beginning with the following characters: 
 #     ., _ , # or ~ 
 # in the source directory will not be included in the destination folder. Such paths will have to be explicitly specified via the config file in the 
 # include directive to make sure they’re copied over
+# In Jekyll 3, the `exclude` configuration option replaces the default exclusion list.
+# In Jekyll 4, user-provided entries get added to the default exclusion list instead and the `include` option can be used to override the default exclusion list entries.
+#
 include:
   - .htaccess
-  - _docs # All documentation markdown files go here
+  # - assets/js/main.min.js
+  # - assets/css
+  # - assets/images
 exclude:
+  - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
   - assets/js/plugins
   - assets/js/_main.js
   - assets/js/vendor
+  # - assets
   - .serve
   - .reftime
   - .vendor/
@@ -50,9 +63,6 @@ exclude:
   - package-lock.json
   - node_modules
   - LICENSE.minimal-mistakes
-# keep_files:
-#   - .git
-#   - .svn
 
 # Sass/SCSS
 sass:
@@ -87,46 +97,6 @@ baseurl: /doc
 # logourl: /assets/img/dc_logo.png
 # logoalt: The D.C. flag
 
-# Defaults
-defaults:
-  # All _pages
-  - scope:
-      type: pages
-    values:
-      layout: single
-      toc_sticky: true
-      sidebar:
-        nav: ""
-  # Documentation guide _pages
-  - scope:
-      type: pages
-      # NOTE: path is real file system path, not permalinks
-      path: "doc-guide"
-    values:
-      sidebar:
-        nav: "doc-guide-nav"
-  # Administrator guide _pages
-  - scope:
-      type: pages
-      # NOTE: path is real file system path, not permalinks
-      path: "admin-guide"
-    values:
-      sidebar:
-        nav: "admin-guide-nav"
-  # Developer guide _pages
-  - scope:
-      type: pages
-      # NOTE: path is real file system path, not permalinks
-      path: "dev-guide"
-    values:
-      sidebar:
-        nav: "dev-guide-nav"
-
-# Global defult permalink format
-# https://jekyllrb.com/docs/permalinks/
-permalink: /:categories/:path/:basename
-paginate_path: /page:num/
-
 # collections:
 #   chapter_0:
 #     permalink: "/:collection/:path/"
@@ -137,12 +107,70 @@ paginate_path: /page:num/
 # 
 # syslog_ng_docs:
 #     collections:
-#       chapter_0:
-#         name: Installation
-#         nav_fold: true
-#       chapter_1:
-#         name: Structure
-#         nav_fold: false
+#       doc-guide:
+#         name: Documentation
+#       admin-guide:
+#         name: Administration
+#       dev-guide:
+#         name: Development
+
+# Global defult permalink format
+# https://jekyllrb.com/docs/permalinks/
+permalink: /:collection/:path/:basename
+#paginate_path: /page:num/
+
+# Defaults
+defaults:
+  # All pages
+  - scope:
+      # type: pages
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: single
+      toc: true
+      toc_sticky: true
+      sidebar:
+        nav: ""
+  #
+  # FIXME: The goal here would be to eliminate the now required "permalink: :path " in each folder README.md
+  #        I guess this is a Jekyll bug 
+  #        Using permalink rules here leds to an invisible navigation left sidebar
+  # 
+  # - scope:
+  #     # type: pages
+  #     path: "**/README.md"
+  #   values:
+  #     permalink: :path # /:collection does not work at this level ?!?!
+  # - scope:
+  #     # type: pages
+  #     path: "**/index.md"
+  #   values:
+  #     permalink: :path
+  #
+  # Documentation guide _pages
+  - scope:
+      # type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "doc-guide"
+    values:
+      sidebar:
+        nav: "doc-guide-nav"
+  # Administrator guide _pages
+  - scope:
+      # type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "admin-guide"
+    values:
+      sidebar:
+        nav: "admin-guide-nav"
+  # Developer guide _pages
+  - scope:
+      # type: pages
+      # NOTE: path is real file system path, not permalinks
+      path: "dev-guide"
+    values:
+      sidebar:
+        nav: "dev-guide-nav"
 
 # Search settings
 search: true
@@ -196,7 +224,8 @@ page_content_width: 90%
 
 sidebar:
   sticky: true
-  nav_item_margin: 0.5em
+  nav_sub_items_scaled: true
+  nav_sub_items_ident: 0.25em
 
 masthead:
   # Option to hide masthead navigator in the page top bar
