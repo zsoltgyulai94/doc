@@ -1,211 +1,182 @@
-# Top menubar and sidebar navigator links
-# The name 'main' is referenced already in _config.yml change them synced if needed!
-#
+
+# dev-guide
 dev-guide-nav:
-
-  - title: "Getting started to ..."
-    url: dev-guide
+  - title: "Developer guide"
+    url: 
     subnav: true
-
-  - title: "install on different platforms"
+  - title: "Install syslog-ng on different platforms"
     url: dev-guide/chapter_0
     subnav:
-      - title: "Ubuntu"
-        url: dev-guide/chapter_0/section_1
-      - title: "openSUSE"
-        url: dev-guide/chapter_0/section_2
-      - title: "macOS"
-        url: dev-guide/chapter_0/section_3
-      - title: "FreeBSD"
-        url: dev-guide/chapter_0/section_4
-
-  - title: "get familiar with the structure"
+    - title: "Debian and Ubuntu"
+      url: dev-guide/chapter_0/section_1
+    - title: "openSUSE"
+      url: dev-guide/chapter_0/section_2
+    - title: "macOS"
+      url: dev-guide/chapter_0/section_3
+    - title: "FeeBSD"
+      url: dev-guide/chapter_0/section_4
+  - title: "Get familiar with the structure"
     url: dev-guide/chapter_1
     subnav:
-      - title: "project structure"
-        url: dev-guide/chapter_1/section_1
-      - title: "git structure"
-        url: dev-guide/chapter_1/section_2
-
-  - title: "compile first"
+    - title: "Project structure"
+      url: dev-guide/chapter_1/section_1
+    - title: "Git structure"
+      url: dev-guide/chapter_1/section_2
+  - title: "Compile first"
     url: dev-guide/chapter_2
     subnav:
-      - title: "fetching dependencies"
-        url: dev-guide/chapter_2/section_1
-      - title: "compile"
-        url: dev-guide/chapter_2/section_2
-      - title: "testing"
-        url: dev-guide/chapter_2/section_3
-      - title: "install"
-        url: dev-guide/chapter_2/section_4
-
+    - title: "Fetching dependencies"
+      url: dev-guide/chapter_2/section_1
+    - title: "Compiling"
+      url: dev-guide/chapter_2/section_2
+    - title: "Testing"
+      url: dev-guide/chapter_2/section_3
+    - title: "Install"
+      url: dev-guide/chapter_2/section_4
   - title: "run first"
-    url: #dev-guide/chapter_3
+    url: dev-guide/chapter_3
     subnav:
-      - title: "write your first config"
-        #url: dev-guide/chapter_3/section_1
-      - title: "syslog-ng"
-        #url: dev-guide/chapter_3/section_2
-      - title: "debugging syslog-ng"
-        url: dev-guide/chapter_3/section_3
-
-  - title: "create platform specific builds"
+    - title: "Debugging"
+      url: dev-guide/chapter_3/section_3
+  - title: "Create platform specific builds"
     url: dev-guide/chapter_4
     subnav:
-      - title: "cross compiling"
-        #url: #dev-guide/chapter_4/section_1
-      - title: "macOS"
-        url: dev-guide/chapter_4/section_2
+    - title: "macOS"
+      url: dev-guide/chapter_4/02_section
+    - title: "macOS module suport status"
+      url: dev-guide/chapter_4/macos-testing-status
+      subnav:
+      - title: "affile"
+        url: dev-guide/chapter_4/macos-testing-status/affile
         subnav:
-          - title: "module support status"
-            url: dev-guide/chapter_4/macos-testing-status
-            subnav:
-              - title: "affile"
-                url: dev-guide/chapter_4/macos-testing-status/modules/affile
-                subnav:
-                  - title: "file-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/file-destination-driver
-                  - title: "file-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/file-source-driver
-                  - title: "pipe-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/pipe-destination-driver
-                  - title: "pipe-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/pipe-source-driver
-                  - title: "stdin-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/stdin-source-driver
-                  - title: "wildcard_file-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/affile/wildcard_file-source-driver
-              - title: "afmongodb"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afmongodb
-              - title: "afprog"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afprog
-                subnav:
-                  - title: "program-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afprog/program-destination-driver
-                  - title: "program-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afprog/program-source-driver
-              - title: "afsmtp"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afsmtp
-              - title: "afsocket"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afsocket
-                subnav:
-                  - title: "network-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/network-destination-driver
-                  - title: "network-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/network-source-driver
-                  - title: "affsyslog-source-destination-driverile"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/syslog-source-destination-driver
-                  - title: "unix-dgram-source-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/unix-dgram-source-destination-driver
-                  - title: "unix-stream-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/unix-stream-destination-driver
-                  - title: "unix-stream-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/unix-stream-source-driver
-                  - title: "tls-encryption"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/tls-encryption
-                    subnav:
-                      - title: "using-network"
-                        url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/tls-encryption/using-network
-                      - title: "using-syslog"
-                        url: dev-guide/chapter_4/macos-testing-status/modules/afsocket/tls-encryption/using-syslog
-              - title: "afsql"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afsql
-              - title: "afuser"
-                url: dev-guide/chapter_4/macos-testing-status/modules/afuser
-              - title: "elasticsearch-http"
-                url: dev-guide/chapter_4/macos-testing-status/modules/elasticsearch-http
-              - title: "http"
-                url: dev-guide/chapter_4/macos-testing-status/modules/http
-              - title: "mod-python"
-                url: dev-guide/chapter_4/macos-testing-status/modules/mod-python
-                subnav:
-                  - title: "python-destination-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/mod-python/python-destination-driver
-                  - title: "python-fetcher-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/mod-python/python-fetcher-source-driver
-                  - title: "python-source-driver"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/mod-python/python-source-driver
-              - title: "pseudofile"
-                url: dev-guide/chapter_4/macos-testing-status/modules/pseudofile
-              - title: "redis"
-                url: dev-guide/chapter_4/macos-testing-status/modules/redis
-              - title: "riemann"
-                url: dev-guide/chapter_4/macos-testing-status/modules/riemann
-              - title: "system-source"
-                url: dev-guide/chapter_4/macos-testing-status/modules/system-source
-                subnav:
-                  - title: "Collecting local logs"
-                    url: dev-guide/chapter_4/macos-testing-status/modules/system-source/collecting-local-logs
-
-  - title: "contribute"
+        - title: "file() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/file-destination-driver
+        - title: "file() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/file-source-driver
+        - title: "pipe() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/pipe-destination-driver
+        - title: "pipe() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/pipe-source-driver
+        - title: "stdin() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/stdin-source-driver
+        - title: "wildcard\_file() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/affile/wildcard_file-source-driver
+      - title: "afmongodb"
+        url: dev-guide/chapter_4/macos-testing-status/afmongodb
+      - title: "afprog"
+        url: dev-guide/chapter_4/macos-testing-status/afprog
+        subnav:
+        - title: "program() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afprog/program-destination-driver
+        - title: "program() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afprog/program-source-driver
+      - title: "afsmtp"
+        url: dev-guide/chapter_4/macos-testing-status/afsmtp
+      - title: "afsocket"
+        url: dev-guide/chapter_4/macos-testing-status/afsocket
+        subnav:
+        - title: "network() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/network-destination-driver
+        - title: "network() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/network-source-driver
+        - title: "syslog() Source/Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/syslog-source-destination-driver
+        - title: "TLS-Encryption"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption
+          subnav:
+          - title: "Using network()"
+            url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/using-network
+          - title: "Using syslog()"
+            url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/using-syslog
+        - title: "unix-dgram() Source/Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/unix-dgram-source-destination-driver
+        - title: "unix-stream() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/unix-stream-destination-driver
+        - title: "unix-stream() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/unix-stream-source-driver
+      - title: "afsql"
+        url: dev-guide/chapter_4/macos-testing-status/afsql
+      - title: "afuser"
+        url: dev-guide/chapter_4/macos-testing-status/afuser
+      - title: "elasticsearch-http"
+        url: dev-guide/chapter_4/macos-testing-status/elasticsearch-http
+      - title: "http"
+        url: dev-guide/chapter_4/macos-testing-status/http
+      - title: "mod-python"
+        url: dev-guide/chapter_4/macos-testing-status/mod-python
+        subnav:
+        - title: "python() Destination Driver"
+          url: dev-guide/chapter_4/macos-testing-status/mod-python/python-destination-driver
+        - title: "python-fetcher() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/mod-python/python-fetcher-source-driver
+        - title: "python() Source Driver"
+          url: dev-guide/chapter_4/macos-testing-status/mod-python/python-source-driver
+      - title: "pseudofile"
+        url: dev-guide/chapter_4/macos-testing-status/pseudofile
+      - title: "redis"
+        url: dev-guide/chapter_4/macos-testing-status/redis
+      - title: "riemann"
+        url: dev-guide/chapter_4/macos-testing-status/riemann
+      - title: "system"
+        url: dev-guide/chapter_4/macos-testing-status/system-source
+        subnav:
+        - title: "Collecting local logs"
+          url: dev-guide/chapter_4/macos-testing-status/system-source/collecting-local-logs
+  - title: "Contribution"
     url: dev-guide/chapter_5
     subnav:
-      - title: "tools"
-        url: dev-guide/chapter_5/section_1
-      - title: "issues"
-        url: dev-guide/chapter_5/section_2
-      - title: "bugs"
-        url: dev-guide/chapter_5/section_6
-      - title: "features"
-        url: dev-guide/chapter_5/section_5
-      - title: "commits"
-        url: dev-guide/chapter_5/section_4
-      - title: "process"
-        url: dev-guide/chapter_5/section_7
-      - title: "licensing"
-        #url: dev-guide/chapter_5/section_3
-
-  - title: "examples"
+    - title: "Tools"
+      url: dev-guide/chapter_5/section_1
+    - title: "Issues"
+      url: dev-guide/chapter_5/section_2
+    - title: "Commits"
+      url: dev-guide/chapter_5/section_4
+    - title: "Features"
+      url: dev-guide/chapter_5/section_5
+    - title: "Bugs"
+      url: dev-guide/chapter_5/section_6
+    - title: "Process "
+      url: dev-guide/chapter_5/section_7
+  - title: "Tutorials"
     url: dev-guide/chapter_6
     subnav:
-      - title: "Simple Python Destination"
-        url: dev-guide/chapter_6/section_1
-      - title: "Simple Java Destination"
-        url: dev-guide/chapter_6/section_2
-      - title: "Python Kafka Destination"
-        url: dev-guide/chapter_6/section_3
-      - title: "Osquery and Elasticsearch"
-        url: dev-guide/chapter_6/section_4
-      - title: "Simple Threaded C Destination"
-        url: dev-guide/chapter_6/section_5
-      - title: "Simple Python Source"
-        url: dev-guide/chapter_6/section_6
-
-  - title: "docker images for syslog-ng"
+    - title: "Getting started with implementing Python destinations"
+      url: dev-guide/chapter_6/section_1
+    - title: "Getting started with implementing Java destinations"
+      url: dev-guide/chapter_6/section_2
+    - title: "Writing an Apache Kafka module in Python"
+      url: dev-guide/chapter_6/section_3
+    - title: "Osquery and Elasticsearch"
+      url: dev-guide/chapter_6/section_4
+    - title: "Simple Threaded C Destination"
+      url: dev-guide/chapter_6/section_5
+    - title: "Simple Python Source"
+      url: dev-guide/chapter_6/section_6
+  - title: "Docker images for syslog-ng"
     url: dev-guide/chapter_7
-    subnav: true
-
-  - title: "plugin development"
+    subnav:
+  - title: "Plugin Development Guide"
     url: dev-guide/chapter_8
     subnav:
-      - title: "Modules and Plugins"
-        url: dev-guide/chapter_8/section_1
-      - title: "Source Driver"
-        url: dev-guide/chapter_8/section_2
-      - title: "Parser"
-        url: dev-guide/chapter_8/section_3
-      - title: "Filter Function"
-        url: dev-guide/chapter_8/section_4
-      - title: "Template Function"
-        url: dev-guide/chapter_8/section_5
+    - title: "Modules and Plugins"
+      url: dev-guide/chapter_8/section_1
+    - title: "Source Driver"
+      url: dev-guide/chapter_8/section_2
+    - title: "Parser"
+      url: dev-guide/chapter_8/section_3
+    - title: "Filter Function"
+      url: dev-guide/chapter_8/section_4
+    - title: "Template Function"
+      url: dev-guide/chapter_8/section_5
 
-
-# Top menubar and sidebar navigator links in the Administration Guide
-# The name 'admin-guide-nav' is referenced already in _config.yml change them synced if needed!
-#
+# admin-guide
 admin-guide-nav:
-
-  - title: "Getting started to ..."
-    url: admin-guide
+  - title: "syslog-ng Open Source Edition Administration Guides"
+    url: 
     subnav: true
 
-
-
-# Top menubar and sidebar navigator links in the Documentation Guide
-# The name 'doc-guide-nav' is referenced already in _config.yml change them synced if needed!
-#
+# doc-guide
 doc-guide-nav:
-
-  - title: "Getting started to ..."
-    url: doc-guide
+  - title: "Documentation Guide"
+    url: 
     subnav: true
