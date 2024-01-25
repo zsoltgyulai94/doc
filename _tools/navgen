@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASE_INDENT="  "
-INDEX_FILE_PATTERNS="^(README\.md|index\.md)$"
+INDEX_FILE_PATTERNS="^(index\.md|README\.md)$"
 
 trim_trailing_slashes() {
     local INPUT_STRING="$1"
@@ -17,15 +17,7 @@ print_entry() {
 }
 
 check_directory_content() {
-    local DIRECTORY="$1"
-    local FILES=($(/bin/ls -1 -p "${DIRECTORY}"))
-    local FILTERED_FILES=($(echo "${FILES[@]}" | grep -Ev "${INDEX_FILE_PATTERNS}"))
-
-    if [ ${#FILTERED_FILES[@]} -eq ${#FILES[@]} ]; then
-    	return 0 # "empty"
-    else
-        return 1
-    fi
+    /bin/ls -1 -p "${1}" | grep -Ev "${INDEX_FILE_PATTERNS}" >/dev/null
 }
 
 add_file_entry () {
@@ -37,7 +29,7 @@ add_file_entry () {
 }
 
 add_dir_entry () {
-	local EXCLUDED_FILES=("${1}/README.md" "${1}/index.md")
+	local EXCLUDED_FILES=("${1}/index.md" "${1}/README.md")
 	
 	for EXCLUDED_FILE in "${EXCLUDED_FILES[@]}"; do
 		if [ -f "$EXCLUDED_FILE" ]; then
@@ -47,7 +39,7 @@ add_dir_entry () {
 		fi
 	done
 
-	print_entry "${INDENT}" "${TITLE}" "${URL}" "subnav:${2}"
+	print_entry "${INDENT}" "${TITLE}" "${2}" "subnav:${3}"
 }
 
 generate_yaml() {
@@ -65,7 +57,7 @@ generate_yaml() {
         if [ -f "$ITEM_PATH" ]; then
 			add_file_entry "$ITEM_PATH"
         elif [ -d "$ITEM_PATH" ]; then
-			add_dir_entry "$ITEM_PATH" $(check_directory_content "${1}" || echo " true")
+			add_dir_entry "$ITEM_PATH" "$URL" "$(check_directory_content "$ITEM_PATH" || echo " true")"
 			generate_yaml "$ITEM_PATH" "${INDENT}${BASE_INDENT}"
         fi
     done
@@ -109,7 +101,7 @@ process_params() {
         echo "# ${ROOT_DIR_NAME}" >> "$OUTPUT_FILE"
         echo "${ROOT_DIR_NAME}-nav:" >> "$OUTPUT_FILE"
 
-        add_dir_entry "$START_DIR" " true" >> "$OUTPUT_FILE"
+        add_dir_entry "$START_DIR" "${ROOT_DIR_NAME}" " true" >> "$OUTPUT_FILE"
         generate_yaml "$START_DIR" "" >> "$OUTPUT_FILE"
 
         shift

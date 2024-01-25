@@ -2,7 +2,7 @@
 # dev-guide
 dev-guide-nav:
   - title: "Developer guide"
-    url: 
+    url: dev-guide
     subnav: true
   - title: "Install syslog-ng on different platforms"
     url: dev-guide/chapter_0
@@ -154,7 +154,7 @@ dev-guide-nav:
       url: dev-guide/chapter_6/section_6
   - title: "Docker images for syslog-ng"
     url: dev-guide/chapter_7
-    subnav:
+    subnav: true
   - title: "Plugin Development Guide"
     url: dev-guide/chapter_8
     subnav:
@@ -172,11 +172,11 @@ dev-guide-nav:
 # admin-guide
 admin-guide-nav:
   - title: "syslog-ng Open Source Edition Administration Guides"
-    url: 
+    url: admin-guide
     subnav: true
 
 # doc-guide
 doc-guide-nav:
   - title: "Documentation Guide"
-    url: 
+    url: doc-guide
     subnav: true
