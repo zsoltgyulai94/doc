@@ -5,17 +5,17 @@ description: >-
   We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
 ---
 
-[ref:compile-first]: /dev-guide/chapter_2/section_2
-[ref:test-first]: /dev-guide/chapter_2/section_3
-[ref:run]: /dev-guide/chapter_3
+[ref:compile-first]: {{site:baseurl}}/dev-guide/chapter_2/02_section
+[ref:test-first]: {{site:baseurl}}/dev-guide/chapter_2/section_3
+[ref:run]: {{site:baseurl}}/dev-guide/chapter_3
 [ref:docs]: http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html
 [ref:homebrew]: http://brew.sh
 [ref:homebrew-install]: /dev-guide/chapter_0/section_3
 [ref:homebrew-install-detailed]: https://mac.install.guide/homebrew/3.html
-[ref:homebrew-ose-install]: /dev-guide/chapter_0/section_3/
+[ref:homebrew-ose-install]: {{site:baseurl}}/dev-guide/chapter_0/section_3/
 [ref:criterion]: https://github.com/Snaipe/Criterion
-[ref:macos-support]: /dev-guide/chapter_4/macos-testing-status
-[ref:libdbi-update]: /dev-guide/chapter_4/macos-testing-status/modules/afsql-1#dependencies
+[ref:macos-support]: {{site:baseurl}}/dev-guide/chapter_4/macos-testing-status
+[ref:libdbi-update]: {{site:baseurl}}/dev-guide/chapter_4/macos-testing-status/modules/afsql-1#dependencies
 [gh:ose-official]: <http://www.github.com/balabit/syslog-ng>
 
 ## Introduction
@@ -281,7 +281,7 @@ cmake --build build/. --target install -j4
 
 ### Testing
 
-In order to run the tests, you have to install first the [Criterion][ref:criterion] testing framework (for example: `brew install criterion`), and re-[configure](section\_2.md#configuration) the build. After that use the command below:
+In order to run the tests, you have to install first the [Criterion][ref:criterion] testing framework (for example: `brew install criterion`), and re-[configure](02_section#configuration) the build. After that use the command below:
 
 ```shell
 make check -j4
