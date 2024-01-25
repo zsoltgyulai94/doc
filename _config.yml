@@ -41,20 +41,24 @@ whitelist:
 #
 include:
   - .htaccess
-  # - assets/js/main.min.js
-  # - assets/css
-  # - assets/images
+  # once we have a working fully packed main.min.js
+  #- assets/js/main.min.js
+  # These will not be needed once we have a working fully packed main.min.js
+  - assets/css
+  - assets/images
 exclude:
   - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
+  # once we have a working fully packed main.min.js
+  #- assets/js
+  # These will not be needed once we have a working fully packed main.min.js
   - assets/js/plugins
   - assets/js/_main.js
   - assets/js/vendor
-  # - assets
-  - .serve
   - .reftime
   - .vendor/
   - .bundle
   - .asset-cache
+  - .jekyll-cache
   - .jekyll-assets-cache
   - .sass-cache
   - Gemfile

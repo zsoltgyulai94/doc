@@ -1,5 +1,79 @@
 #!/bin/bash
 
-SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+TEMPLATE_FILE="package.json.in"
+PACKAGE_FILE="package.json"
+#OUT_FLAGS="-b" # Debug
+OUT_FLAGS="-c -m"
 
-npm run build:js --prefix "${SCRIPT_PATH}"
+INPUT_FOLDER="assets"
+INPUT_FILE_PATTERN=("*.js")
+EXCLUDE_FILE_PATTERN= #("*lunr*")
+OUTPUT_FILE="assets/js/main.min.js"
+
+generate_package_file() {
+    # TODO: Why the hell the ouptut must be presented if it will be overwritten in a sec?!?!?!?!
+    # echo "Cleaning output target ${OUTPUT_FILE}"
+    # rm "${OUTPUT_FILE}" >/dev/null 2>&1
+
+    echo "INPUT_FOLDER=${INPUT_FOLDER}"
+    echo "INPUT_FILE_PATTERN=${INPUT_FILE_PATTERN}"
+    echo "EXCLUDE_FILE_PATTERN=${EXCLUDE_FILE_PATTERN}"
+    echo "OUTPUT_FILE=${OUTPUT_FILE}"
+
+    echo "Preparing packaging input from ${INPUT_FOLDER}"
+    MATCHING_FILES=$(find "${INPUT_FOLDER}" -type f \( -name "${INPUT_FILE_PATTERN[@]}" -and -not -name "${EXCLUDE_FILE_PATTERN[@]}" \) -exec printf "%s " {} +)
+    echo -e "\nMATCHING_FILES to pack ${MATCHING_FILES[@]}"
+    JS_FILES_PATTERN="${INPUT_FOLDER}/**/${INPUT_FILE_PATTERN}"
+
+    sed -e "s|%JS_FILES%|${MATCHING_FILES}|g" \
+        -e "s|%OUT_FILE%|${OUTPUT_FILE}|g" \
+        -e "s|%JS_FILES_PATTERN%|${JS_FILES_PATTERN}|g" \
+        -e "s|%OUT_FLAGS%|${OUT_FLAGS}|g" \
+        "${SCRIPT_DIR}/${TEMPLATE_FILE}" > "${SCRIPT_DIR}/${PACKAGE_FILE}"
+}
+
+echo ""
+#echo "SCRIPT_DIR=${SCRIPT_DIR}"
+
+# Still there are multiple errors with custom paths
+# Absolutely annoying the some many hardcoded requirements, shame.
+# Duplica everything and try to use inplace as it was "designed" to work
+#
+WORK_DIR=$(mktemp -d)
+#open "${WORK_DIR}"
+
+cp -Rf "${INPUT_FOLDER}" "${WORK_DIR}"
+cp -Rf "${SCRIPT_DIR}"/* "${WORK_DIR}"/
+
+pushd "${WORK_DIR}"
+
+
+# So, the actual, sad state, it seems
+#   - building a fully standalone main.min.js requires a tones of other dependencies 
+#     not just we have (from the original minimal-mistakes theme) in the assetst/js folder
+#       - using an updated package list (npm install) bellow will lead to build time errors
+#       - using the package list produced with the original packages.json will build, but 
+#         will lead to multiple excpetions at runtime
+# What worked, but take care
+#   - modify just the _main.js now if needed, do not add our custom scripts to te main.min.js
+#   - use just now the default packaging.json
+#
+#generate_package_file 
+
+rm -Rf "${WORK_DIR}/node_modules"
+npm install
+
+# call 2 times, it requires the original main.min.js nad build takes effect only in the second run
+npm run build:js # --prefix "${SCRIPT_DIR}" still bunch of issues
+npm run build:js # --prefix "${SCRIPT_DIR}" still bunch of issues
+
+popd
+
+mv "${WORK_DIR}/${OUTPUT_FILE}" "${OUTPUT_FILE}"
+echo "Output is written to: ${OUTPUT_FILE}"
+
+# FIXME: Add proper error handling above
+if [[ "${WORK_DIR}" != "" ]]; then
+    rm -Rf "${WORK_DIR}"
+fi

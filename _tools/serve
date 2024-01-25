@@ -34,6 +34,7 @@ start_process() {
     reset_watcher
 
     rm -Rf _site
+    rm -Rf .jekyll-cache
 
     bundle exec jekyll serve ${ALL_PARAMS} &
     PROC_PID=$!
