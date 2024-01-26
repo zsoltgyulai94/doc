@@ -4,7 +4,7 @@ description: >-
   syslog-ng is an enhanced log daemon, supporting a wide range of input and
   output methods: syslog, unstructured text, message queues, databases (SQL and
   NoSQL alike), and more.
-permalink: :path
+permalink: :path:output_ext
 ---
 
 [ref:dev-guide]: dev-guide

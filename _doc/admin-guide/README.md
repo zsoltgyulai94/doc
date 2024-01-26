@@ -1,6 +1,6 @@
 ---
 title: syslog-ng Open Source Edition Administration Guides
-permalink: :path
+permalink: :path:output_ext
 ---
 
 This repository contains the source code of [The syslog-ng Open Source Edition Administration Guide](https://www.syslog-ng.com/technical-documents/list/syslog-ng-open-source-edition/).

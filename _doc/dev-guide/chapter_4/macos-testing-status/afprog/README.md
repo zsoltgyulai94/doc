@@ -1,7 +1,7 @@
 ---
 title: afprog
 description: The afprog module provides program source & destination drivers for syslog-ng.
-permalink: :path
+permalink: :path:output_ext
 ---
 
 ### Plugins
