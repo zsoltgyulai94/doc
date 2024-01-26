@@ -1,7 +1,7 @@
 ---
 title: macOS module suport status
 description: This testing effort was part of a Google Summer Of Code project, the details of which will be outlined here.
-permalink: :path
+permalink: :path:output_ext
 ---
 
 [ref:origin]: https://syslog-macos-testing.gitbook.io/syslog-macos-testing/

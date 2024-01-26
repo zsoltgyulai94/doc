@@ -1,6 +1,6 @@
 ---
 title: Tutorials
-permalink: :path
+permalink: :path:output_ext
 ---
 
 In this chapter we would like to provide you with tutorials and code examples for syslog-ng development. These examples and tutorials are intended to give a quick insight to some of the solutions syslog-ng can provide you with. We hope that you can take what you have learned here and build upon this knowledge. Armed with these basics, you can plunge in to discovering the depths of syslog-ng and the hundreds of use cases that you can cover with this solution.

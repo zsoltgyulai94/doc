@@ -1,4 +1,4 @@
 ---
 title: run first
-permalink: :path
+permalink: :path:output_ext
 ---

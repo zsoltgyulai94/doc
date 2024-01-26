@@ -4,7 +4,7 @@ description: >-
   The afsocket module provides socket based transports for syslog-ng, such as
   the udp(), tcp() and syslog() drivers. This module is compiled with SSL
   support.
-permalink: :path
+permalink: :path:output_ext
 ---
 
 This module contains the following plugins:
