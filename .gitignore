@@ -1,4 +1,3 @@
-_______
 
 # macOS
 .DS_Store
@@ -11,11 +10,11 @@ _asset_bundler_cache
 _site
 
 # Ruby Gem
-*.gem
 # excluded in _config.yml instead
 #.bundle
-Gemfile.lock
+*.gem
 .vendor
+Gemfile.lock
 
 # Node.js and NPM
 node_modules

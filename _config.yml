@@ -41,20 +41,24 @@ whitelist:
 #
 include:
   - .htaccess
-  # - assets/js/main.min.js
-  # - assets/css
-  # - assets/images
+  # once we have a working fully packed main.min.js
+  #- assets/js/main.min.js
+  # These will not be needed once we have a working fully packed main.min.js
+  - assets/css
+  - assets/images
 exclude:
   - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
+  # once we have a working fully packed main.min.js
+  #- assets/js
+  # These will not be needed once we have a working fully packed main.min.js
   - assets/js/plugins
   - assets/js/_main.js
   - assets/js/vendor
-  # - assets
-  - .serve
   - .reftime
   - .vendor/
   - .bundle
   - .asset-cache
+  - .jekyll-cache
   - .jekyll-assets-cache
   - .sass-cache
   - Gemfile
@@ -193,17 +197,17 @@ markdown: kramdown
 kramdown:
   syntax_highlighter: rouge # default
   syntax_highlighter_opts:
-    default_lang: C
+    default_lang: shell
+    guess_lang: true
     block:
       line_numbers: false
-  # input: GFM
-  # hard_wrap: false
-  # auto_ids: true
-  # footnote_nr: 1
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  footnote_nr: 1
   # entity_output: as_char
-  # toc_levels: 1..6
-  # smart_quotes: lsquo,rsquo,ldquo,rdquo
-  # enable_coderay: false
 
 atom_feed:
   hide: true

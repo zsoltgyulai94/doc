@@ -2,6 +2,8 @@
 title: Debugging
 ---
 
+[ref:img1]: {{site:baseurl}}/assets/images/massif_visualizer.png
+
 I suppose you have already cloned syslog-ng into a local repository and you
 have all tools and libraries installed to compile syslog-ng.
 
@@ -10,7 +12,7 @@ have all tools and libraries installed to compile syslog-ng.
 You need to have debug symbols included in syslog-ng in order to debug it
 "efficiently". Step into your local clone and type the following commands:
 
-```
+```shell
 $ ./autogen.sh
 $ mkdir build
 $ cd build
@@ -169,7 +171,7 @@ You can generate nice and useful graphs with `heaptrack`. To do this, run pass t
 `-M` option to it. The massif-visualizer program can parse the output file and
 create diagrams like this:
 
-![Figure 1-1](/assets/images/massif_visualizer.png)
+![Figure 1-1][ref:img1]
 
 You can fine-tune the result with `--massif-threshold` and `--massif-detailed-freq`.
 
