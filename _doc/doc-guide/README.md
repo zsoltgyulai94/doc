@@ -1,6 +1,5 @@
 ---
 title: Documentation Guide
-permalink: :path:output_ext
 ---
 
 ## Structure of this repository

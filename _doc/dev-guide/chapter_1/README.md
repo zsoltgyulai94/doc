@@ -1,6 +1,5 @@
 ---
 title: Get familiar with the structure
-permalink: :path:output_ext
 ---
 
 In this chapter we are going to introduce you the project and repository architecture that we use

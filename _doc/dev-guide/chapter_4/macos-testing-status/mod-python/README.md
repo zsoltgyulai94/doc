@@ -3,7 +3,6 @@ title: mod-python
 description: >-
   The python module provides Python scripting support for syslog-ng. It works
   with python3.
-permalink: :path:output_ext
 ---
 
 ### Plugins

@@ -1,6 +1,5 @@
 ---
 title: Contribution
-permalink: :path:output_ext
 ---
 
 In this chapter we would like to introduce you into the contribution

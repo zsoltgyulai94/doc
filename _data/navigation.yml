@@ -2,10 +2,10 @@
 # dev-guide
 dev-guide-nav:
   - title: "Developer guide"
-    url: dev-guide/README.html
+    url: dev-guide/README
     subnav: true
   - title: "Install syslog-ng on different platforms"
-    url: dev-guide/chapter_0/README.html
+    url: dev-guide/chapter_0/README
     subnav:
     - title: "Debian and Ubuntu"
       url: dev-guide/chapter_0/section_1
@@ -16,14 +16,14 @@ dev-guide-nav:
     - title: "FeeBSD"
       url: dev-guide/chapter_0/section_4
   - title: "Get familiar with the structure"
-    url: dev-guide/chapter_1/README.html
+    url: dev-guide/chapter_1/README
     subnav:
     - title: "Project structure"
       url: dev-guide/chapter_1/section_1
     - title: "Git structure"
       url: dev-guide/chapter_1/section_2
   - title: "Compile first"
-    url: dev-guide/chapter_2/README.html
+    url: dev-guide/chapter_2/README
     subnav:
     - title: "Fetching dependencies"
       url: dev-guide/chapter_2/section_1
@@ -34,20 +34,20 @@ dev-guide-nav:
     - title: "Install"
       url: dev-guide/chapter_2/section_4
   - title: "run first"
-    url: dev-guide/chapter_3/README.html
+    url: dev-guide/chapter_3/README
     subnav:
     - title: "Debugging"
       url: dev-guide/chapter_3/section_3
   - title: "Create platform specific builds"
-    url: dev-guide/chapter_4/README.html
+    url: dev-guide/chapter_4/README
     subnav:
     - title: "macOS"
       url: dev-guide/chapter_4/02_section
     - title: "macOS module suport status"
-      url: dev-guide/chapter_4/macos-testing-status/README.html
+      url: dev-guide/chapter_4/macos-testing-status/README
       subnav:
       - title: "affile"
-        url: dev-guide/chapter_4/macos-testing-status/affile/README.html
+        url: dev-guide/chapter_4/macos-testing-status/affile/README
         subnav:
         - title: "file() Destination Driver"
           url: dev-guide/chapter_4/macos-testing-status/affile/file-destination-driver
@@ -64,7 +64,7 @@ dev-guide-nav:
       - title: "afmongodb"
         url: dev-guide/chapter_4/macos-testing-status/afmongodb
       - title: "afprog"
-        url: dev-guide/chapter_4/macos-testing-status/afprog/README.html
+        url: dev-guide/chapter_4/macos-testing-status/afprog/README
         subnav:
         - title: "program() Destination Driver"
           url: dev-guide/chapter_4/macos-testing-status/afprog/program-destination-driver
@@ -73,7 +73,7 @@ dev-guide-nav:
       - title: "afsmtp"
         url: dev-guide/chapter_4/macos-testing-status/afsmtp
       - title: "afsocket"
-        url: dev-guide/chapter_4/macos-testing-status/afsocket/README.html
+        url: dev-guide/chapter_4/macos-testing-status/afsocket/README
         subnav:
         - title: "network() Destination Driver"
           url: dev-guide/chapter_4/macos-testing-status/afsocket/network-destination-driver
@@ -82,7 +82,7 @@ dev-guide-nav:
         - title: "syslog() Source/Destination Driver"
           url: dev-guide/chapter_4/macos-testing-status/afsocket/syslog-source-destination-driver
         - title: "TLS-Encryption"
-          url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/README.html
+          url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/README
           subnav:
           - title: "Using network()"
             url: dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/using-network
@@ -103,7 +103,7 @@ dev-guide-nav:
       - title: "http"
         url: dev-guide/chapter_4/macos-testing-status/http
       - title: "mod-python"
-        url: dev-guide/chapter_4/macos-testing-status/mod-python/README.html
+        url: dev-guide/chapter_4/macos-testing-status/mod-python/README
         subnav:
         - title: "python() Destination Driver"
           url: dev-guide/chapter_4/macos-testing-status/mod-python/python-destination-driver
@@ -118,12 +118,12 @@ dev-guide-nav:
       - title: "riemann"
         url: dev-guide/chapter_4/macos-testing-status/riemann
       - title: "system"
-        url: dev-guide/chapter_4/macos-testing-status/system-source/README.html
+        url: dev-guide/chapter_4/macos-testing-status/system-source/README
         subnav:
         - title: "Collecting local logs"
           url: dev-guide/chapter_4/macos-testing-status/system-source/collecting-local-logs
   - title: "Contribution"
-    url: dev-guide/chapter_5/README.html
+    url: dev-guide/chapter_5/README
     subnav:
     - title: "Tools"
       url: dev-guide/chapter_5/section_1
@@ -138,7 +138,7 @@ dev-guide-nav:
     - title: "Process "
       url: dev-guide/chapter_5/section_7
   - title: "Tutorials"
-    url: dev-guide/chapter_6/README.html
+    url: dev-guide/chapter_6/README
     subnav:
     - title: "Getting started with implementing Python destinations"
       url: dev-guide/chapter_6/section_1
@@ -153,10 +153,10 @@ dev-guide-nav:
     - title: "Simple Python Source"
       url: dev-guide/chapter_6/section_6
   - title: "Docker images for syslog-ng"
-    url: dev-guide/chapter_7/README.html
+    url: dev-guide/chapter_7/README
     subnav: true
   - title: "Plugin Development Guide"
-    url: dev-guide/chapter_8/README.html
+    url: dev-guide/chapter_8/README
     subnav:
     - title: "Modules and Plugins"
       url: dev-guide/chapter_8/section_1
@@ -172,11 +172,11 @@ dev-guide-nav:
 # admin-guide
 admin-guide-nav:
   - title: "syslog-ng Open Source Edition Administration Guides"
-    url: admin-guide/README.html
+    url: admin-guide/README
     subnav: true
 
 # doc-guide
 doc-guide-nav:
   - title: "Documentation Guide"
-    url: doc-guide/README.html
+    url: doc-guide/README
     subnav: true

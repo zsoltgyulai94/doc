@@ -1,6 +1,5 @@
 ---
 title: Compile first
-permalink: :path:output_ext
 ---
 
 This chapter describes the building and testing process of syslog-ng.

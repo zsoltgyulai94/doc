@@ -1,6 +1,5 @@
 ---
 title: Docker images for syslog-ng
-permalink: :path:output_ext
 ---
 
 ### Available docker images
