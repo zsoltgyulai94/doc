@@ -95,13 +95,13 @@ read_file_title() {
 }
 
 process_params() {
-    local OUTPUT_FILE="${!#}"
-    
+    local OUTPUT_FILE="${2}"
+    local DOC_FOLDER="${1}"
+
     > "$OUTPUT_FILE"
 
-    # Iterate through the remaining parameters
-    while [ "$#" -gt 1 ]; do
-        START_DIR=$(trim_trailing_slashes "${1}")
+    for DOC_PROJECT_ITEM in $(find "${DOC_FOLDER}" -mindepth 1 -maxdepth 1 -type d | sort); do
+        START_DIR=$(trim_trailing_slashes "${DOC_PROJECT_ITEM}")
         ROOT_DIR_NAME=$(basename "$START_DIR")
 
         echo "" >> "$OUTPUT_FILE"
@@ -119,7 +119,7 @@ process_params() {
 
 # Check for the correct number of command-line parameters
 if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <starting_directory_1> <starting_directory_2> ... <output_file>"
+    echo "Usage: $0 <_doc_folder> <output_file>"
     exit 1
 fi
 
