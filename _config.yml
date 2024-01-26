@@ -41,24 +41,20 @@ whitelist:
 #
 include:
   - .htaccess
-  # once we have a working fully packed main.min.js
-  #- assets/js/main.min.js
-  # These will not be needed once we have a working fully packed main.min.js
-  - assets/css
-  - assets/images
+  # - assets/js/main.min.js
+  # - assets/css
+  # - assets/images
 exclude:
   - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
-  # once we have a working fully packed main.min.js
-  #- assets/js
-  # These will not be needed once we have a working fully packed main.min.js
   - assets/js/plugins
   - assets/js/_main.js
   - assets/js/vendor
+  # - assets
+  - .serve
   - .reftime
   - .vendor/
   - .bundle
   - .asset-cache
-  - .jekyll-cache
   - .jekyll-assets-cache
   - .sass-cache
   - Gemfile
@@ -118,9 +114,20 @@ baseurl: /doc
 #       dev-guide:
 #         name: Development
 
+collections:
+  doc:
+    # Do not use :collection the GitHub forced project name we use as collection name and root
+    #permalink: "/:collection/:path/"
+    permalink: "/:path"
+    output: true
+
+
 # Global defult permalink format
 # https://jekyllrb.com/docs/permalinks/
-permalink: /:collection/:path/:basename
+# GitHub project name we use as collection name and root
+#permalink: /:path/
+# NOTE: the above is always expanded like this, for collections it seems (note mentioned correctly in the documentataion)
+#permalink: /:collection/:path/:basename
 #paginate_path: /page:num/
 
 # Defaults
@@ -136,7 +143,7 @@ defaults:
       sidebar:
         nav: ""
   #
-  # FIXME: The goal here would be to eliminate the now required "permalink: :path " in each folder README.md
+  # FIXME: The goal here would be to eliminate the now required "##permalink: :path/:name " in each folder README.md
   #        I guess this is a Jekyll bug 
   #        Using permalink rules here leds to an invisible navigation left sidebar
   # 
@@ -144,34 +151,38 @@ defaults:
   #     # type: pages
   #     path: "**/README.md"
   #   values:
-  #     permalink: :path # /:collection does not work at this level ?!?!
+  #     #permalink: :path/:name # /:collection does not work at this level ?!?!
   # - scope:
   #     # type: pages
   #     path: "**/index.md"
   #   values:
-  #     permalink: :path
+  #     #permalink: :path/:name
   #
   # Documentation guide _pages
   - scope:
-      # type: pages
+      # NOTE: type can be a collection name
+      type: doc
       # NOTE: path is real file system path, not permalinks
-      path: "doc-guide"
+      path: "*/doc-guide/*"
     values:
       sidebar:
         nav: "doc-guide-nav"
   # Administrator guide _pages
   - scope:
-      # type: pages
+      # NOTE: type can be a collection name
+      type: doc
       # NOTE: path is real file system path, not permalinks
-      path: "admin-guide"
+      path: "*/admin-guide/*"
     values:
       sidebar:
         nav: "admin-guide-nav"
   # Developer guide _pages
   - scope:
-      # type: pages
+      # NOTE: type can be a collection name
+      type: doc 
       # NOTE: path is real file system path, not permalinks
-      path: "dev-guide"
+      # TODO: find a better filter, it is considered too slow
+      path: "*/dev-guide/*"
     values:
       sidebar:
         nav: "dev-guide-nav"
@@ -197,7 +208,7 @@ markdown: kramdown
 kramdown:
   syntax_highlighter: rouge # default
   syntax_highlighter_opts:
-    default_lang: shell
+    default_lang: C
     guess_lang: true
     block:
       line_numbers: false
@@ -208,6 +219,7 @@ kramdown:
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   footnote_nr: 1
   # entity_output: as_char
+  # enable_coderay: false
 
 atom_feed:
   hide: true
@@ -238,4 +250,4 @@ masthead:
   sticky: true
 
 footer:
-  top_margin: 0
+  top_margin: 2em # originally 3em, needed if there are visible prev/next navigator buttons

@@ -1,3 +1,4 @@
+<!-- DO NOT ADD frontmatter, this belongs to the GitHub repository only -->
 
 [ref:admin-guide]: admin-guide
 [ref:dev-guide]: dev-guide

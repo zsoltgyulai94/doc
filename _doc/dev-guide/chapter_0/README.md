@@ -1,5 +1,10 @@
 ---
 title: Install syslog-ng on different platforms
+# https://jekyllrb.com/docs/permalinks/#pages, but
+#   permalink: :path/../:basename:output_ext
+#   Liquid Exception: The URL template doesn't have basename keys.
+# %$^!$@$^#%
+#
 permalink: :path
 ---
 
