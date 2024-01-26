@@ -3,12 +3,13 @@ title: Introduction
 description:  >-
   Welcome to the syslog-ng documentation center.<br/>
   Here you can browse, search and contribute to most of the syslog-ng documentation.
+permalink: /
 toc: false
 ---
 
-[ref:admin-guide]: admin-guide
-[ref:dev-guide]: dev-guide
-[ref:doc-guide]: doc-guide
+[ref:admin-guide]: admin-guide/README.html
+[ref:dev-guide]: dev-guide/README.html
+[ref:doc-guide]: doc-guide/README.html
 
 ## [Documentation guide][ref:doc-guide]
 
