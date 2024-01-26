@@ -4,7 +4,6 @@ description: >-
   The syslog-ng application can send and receive log messages securely over the
   network using the Transport Layer Security (TLS) protocol using the network()
   and syslog() drivers.
-permalink: :path:output_ext
 ---
 
 ### Status

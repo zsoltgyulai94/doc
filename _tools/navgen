@@ -2,6 +2,7 @@
 
 BASE_INDENT="  "
 INDEX_FILE_PATTERNS="^(index\.md|README\.md)$"
+USE_INDEX_FILE_FOR_FOLDER_LINKS="yes"
 
 trim_trailing_slashes() {
     local INPUT_STRING="$1"
@@ -30,19 +31,22 @@ add_file_entry () {
 
 add_dir_entry () {
 	local EXCLUDED_FILES=("${1}/index.md" "${1}/README.md")
-	local INDEX_FILE="index.html"
+	local INDEX_FILE="index"
 
 	for EXCLUDED_FILE in "${EXCLUDED_FILES[@]}"; do
 		if [ -f "$EXCLUDED_FILE" ]; then
 			local DIR_TITLE=$(read_file_title "$EXCLUDED_FILE")
             local BASE_NAME=$(basename "${EXCLUDED_FILE}")
-            INDEX_FILE=${BASE_NAME%.*}.html
+            INDEX_FILE=${BASE_NAME%.*}
 			[ -n "$DIR_TITLE" ] && TITLE="\"$DIR_TITLE\""            
 			break
 		fi
 	done
 
-	print_entry "${INDENT}" "${TITLE}" "${2}/${INDEX_FILE}" "subnav:${3}"
+    local URL="${2}"
+    [ "${USE_INDEX_FILE_FOR_FOLDER_LINKS}x" != "x" ] && URL="${URL}/${INDEX_FILE}"
+
+	print_entry "${INDENT}" "${TITLE}" "${URL}" "subnav:${3}"
 }
 
 generate_yaml() {

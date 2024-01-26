@@ -1,6 +1,5 @@
 ---
 title: Plugin Development Guide
-permalink: :path:output_ext
 ---
 
 This chapter is a guide for creating syslog-ng plugins.

@@ -3,7 +3,6 @@ title: system
 description: >-
   Syslog-ng OSE can automatically collect the system-specific log messages of
   the host on a number of platforms using the system() driver.
-permalink: :path:output_ext
 ---
 
 ### Important Information

@@ -134,54 +134,43 @@ collections:
 defaults:
   # All pages
   - scope:
-      # type: pages
       path: "" # an empty string here means all files in the project
+      type: doc
     values:
       layout: single
       toc: true
       toc_sticky: true
       sidebar:
         nav: ""
-  #
-  # FIXME: The goal here would be to eliminate the now required "##permalink: :path/:name " in each folder README.md
-  #        I guess this is a Jekyll bug 
-  #        Using permalink rules here leds to an invisible navigation left sidebar
-  # 
-  # - scope:
-  #     # type: pages
-  #     path: "**/README.md"
-  #   values:
-  #     #permalink: :path/:name # /:collection does not work at this level ?!?!
-  # - scope:
-  #     # type: pages
-  #     path: "**/index.md"
-  #   values:
-  #     #permalink: :path/:name
-  #
-  # Documentation guide _pages
   - scope:
       # NOTE: type can be a collection name
       type: doc
       # NOTE: path is real file system path, not permalinks
+      # TODO: find a better filter, it is considered too slow
+      path: "**/README.md"
+    values:
+      # This would be like: _site/dev-guide/chapter_0/README.html
+      permalink: :path
+
+  # Documentation guide _pages
+  - scope:
+      type: doc
       path: "*/doc-guide/*"
     values:
       sidebar:
         nav: "doc-guide-nav"
+
   # Administrator guide _pages
   - scope:
-      # NOTE: type can be a collection name
       type: doc
-      # NOTE: path is real file system path, not permalinks
       path: "*/admin-guide/*"
     values:
       sidebar:
         nav: "admin-guide-nav"
+
   # Developer guide _pages
   - scope:
-      # NOTE: type can be a collection name
       type: doc 
-      # NOTE: path is real file system path, not permalinks
-      # TODO: find a better filter, it is considered too slow
       path: "*/dev-guide/*"
     values:
       sidebar:
@@ -241,7 +230,7 @@ page_content_width: 90%
 sidebar:
   sticky: true
   nav_sub_items_scaled: true
-  nav_sub_items_ident: 0.25em
+  nav_sub_items_ident: 0.4em
 
 masthead:
   # Option to hide masthead navigator in the page top bar
