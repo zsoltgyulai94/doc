@@ -2,7 +2,7 @@
 title: Debugging
 ---
 
-[ref:img1]: {{site:baseurl}}/assets/images/massif_visualizer.png
+[ref:img1]: {{site.baseurl}}/assets/images/massif_visualizer.png
 
 I suppose you have already cloned syslog-ng into a local repository and you
 have all tools and libraries installed to compile syslog-ng.
