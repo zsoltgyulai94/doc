@@ -1,4 +1,10 @@
 
+# admin-guide
+admin-guide-nav:
+  - title: "syslog-ng Open Source Edition Administration Guides"
+    url: admin-guide/README
+    subnav: true
+
 # dev-guide
 dev-guide-nav:
   - title: "Developer guide"
@@ -168,12 +174,6 @@ dev-guide-nav:
       url: dev-guide/chapter_8/section_4
     - title: "Template Function"
       url: dev-guide/chapter_8/section_5
-
-# admin-guide
-admin-guide-nav:
-  - title: "syslog-ng Open Source Edition Administration Guides"
-    url: admin-guide/README
-    subnav: true
 
 # doc-guide
 doc-guide-nav:
