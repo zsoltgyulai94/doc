@@ -95,8 +95,8 @@ read_file_title() {
 }
 
 process_params() {
-    local OUTPUT_FILE="${2}"
     local DOC_FOLDER="${1}"
+    local OUTPUT_FILE="${2}"
 
     > "$OUTPUT_FILE"
 

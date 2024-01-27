@@ -6,6 +6,10 @@
 <ul {% if levelIndex == 0 or firstItemHasSubnav % or false == shouldScale %} class="nav__items"{% endif %}>
   {% for nav in navigation %}
     <li>
+
+      {% comment %} {% assign debugInfo = "nav.url: " | append: nav.url | append: ", page.url: " | append: page.url %}
+      <div style="color: red;">{{ debugInfo }}</div> {% endcomment %}
+
       {% assign preFixed = "/" | append: nav.url %}
       {% if (nav.url == page.url or preFixed == page.url) %}
         {% assign active = "active" %}

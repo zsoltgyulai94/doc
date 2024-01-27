@@ -4,15 +4,81 @@ title: Documentation Guide
 
 [ref:mm-javascripts]: https://mmistakes.github.io/minimal-mistakes/docs/javascript/
 [ref:mm-js-update]: https://mmistakes.github.io/minimal-mistakes/docs/javascript/#build-process
+[ref:mm-dir-struct]: https://mmistakes.github.io/minimal-mistakes/docs/structure/
+[ref:mm-dependencies]: https//jekyllrb.com/docs/configuration/
+[ref:jekyll-dir-struct]: https://jekyllrb.com/docs/structure/
+[ref:jekyll-config]: https//jekyllrb.com/docs/configuration/
 [ref:ruby-and-gems-install]: https://jekyllrb.com/docs/installation/
+[gh:doc-project]: https://github.com/syslog-ng/doc
 
 ## Structure of this repository
+
+Basically we follow [jekyll][ref:jekyll-dir-struct] and [minimal-mistake][ref:mm-dir-struct]
+
+```shell
+.
+├── _data
+├── _doc
+│   ├── admin-guide
+│   ├── dev-guide
+│   └── doc-guide
+├── _includes
+│   ├── footer
+│   ├── head
+│   ...
+│   └── search
+├── _layouts
+├── _sass
+│   └── minimal-mistakes
+├── _site
+├── _tools
+└── assets
+    ├── css
+    ├── images
+    └── js
+        ├── custom
+        ├── plugins
+        ...
+        └── vendor
+```
+
+### Directories
+
+- _data \
+
+- _doc  \
+
+- _includes \
+
+- _layouts \
+
+- _sass \
+
+- _site \
+
+- _tools \
+
+- assets \
+  - js \
+    - custom \
+      To stay organized, please keep our custom scripts in the `js/custom` folder.
+
+### Files
+
+- _config.yml \
+    [Jekyll configuration][ref:jekyll-config] file
+- Gemfile \
+    [Jekyll and minimal-mistake][ref:mm-dependencies] Ruby gem dependencies
+- README.md \
+    The porject [GitHub repository][gh:doc-project] landing page readme file
+- LICENSE.* \
+    All the licence files of the modules the porject uses
 
 ## Tools you need for local testing your documentation changes
 
 1. [Install Ruby and RubyGems][ref:ruby-and-gems-install]
 2. Install bundler\
-   It's just a ruby gem itself too, so siply run `gem install bundle`
+   It's just a ruby gem itself too, so simply run `gem install bundle`
 3. [Install node.js][ref:mm-javascripts]
 
 ## Our helper tools for local development and testing
@@ -37,18 +103,28 @@ We have a few useful tools in the `${PROJECT_ROOT}/_tools` folder some of them w
     ./_tools/navgen ./_doc ./_data/navigation.yml
     ```
 
-    Note: This will update the `navigation.yml` file based on the content of the `_doc` folder wehre all of our doumentation markdown files are located.
-      Note: Automation of this is in progress, the `serve` tool will take care of this as well in the future, also it will be part of the GitHub deplyment flow
-      {: .notice}
-3. Sometimes its neded to [update][ref:mm-javascripts] the internally used `minimal-mistakes` theme default [.js scripts][ref:mm-js-update]
-    You can use our still in a work progress, but usable helper tool.
-    After updated the .js files you have to in `${PROJECT_ROOT}/assets/js/` you can simply run
+    This will update the `navigation.yml` file based on the content of the `_doc` folder wehre all of our doumentation markdown files are located.
+    The tools is part of the GitHub deployment workflow as well, this is the reason why we have `${PROJECT_ROOT}/_data/navigation.yml` file is excluded via ``.gitignore`
+
+    Note: Automation of this during development is in progress, the `serve` tool will take care of this as well in the future.
+    This tools is part of the GitHub deployment workflow too, this is the reason why we have `${PROJECT_ROOT}/_data/navigation.yml` file is excluded via ``.gitignore`
+    {: .notice}
+3. Sometimes its neded to [update][ref:mm-javascripts] the internally used `minimal-mistakes` theme default [.js scripts][ref:mm-js-update] \
+    If you modify any of the scripts packed into the `${PROJECT_ROOT}/assets/js/main.min.js` file, you have to [re-pack][ref:mm-js-update] it.
+    You can use our, still in a work progress, but usable helper tool.
+    After updated the given dependency .js file you can simply run
 
     ```shell
     ./_tools/pack
     ```
 
     It will update the `${PROJECT_ROOT}/assets/js/main.min.js` file that will be built and deployed normally in the next dev cycle.
+    This tools is also part of the GitHub deployment workflow, so the `${PROJECT_ROOT}/assets/js/main.min.js` file is excluded via ``.gitignore`
 
-    Warning: There are multiple issues we cannot deal with yet, and are postponed for later. You can find some info about them in the script file, please feel free to contribute if you have a solution.
+    Important: Except the ones in the `js/custom` folder,  all the files in the `js` folder are presented here to get the re-packing work. \
+    Packing all the requirements that really needed is not supported yet, please see the warning bellow.
+    So, only these default files will be packed at the moment, this is the inherited defult of `minimal-mistake`, if you have to modify these please try to minimize the further dependencies otherwise the packing might not work.
+    {: .notice--info}
+
+    Warning: There are multiple issues we cannot deal with yet during re-packing and those are postponed for later examination. You can find some info about this in the script file, please feel free to contribute if you have a solution.
     {: .notice--danger}
