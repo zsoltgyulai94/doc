@@ -1,14 +1,63 @@
 {% assign navigation = include.nav %}
 {% assign levelIndex = include.levelIndex | default: 0 %}
-{% assign firstItemHasSubnav = navigation[0].subnav %}
-{% assign shouldScale = site.sidebar.nav_sub_items_scaled %}
+{% assign levelDepth = include.levelDepth | default: 0 %}
+{% assign titleStyle = "nav__sub-title" %}
 
-<ul {% if levelIndex == 0 or firstItemHasSubnav % or false == shouldScale %} class="nav__items"{% endif %}>
+{% if levelDepth < 2 %}
+  {% assign titleStyle = "nav__title" %}
+{% endif %}
+
+{% comment %} {% assign debugInfo = "levelIndex: " | append: levelIndex | append: ", levelDepth: " | append: levelDepth %}
+<div style="color: red;">{{ debugInfo }}</div>  {% endcomment %}
+
+{% assign levelDepth = levelDepth | plus: 1 %}
+
+{% if levelIndex == 0 %}
+{% else %}
+  {% comment %} {% assign debugInfo = "nav.title: " | append: nav.title | append: ", nav.url: " | append: nav.url | append: ", nav.count: " | append: nav.subnav.count %}
+  <div style="color: red;">{{ debugInfo }}</div> 
+  {% endcomment %}
+
+  {% assign preFixed = "/" | append: nav.url %}
+  {% if (nav.url == page.url or preFixed == page.url) %}
+    {% assign active = "active" %}
+  {% else %}
+    {% assign active = "" %}
+  {% endif %}  
+
+  <input type="checkbox" id="toggle-{{levelIndex}}"/>
+  <label for="toggle-{{levelIndex}}" class="{{titleStyle}} {{active}}">
+    <a href="{{ nav.url | relative_url }}"
+    {% comment %} >
+      <span  {% endcomment %}
+      {% comment %} class="{{titleStyle}} {{active}}" {% endcomment %}
+      >
+        {{ nav.title }}
+      {% comment %} </span> {% endcomment %}
+    </a>
+  </label> 
+  
+  {% comment %} <a href="{{ nav.url | relative_url }}">
+  </a> {% endcomment %}
+
+  {% comment %} <label for="toggle-{{levelIndex}}">{{ nav.title }}</label> {% endcomment %}
+
+  {% comment %} <span for="toggle-{{levelIndex}}" class="nav__sub-title">{{ nav.title }}</span> {% endcomment %}
+  {% comment %} {% if nav.url %}
+    <a href="{{ nav.url | relative_url }}"><span class="nav__sub-title {{active}}">{{ nav.title }}</span></a>
+  {% else %} 
+    <label for="toggle-{{levelIndex}}">{{ nav.title }}</label>
+  {% endif %}  {% endcomment %}
+  
+{% endif %}
+
+<ul class="nav__items">
   {% for nav in navigation %}
     <li>
-
-      {% comment %} {% assign debugInfo = "nav.url: " | append: nav.url | append: ", page.url: " | append: page.url %}
-      <div style="color: red;">{{ debugInfo }}</div> {% endcomment %}
+      {% comment %} 
+      {% assign debugInfo = "nav.url: " | append: nav.url | append: ", page.url: " | append: page.url %}
+      <div style="color: red;">{{ debugInfo }}</div> 
+      {% endcomment %}
 
       {% assign preFixed = "/" | append: nav.url %}
       {% if (nav.url == page.url or preFixed == page.url) %}
@@ -16,17 +65,13 @@
       {% else %}
         {% assign active = "" %}
       {% endif %}
+
       {% if nav.subnav %}
-        {% if nav.url %}
-          <a href="{{ nav.url | relative_url }}"><span class="nav__sub-title {{active}}">{{ nav.title }}</span></a>
-        {% else %}
-          <span class="nav__sub-title">{{ nav.title }}</span>
-        {% endif %}
         {% assign nextLevelIndex = levelIndex | plus: 1 %}
-        {% include nav_list_add nav=nav.subnav levelIndex=nextLevelIndex %}
+        {% include nav_list_add nav=nav.subnav levelIndex=nextLevelIndex levelDepth=levelDepth%}
       {% else %}
         {% if nav.url %}
-          <a href="{{ nav.url | relative_url }}"{% if (nav.url == page.url or preFixed == page.url) %} class="{{active}}"{% endif %}>{{ nav.title }}</a>
+          <a href="{{ nav.url | relative_url }}" class="{{active}}{% if levelDepth < 2 %} {{titleStyle}}{% endif %}">{{ nav.title }}</a>
         {% else %}
           <span>{{ nav.title }}</span>
         {% endif %}
@@ -34,3 +79,5 @@
     </li>
   {% endfor %}
 </ul>
+
+{% assign levelDepth = levelDepth | minus: 1 %}
