@@ -1,5 +1,5 @@
 
-# macOS
+## macOS
 .DS_Store
 
 # Jekyll generated files
@@ -9,18 +9,21 @@
 _asset_bundler_cache
 _site
 
-# Ruby Gem
+## Ruby Gem
 # excluded in _config.yml instead
 #.bundle
 *.gem
 .vendor
 Gemfile.lock
 
-# Node.js and NPM
+## Node.js and NPM
 node_modules
 npm-debug.log*
 package-lock.json
 codekit-config.json
 
-# Misc
+## Misc
 .reftime
+# Generated files
+_data/navigation.yml
+assets/js/main.min.js

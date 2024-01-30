@@ -225,12 +225,12 @@ enable_copy_code_button: true
 
 # Option to set the width of the page inner content part
 # Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
-page_content_width: 90%
+page_content_width: 95%
 
 sidebar:
   sticky: true
   nav_sub_items_scaled: true
-  nav_sub_items_ident: 0.4em
+  nav_sub_items_ident: 0.5em
 
 masthead:
   # Option to hide masthead navigator in the page top bar

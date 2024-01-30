@@ -395,18 +395,7 @@
       }
     }
 
-    /* selected*/
-    input:checked + label {
-      color: white;
-      background-color: mix(white, #000, 20%);
-
-      &:before,
-      &:after {
-        background-color: #fff;
-      }
-    }
-
-    /* on hover show expand*/
+    /* on hover show expand */
     label:hover:after {
       -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
@@ -424,7 +413,7 @@
     }
 
     a {
-      display: block;
+      display: inlline-block;
       padding: 0.25em 0;
 
       @include breakpoint($large) {
@@ -441,13 +430,124 @@
 
 .nav__list .nav__items {
   /* Also could set the identation of the embedded menu items this way */
-  margin: $sidebar-nav-item-left-margin;
-  font-size: 1.25rem;
+  margin-left: $sidebar-nav-item-left-margin;
+  font-size: $type-size-4;
+
+  /* Style for the top-level ul */
+  >ul {
+    list-style-type: none;
+  }
+
+  /* Style for the nested ul, initially hidden */
+  ul {
+    list-style-type: none;
+    display: none;
+    // opacity: 0;
+    // -webkit-transition: 0.3s ease;
+    // transition: opacity 0.3s ease; /* Transition effect on opacity */
+  }
+
+  /* Style for the checkbox */
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked+label+ul {
+    display: block;
+    // opacity: 1;  /* Fade in the nested ul */
+  }
+
+  label {
+    @at-root .sidebar:not(.empty) & {
+      display: grid;
+    }
+    position: relative;
+    //padding: 0.5em 2.5em 0.5em 1em;
+    //color: $gray;
+    //font-size: $type-size-6;
+    //font-weight: bold;
+    //border: 1px solid $light-gray;
+    //border-radius: $border-radius;
+    z-index: 20;
+    -webkit-transition: 0.2s ease-out;
+    transition: 0.2s ease-out;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: "";
+      // FIXME: Eliminate this fixed sized and positioned mess
+      position: absolute;
+      right: 1em;
+      top: 0.6em;
+      width: 0.75em;
+      height: 0.125em;
+      line-height: 1;
+      background-color: $gray;
+      -webkit-transition: 0.2s ease-out;
+      transition: 0.2s ease-out;
+    }
+
+    &:after {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+    }
+
+    &:not(.active) {
+      &:hover {
+        margin-left: -0.5em;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        color: #fff;
+        border-color: $gray;
+        background-color: mix(white, #000, 20%);
+
+        &:before,
+        &:after {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+
+  /* un-folded */
+//   input:checked + label {
+//     color: white;
+//     background-color: mix(white, #000, 20%);
+// 
+//     &:before,
+//     &:after {
+//       background-color: #fff;
+//     }
+//   }
+
+  /* on hover show expand*/
+  label:hover:after {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  input:checked + label:hover:after {
+    -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
 
   a {
-    color: inherit;
-    &:hover {
-      text-decoration: underline;
+    &:not(.nav__sub-title), &:not(.nav__sub-title) {
+      margin-right: 3em;
+      font-size: $type-size-6;
+      &:not(.active) {
+        color: inherit;
+      }
+      .active {    
+        @include yiq-contrasted($active-color);
+      }      
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -502,22 +602,33 @@
 }
 
 .nav__title {
-  margin: 0;
-  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid $border-color;
+  margin: 0.5rem 0;
+  padding: 0.25rem 0;
+  
   font-family: $sans-serif-narrow;
   font-size: $type-size-5;
   font-weight: bold;
+
+  // margin: 0;
+  // padding: 0.25rem 0;// 0.75rem;
+  // font-family: $sans-serif-narrow;
+  // font-size: $type-size-5;
+  // font-weight: bold;
+
+   text-transform: uppercase;
 }
 
+//.nav__title, 
 .nav__sub-title {
-  display: block;
+  border-bottom: 1px solid $border-color;
   margin: 0.5rem 0;
   padding: 0.25rem 0;
+  
   font-family: $sans-serif-narrow;
-  font-size: $type-size-6;
+  font-size: $type-size-5;
   font-weight: bold;
   text-transform: uppercase;
-  border-bottom: 1px solid $border-color;
 }
 
 /*
@@ -537,14 +648,23 @@
     color: #fff;
     font-size: $type-size-6;
     background: $primary-color;
+    border: 0px;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    //font-weight: normal;
+    text-transform: none;
   }
 
   // Scrollspy marks toc items as .active when they are in focus
   .active a {
     @include yiq-contrasted($active-color);
   }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 0;  }
 }
 
 .toc__menu {

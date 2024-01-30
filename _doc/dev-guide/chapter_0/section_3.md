@@ -2,8 +2,8 @@
 title: macOS
 ---
 
-[ref:install]: {{site:baseurl}}/dev-guide/chapter_4/02_section#dependencies
-[ref:compile]: {{site:baseurl}}/dev-guide/chapter_4/02_section
+[ref:install]: {{site.baseurl}}/dev-guide/chapter_4/02_section#dependencies
+[ref:compile]: {{site.baseurl}}/dev-guide/chapter_4/02_section
 [ref:freepascal-launchd]: https://wiki.freepascal.org/macOS_daemons_and_agents
 [ref:apple-launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
 [ref:homebrew]: http://brew.sh

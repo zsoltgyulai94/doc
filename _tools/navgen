@@ -64,7 +64,7 @@ generate_yaml() {
         if [ -f "$ITEM_PATH" ]; then
 			add_file_entry "$ITEM_PATH"
         elif [ -d "$ITEM_PATH" ]; then
-			add_dir_entry "$ITEM_PATH" "$URL" "$(check_directory_content "$ITEM_PATH" || echo " true")"
+			add_dir_entry "$ITEM_PATH" "$URL" "" # "$(check_directory_content "$ITEM_PATH" || echo " true")"
 			generate_yaml "$ITEM_PATH" "${INDENT}${BASE_INDENT}"
         fi
     done
@@ -95,8 +95,8 @@ read_file_title() {
 }
 
 process_params() {
-    local OUTPUT_FILE="${2}"
     local DOC_FOLDER="${1}"
+    local OUTPUT_FILE="${2}"
 
     > "$OUTPUT_FILE"
 
@@ -108,7 +108,7 @@ process_params() {
         echo "# ${ROOT_DIR_NAME}" >> "$OUTPUT_FILE"
         echo "${ROOT_DIR_NAME}-nav:" >> "$OUTPUT_FILE"
 
-        add_dir_entry "$START_DIR" "${ROOT_DIR_NAME}" " true" >> "$OUTPUT_FILE"
+        add_dir_entry "$START_DIR" "${ROOT_DIR_NAME}" "" >> "$OUTPUT_FILE"
         generate_yaml "$START_DIR" "" >> "$OUTPUT_FILE"
 
         shift
