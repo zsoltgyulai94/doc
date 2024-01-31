@@ -72,7 +72,7 @@ generate_yaml() {
 
 read_file_title() {
     local FILE="$1"
-    local TITLE_REGEX='^title: (.*)$'
+    local TITLE_REGEXES=('^short_title: (.*)$' '^title: (.*)$')
     local DELIMITER_FOUND=false
     local TITLE=""
     
@@ -84,9 +84,13 @@ read_file_title() {
                 DELIMITER_FOUND=true
             fi
         elif $DELIMITER_FOUND; then
-            if [[ "$LINE" =~ $TITLE_REGEX ]]; then
+            if [[ "$LINE" =~ ${TITLE_REGEXES[0]} ]]; then
                 TITLE="${BASH_REMATCH[1]}"
+                # Can break here, sub-title has the top precedence now
                 break
+            elif [[ "$LINE" =~ ${TITLE_REGEXES[1]} ]]; then
+                TITLE="${BASH_REMATCH[1]}"
+                # Do not break here the order can be anything
             fi
         fi
     done < "$FILE"
