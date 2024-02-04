@@ -18,10 +18,7 @@
   {%- endcase -%}
 {% endif %}
 
-{% if site.enable_copy_code_button == true %}
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
-  <script src="{{ '/assets/js/custom/copy-to-clipboard.js' | relative_url }}"></script>
-{% endif %}
+{% include custom_scripts.html %}
 
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
