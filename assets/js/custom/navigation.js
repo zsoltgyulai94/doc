@@ -113,15 +113,16 @@ $(function () {
 
   // TOC smooth scrolling
   function addTocScrolling() {
+    const topOffset = 100;
     var scroll = new SmoothScroll('a[href*="#"]', {
-      offset: -50,
+      offset: topOffset,
       speed: 400,
       speedAsDuration: true,
       durationMax: 500
     });
 
     // Gumshoe scroll spy init
-    if ($("nav.toc").length > 0) {
+    if ($("nav.toc a").length > 0) {
       var spy = new Gumshoe("nav.toc a", {
         // Active classes
         navClass: "active", // applied to the nav list item
@@ -132,7 +133,7 @@ $(function () {
         nestedClass: "active", // applied to the parent items
 
         // Offset & reflow
-        offset: -20, // how far from the top of the page to activate a content area
+        offset: topOffset, // how far from the top of the page to activate a content area
         reflow: true, // if true, listen for reflows
 
         // Event support
