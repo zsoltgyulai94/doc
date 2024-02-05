@@ -31,7 +31,7 @@ layout: default
       {% unless page.header.overlay_color or page.header.overlay_image %}
         <header>
           {% if page.title %}<h1 id="page-title" class="page__title p-name {% if page.subtitle == null and page.description == null %} page__title_decoration{% endif %}" itemprop="headline">
-            <a href="{{ page.url | absolute_url }}" class="u-url" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
+            <a href="{{ page.url | absolute_url }}" class="u-url nav-link" itemprop="url">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</a>
           </h1>{% endif %}
           {% if page.subtitle or page.description %}
             {% if page.subtitle %}
@@ -54,8 +54,10 @@ layout: default
             </nav>
           </aside>
         {% endif %}
+
         {{ content }}
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+        
+        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary nav-link">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
       <footer class="page__meta">

@@ -1,0 +1,12 @@
+{% for script in site.static_files %}
+  {% if script.path contains '/assets/js/custom/' and script.extname == '.js' %}
+    {% if script.name == 'copy-to-clipboard.js' %}
+      {% if site.enable_copy_code_button == true %}
+        <script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
+        <script src="{{ script.path | relative_url }}"></script>
+      {% endif %}
+    {% else %}
+      <script src="{{ script.path | relative_url }}"></script>
+    {% endif %}
+  {% endif %}
+{% endfor %}
