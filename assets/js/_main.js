@@ -34,25 +34,40 @@ $(function () {
     $(".author__urls-wrapper").find("button").toggleClass("open");
   });
 
-  // Close search screen with Esc key
-  $(document).keyup(function(e) {
-    if (e.keyCode === 27) {
-      if ($(".initial-content").hasClass("is--hidden")) {
-        $(".search-content").toggleClass("is--visible");
-        $(".initial-content").toggleClass("is--hidden");
-      }
+  // Close search screen with Esc key or toggle with predefined hotKey
+  $(document).keyup(function (event) {
+    // Define the desired hotkey (in this case, Ctrl + Shift + F)
+    var searchHotkey = { ctrlKey: true, shiftKey: true, key: 'F' };
+
+    if (event.keyCode === 27) {
+      if ($(".initial-content").hasClass("is--hidden"))
+        toggleSearch();
+    }
+    else if (event.ctrlKey === searchHotkey.ctrlKey &&
+             event.shiftKey === searchHotkey.shiftKey &&
+             event.key === searchHotkey.key) {
+      toggleSearch();
     }
   });
 
-  // Search toggle
-  $(".search__toggle").on("click", function() {
+  function toggleSearch() {
     $(".search-content").toggleClass("is--visible");
     $(".initial-content").toggleClass("is--hidden");
-    // set focus on input
-    setTimeout(function() {
-      $(".search-content").find("input").focus();
-    }, 400);
-  });
+
+    if ($(".initial-content").hasClass("is--hidden")) {
+      // set focus on input
+      setTimeout(function () {
+        $(".search-content").find("input").focus();
+      }, 400);
+    }
+    else {
+      // set focus back to the initial content otherwise the focus will not get back to the search input once again
+      $(".initial-content").find("input").focus();
+    }
+  }
+
+  // Search toggle
+  $(".search__toggle").on("click", toggleSearch);
 
   // Smooth scrolling
   var scroll = new SmoothScroll('a[href*="#"]', {
@@ -83,8 +98,7 @@ $(function () {
   }
 
   // add lightbox class to all image links
-  $(
-    "a[href$='.jpg'],a[href$='.jpeg'],a[href$='.JPG'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']"
+  $("a[href$='.jpg'],a[href$='.jpeg'],a[href$='.JPG'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']"
   ).has("> img").addClass("image-popup");
 
   // Magnific-Popup options
