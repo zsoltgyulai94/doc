@@ -84,6 +84,8 @@ $(function () {
           addPageAnchors();
           // Add toc to anchor scrolling
           addTocScrolling();
+          // Add code block enhancements
+          addCodeBlocksTitle();
         }, 100);
       })
       .catch(error => {
