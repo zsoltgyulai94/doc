@@ -26,10 +26,10 @@ generate_package_file() {
     echo -e "\nMATCHING_FILES to pack ${MATCHING_FILES[@]}"
     JS_FILES_PATTERN="${INPUT_FOLDER}/**/${INPUT_FILE_PATTERN}"
 
-    sed -e "s|%JS_FILES%|${MATCHING_FILES}|g" \
+    sed -e "s|%OUT_FLAGS%|${OUT_FLAGS}|g" \
+        -e "s|%JS_FILES%|${MATCHING_FILES}|g" \
         -e "s|%OUT_FILE%|${OUTPUT_FILE}|g" \
-        -e "s|%JS_FILES_PATTERN%|${JS_FILES_PATTERN}|g" \
-        -e "s|%OUT_FLAGS%|${OUT_FLAGS}|g" \
+        -e "s|%JS_FILES_PATTERN%|${JS_FILES_PATTERN}|g" \    
         "${SCRIPT_DIR}/${TEMPLATE_FILE}" > "${SCRIPT_DIR}/${PACKAGE_FILE}"
 }
 
