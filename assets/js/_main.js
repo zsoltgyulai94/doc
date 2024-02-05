@@ -6,7 +6,10 @@ $(function () {
   // FitVids init
   $("#main").fitVids();
 
+  // -------------
   // Sticky sidebar
+  // -------------
+
   var initiallySticky = $(".sidebar").hasClass("sticky");
   var stickySideBar = function () {
     var show =
@@ -28,11 +31,18 @@ $(function () {
     stickySideBar();
   });
 
+  // -------------
   // Follow menu drop down
-  $(".author__urls-wrapper").find("button").on("click", function() {
+  // -------------
+
+  $(".author__urls-wrapper").find("button").on("click", function () {
     $(".author__urls").toggleClass("is--visible");
     $(".author__urls-wrapper").find("button").toggleClass("open");
   });
+
+  // -------------
+  // Search
+  // -------------
 
   // Close search screen with Esc key or toggle with predefined hotKey
   $(document).keyup(function (event) {
@@ -66,42 +76,16 @@ $(function () {
     }
   }
 
-  // Search toggle
   $(".search__toggle").on("click", toggleSearch);
 
-  // Smooth scrolling
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    offset: 20,
-    speed: 400,
-    speedAsDuration: true,
-    durationMax: 500
-  });
-
-  // Gumshoe scroll spy init
-  if($("nav.toc").length > 0) {
-    var spy = new Gumshoe("nav.toc a", {
-      // Active classes
-      navClass: "active", // applied to the nav list item
-      contentClass: "active", // applied to the content
-
-      // Nested navigation
-      nested: false, // if true, add classes to parents of active link
-      nestedClass: "active", // applied to the parent items
-
-      // Offset & reflow
-      offset: 20, // how far from the top of the page to activate a content area
-      reflow: true, // if true, listen for reflows
-
-      // Event support
-      events: true // if true, emit custom events
-    });
-  }
+  // -------------
+  // Magnific-Popup
+  // -------------
 
   // add lightbox class to all image links
   $("a[href$='.jpg'],a[href$='.jpeg'],a[href$='.JPG'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']"
   ).has("> img").addClass("image-popup");
 
-  // Magnific-Popup options
   $(".image-popup").magnificPopup({
     // disableOn: function() {
     //   if( $(window).width() < 500 ) {
@@ -136,16 +120,4 @@ $(function () {
     midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
   });
 
-  // Add anchors for headings
-  $('.page__content').find('h1, h2, h3, h4, h5, h6').each(function() {
-    var id = $(this).attr('id');
-    if (id) {
-      var anchor = document.createElement("a");
-      anchor.className = 'header-link';
-      anchor.href = '#' + id;
-      anchor.innerHTML = '<span class=\"sr-only\">Permalink</span><i class=\"fab fa-slack-hash\"></i>';
-      anchor.title = "Permalink";
-      $(this).append(anchor);
-    }
-  });
 });
