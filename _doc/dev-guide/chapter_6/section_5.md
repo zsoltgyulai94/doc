@@ -7,7 +7,8 @@ In this guide, we will implement a threaded destination driver in C, called `exa
 It will have one optional parameter: `filename`, with `"output.txt"` as default value.
 
 Config example:
-```C
+
+```config
 @version: 3.28
 
 source s_local {
@@ -50,12 +51,14 @@ Remove `add_subdirectory(examples)`
 ### Creating a module skeleton
 
 You can use a development script that prepares a skeleton code for the destination:
-```
+
+```shell
 $ dev-utils/plugin_skeleton_creator/create_plugin.sh -n example_destination -k example_destination -t LL_CONTEXT_DESTINATION
 ```
 
 The command above will create the following files.
-```
+
+```cmake
 modules/example_destination
 ├── CMakeLists.txt
 ├── example_destination-grammar.ym
@@ -102,11 +105,12 @@ Add these files to `modules_example_destination_libexample_destination_la_SOURCE
 Add these files to `example_destination_SOURCES` in `modules/example_destination/CMakeLists.txt`.
 
 #### example_destination.h
+
 The destination header file only contains the initialization functions needed by the config parser.
 - `example_destination_dd_new`: constructs the destination
 - `example_destination_dd_set_*`: option setter functions for the parser
 
-```C
+```c
 #ifndef EXAMPLE_DESTINATION_H_INCLUDED
 #define EXAMPLE_DESTINATION_H_INCLUDED
 
@@ -130,7 +134,7 @@ void example_destination_dd_set_filename(LogDriver *d, const gchar *filename);
 
 This is the implementation of the destination driver. It will be built as a shared library.
 
-```C
+```
 #include "example_destination.h"
 #include "example_destination_worker.h"
 #include "example_destination-parser.h"
@@ -253,7 +257,7 @@ Our example overrides these virtual methods:
 
 #### example_destination_worker.h
 
-```C
+```c
 #ifndef EXAMPLE_DESTINATION_WORKER_H_INCLUDED
 #define EXAMPLE_DESTINATION_WORKER_H_INCLUDED 1
 
@@ -277,8 +281,7 @@ LogThreadedDestWorker *example_destination_dw_new(LogThreadedDestDriver *o, gint
 
 This is the implementation of the worker.
 
-
-```C
+```c
 #include "example_destination_worker.h"
 #include "example_destination.h"
 #include "thread-utils.h"
@@ -411,7 +414,7 @@ Our example overrides these virtual methods:
 
 The example destination module will support two keywords: `example_destination` and `filename`. You need to replace `example_destination-keywords` in `example_destination-parser.c` with:
 
-```
+```c
 static CfgLexerKeyword example_destination_keywords[] =
 {
   { "example_destination", KW_EXAMPLE_DESTINATION },
@@ -426,7 +429,7 @@ The example_destination-grammar.ym file writes down the syntax of the configurat
 
 #### example_destination-grammar.ym
 
-```C
+```c
 %code requires {
 
 #include "example_destination-parser.h"

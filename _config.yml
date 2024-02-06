@@ -62,7 +62,9 @@ exclude:
   - package.json
   - package-lock.json
   - node_modules
+  # Shell we add to the generated _site as well?
   - LICENSE.minimal-mistakes
+  - LICENSE.midnight
 
 # Sass/SCSS
 sass:
@@ -197,7 +199,7 @@ markdown: kramdown
 kramdown:
   syntax_highlighter: rouge # default
   syntax_highlighter_opts:
-    default_lang: C
+    default_lang: c
     guess_lang: true
     block:
       line_numbers: false

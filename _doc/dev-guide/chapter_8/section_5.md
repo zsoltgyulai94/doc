@@ -27,7 +27,7 @@ log {
 
 ### `radix-funcs.h`
 
-```C
+```c
 #ifndef RADIX_FUNCS_H
 #define RADIX_FUNCS_H
 
@@ -36,7 +36,7 @@ log {
 
 The inner workings of `TEMPLATE_FUNCTION_SIMPLE` are a bit much to go into but essentially they create a "construct" function, which creates and returns a `LogTemplateFunction` based on the arguments passed in. So, we need to call these macro functions, which declare the construct functions, in order to have them available to make into `Plugin` objects in the `*-plugin.c` file.
 
-```C
+```c
 TEMPLATE_FUNCTION_PROTOTYPE(tf_radix_dec);
 TEMPLATE_FUNCTION_PROTOTYPE(tf_radix_hex);
 TEMPLATE_FUNCTION_PROTOTYPE(tf_radix_oct);
@@ -46,7 +46,7 @@ TEMPLATE_FUNCTION_PROTOTYPE(tf_radix_oct);
 
 ### `radix-funcs.c`
 
-```C
+```c
 #include <math.h>
 
 #define MAX_DIGITS 100
@@ -91,7 +91,7 @@ The parameters of the function are as follows:
 3. The arguments passed in (not including the keyword for the template function itself).
 4. The `GString` to which the result is appended.
 
-```C
+```c
 static void
 tf_radix_dec(LogMessage *msg, gint argc, GString *argv[], GString *result)
   {
@@ -109,7 +109,7 @@ tf_radix_dec(LogMessage *msg, gint argc, GString *argv[], GString *result)
 
 Now we call the macro function.
 
-```C
+```c
 TEMPLATE_FUNCTION_SIMPLE(tf_radix_dec);
 ```
 
@@ -119,7 +119,7 @@ This is the `*-plugin.c` file for the examples module.
 
 We don't need to modify any grammar files, but we do need to add our template functions as a `Plugin` into the plugins list. To do this we call `TEMPLATE_FUNCTION_PLUGIN`, which will make a `Plugin` based on the construct function from our `TEMPLATE_FUNCTION_SIMPLE` call.
 
-```C
+```c
 static Plugin example_plugins[] =
 {
   /* ... */
@@ -136,7 +136,7 @@ static Plugin example_plugins[] =
 
 Because our template function is independent of any log message, we can just use `assert_template_format` for our tests. However, there is a variant called `assert_template_format_msg` that takes in a `LogMessage` as well, for template functions that need it. These and other template function testing functions can be found in `libtest/cr_template.c`.
 
-```C
+```c
 /* ... */
 
 Test(radix_funcs, test_radix_funcs)

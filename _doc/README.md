@@ -7,9 +7,9 @@ permalink: /
 toc: false
 ---
 
-[ref:admin-guide]: admin-guide/README.html
-[ref:dev-guide]: dev-guide/README.html
-[ref:doc-guide]: doc-guide/README.html
+[ref:admin-guide]: admin-guide/README
+[ref:dev-guide]: dev-guide/README
+[ref:doc-guide]: doc-guide/README
 
 ## [Documentation guide][ref:doc-guide]
 
