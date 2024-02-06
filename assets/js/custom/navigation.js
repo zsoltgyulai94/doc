@@ -47,6 +47,21 @@ $(function () {
     }
   }
 
+  // Function to apply all of our custom modifications on the self loaded pages
+  function finalizeContent() {
+    // Sync the sidebar with the current page url, migth be out of sync when the page is loaded initially from an inner url
+    adjustSidebar();
+    // There might be nav-links in the loaded new content as well (e.g.Next / Prev buttons
+    // so, handle the links here as the last action
+    updateNavLinks();
+    // Add page heading anchors
+    addPageAnchors();
+    // Add toc to anchor scrolling
+    addTocScrolling();
+    // Add code block enhancements
+    addCodeBlocksTitle();
+  }
+
   // Function to load content based on relative URL
   function loadContentFromUrl(url) {
     var currContentContainer = document.querySelector('article');
@@ -75,17 +90,9 @@ $(function () {
         setTimeout(function () {
           // Replace the old content with the loaded content
           currContentContainer.parentNode.replaceChild(newContent, currContentContainer);
-          // Sync the sidebar with the current page url, migth be out of sync when the page is loaded initially from an inner url
-          adjustSidebar();
-          // There might be nav-links in the loaded new content as well (e.g.Next / Prev buttons
-          // so, handle the links here as the last action
-          updateNavLinks();
-          // Add page heading anchors
-          addPageAnchors();
-          // Add toc to anchor scrolling
-          addTocScrolling();
-          // Add code block enhancements
-          addCodeBlocksTitle();
+        
+          // Add all our custom modifications to all the self loaded pages
+          finalizeContent();
         }, 100);
       })
       .catch(error => {
@@ -99,10 +106,13 @@ $(function () {
 
     // Get the relative URL value and update the browser URL
     var url = new URL(event.target.href).pathname;
+    var isChanged = (url != window.location.pathname);
     history.pushState(null, null, url);
 
     // Load content based on the updated relative URL
-    loadContentFromUrl(url);
+    // but only if the url changed
+    if (isChanged)
+      loadContentFromUrl(url, isChanged);
   }
 
   function updateNavLinks(event) {
