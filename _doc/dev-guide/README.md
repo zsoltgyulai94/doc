@@ -9,8 +9,8 @@ description: >-
 [ref:dev-guide]: dev-guide
 [ref:doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
 [gh:ose-official]: http://www.github.com/balabit/syslog-ng
-[gh:ose-dev-shell-badge]: https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg
 [gh:ose-monitor]: https://ci.syslog-ng.com/view/OSE-DAILY-MONITOR
+<!-- [gh:ose-dev-shell-badge]: https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg -->
 
 ## _Lightning guide to understand the basics of the project_
 
