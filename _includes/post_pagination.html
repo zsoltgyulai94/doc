@@ -17,7 +17,9 @@
     </a>
     {% endif %}
 
+    {% if page.previous and page.next %}
     <div class="pagination--pager-separator"></div>
+    {% endif %}
 
     {% if page.next %}
     <a href="{{ page.next.url | relative_url }}" class="pagination--pager nav-link">
