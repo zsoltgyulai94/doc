@@ -118,7 +118,7 @@ baseurl: /doc
 
 collections:
   doc:
-    # Do not use :collection the GitHub forced project name we use as collection name and root
+    # Do not use :collection, the GitHub forced project name we use as collection name and root
     #permalink: "/:collection/:path/"
     permalink: "/:path"
     output: true
@@ -194,7 +194,9 @@ lunr:
 #   powered_by: # true (default), false
  
 # Markdown and sytax higlighting
+# https://jekyllrb.com/docs/configuration/markdown/
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+# https://kramdown.gettalong.org/options.html
 markdown: kramdown
 kramdown:
   syntax_highlighter: rouge # default
@@ -203,7 +205,7 @@ kramdown:
     guess_lang: true
     block:
       line_numbers: false
-  input: GFM
+  input: GFM # default
   hard_wrap: false
   auto_ids: true
   toc_levels: 1..6
