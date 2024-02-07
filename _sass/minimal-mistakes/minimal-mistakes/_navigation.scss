@@ -142,6 +142,12 @@
     list-style: none;
   }
 
+  /* next/previous buttons separator */
+  &--pager-separator {
+    width: 16px;
+    height: 16px;
+  }
+
   /* next/previous buttons */
   &--pager {
     display: flex;
@@ -164,32 +170,20 @@
     border-radius: $border-radius;
 
     padding: 16px;
+    margin-right: 0;
+    margin-left: 0px;
 
     &:hover {
       @include yiq-contrasted($muted-text-color);
     }
 
     &:first-child {
-      margin-left: 0;
-      margin-right: 0px;
-      @include breakpoint($x-large + $right-sidebar-width) {
-        margin-right: 8px;
-      }
-
       .pager-text-container {
         align-items: flex-end;
       }
     }
 
     &:last-child {
-      margin-right: 0;
-      margin-left: 0px;
-      margin-top: 16px;
-      @include breakpoint($x-large + $right-sidebar-width) {
-        margin-left: 8px;
-        margin-top: 0px;
-      }
-
       .pager-text-container {
         align-items: flex-start;
       }
