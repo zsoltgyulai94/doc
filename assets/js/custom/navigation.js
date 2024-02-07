@@ -64,7 +64,7 @@ $(function () {
 
   // Function to load content based on relative URL
   function loadContentFromUrl(url) {
-    var currContentContainer = document.querySelector('article');
+    var currContent = document.querySelector('article');
 
     fetch(url)
       .then(response => {
@@ -81,22 +81,22 @@ $(function () {
         var newContent = doc.querySelector('article');
 
         // FIXME: This does not work, double check
-        currContentContainer.scrollTop;
+        currContent.scrollTop;
 
         // As a workaround of the above, empty the old content, and with a short delay only, load the new one
-        currContentContainer.innerHTML = '';
+        currContent.innerHTML = '';
 
         // Replace the old content, but only with a small delay, to make sure the content reset takes effect
         setTimeout(function () {
           // Replace the old content with the loaded content
-          currContentContainer.parentNode.replaceChild(newContent, currContentContainer);
+          currContent.parentNode.replaceChild(newContent, currContent);
         
           // Add all our custom modifications to all the self loaded pages
           finalizeContent();
         }, 100);
       })
       .catch(error => {
-        contentContainer.innerHTML = '<h2>Error loading content</h2>';
+        currContent.innerHTML = '<h2>Error loading content</h2>';
       });
   }
 
@@ -105,14 +105,17 @@ $(function () {
     event.preventDefault(); // Prevent default navigation behavior
 
     // Get the relative URL value and update the browser URL
-    var url = new URL(event.target.href).pathname;
-    var isChanged = (url != window.location.pathname);
-    history.pushState(null, null, url);
+    var anchorElement = event.currentTarget.closest('a');
+    if (anchorElement) {
+      var url = new URL(anchorElement.href).pathname;
+      var isChanged = (url != window.location.pathname);
+      history.pushState(null, null, url);
 
-    // Load content based on the updated relative URL
-    // but only if the url changed
-    if (isChanged)
-      loadContentFromUrl(url, isChanged);
+      // Load content based on the updated relative URL
+      // but only if the url changed
+      if (isChanged)
+        loadContentFromUrl(url, isChanged);
+    }
   }
 
   function updateNavLinks(event) {
