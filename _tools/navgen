@@ -3,6 +3,7 @@
 BASE_INDENT="  "
 INDEX_FILE_PATTERNS="^(index\.md|README\.md)$"
 USE_INDEX_FILE_FOR_FOLDER_LINKS="yes"
+REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES="yes"
 
 trim_trailing_slashes() {
     local INPUT_STRING="$1"
@@ -107,6 +108,7 @@ process_params() {
     for DOC_PROJECT_ITEM in $(find "${DOC_FOLDER}" -mindepth 1 -maxdepth 1 -type d | sort); do
         START_DIR=$(trim_trailing_slashes "${DOC_PROJECT_ITEM}")
         ROOT_DIR_NAME=$(basename "$START_DIR")
+        [ "${REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES}x" != "x" ] && ROOT_DIR_NAME=${ROOT_DIR_NAME#_}
 
         echo "" >> "$OUTPUT_FILE"
         echo "# ${ROOT_DIR_NAME}" >> "$OUTPUT_FILE"
