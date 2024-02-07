@@ -18,10 +18,6 @@ Basically we follow [jekyll][ref:jekyll-dir-struct] and [minimal-mistake][ref:mm
 ```shell
 .
 ├── _data
-├── _doc
-│   ├── admin-guide
-│   ├── dev-guide
-│   └── doc-guide
 ├── _includes
 │   ├── footer
 │   ├── head
@@ -32,21 +28,23 @@ Basically we follow [jekyll][ref:jekyll-dir-struct] and [minimal-mistake][ref:mm
 │   └── minimal-mistakes
 ├── _site
 ├── _tools
-└── assets
-    ├── css
-    ├── images
-    └── js
-        ├── custom
-        ├── plugins
-        ...
-        └── vendor
+├── assets
+│   ├── css
+│   ├── images
+│   └── js
+│       ├── custom
+│       ├── plugins
+│       ...
+│       └── vendor
+├── doc
+│   ├── _admin-guide
+│   ├── _dev-guide
+│   └── _doc-guide
 ```
 
 ### Directories
 
 - _data \
-
-- _doc  \
 
 - _includes \
 
@@ -61,7 +59,9 @@ Basically we follow [jekyll][ref:jekyll-dir-struct] and [minimal-mistake][ref:mm
 - assets \
   - js \
     - custom \
-      To stay organized, please keep our custom scripts in the `js/custom` folder.
+      To stay organized, please keep our custom scripts in the `js/custom` folder. \
+
+- doc \
 
 ### Files
 
@@ -100,7 +100,7 @@ We have a few useful tools in the `${PROJECT_ROOT}/_tools` folder some of them w
 2. Generating the left sidebar navigator content is semi-automatic yet, its content is generated from the `${PROJECT_ROOT}/_data/navigation.yml` file, it will be readed by jekyll automatically during the site build process, but adding the correct content of it is our responsibility. Fortunately we have already a helper to simplify this, you can call it from the `${PROJECT_ROOT}` like
 
     ```shell
-    ./_tools/navgen ./_doc ./_data/navigation.yml
+    ./_tools/navgen ./doc ./_data/navigation.yml
     ```
 
     This will update the `navigation.yml` file based on the content of the `_doc` folder wehre all of our doumentation markdown files are located.
