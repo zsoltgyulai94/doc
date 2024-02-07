@@ -64,12 +64,16 @@ $(function () {
 
   // Function to load content based on relative URL
   function loadContentFromUrl(url) {
+    const notFoundPageName = '404.html';
     var currContent = document.querySelector('article');
 
     fetch(url)
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Page not found');
+        if (false == response.ok) {
+          if (response.status == 404 && url.toLowerCase().indexOf(notFoundPageName) === -1)
+            throw new Error(response.status);
+          else
+            throw new Error('Server returned ' + response.status);
         }
         return response.text();
       })
@@ -96,7 +100,15 @@ $(function () {
         }, 100);
       })
       .catch(error => {
-        currContent.innerHTML = '<h2>Error loading content</h2>';
+        if (error == "Error: 404") {
+          var baseURL = window.location.origin;
+          // FIXME: How to get the real base URL (without using Lyquid and front matter) ?!?!
+          var notFoundURL = baseURL + '/doc/' + notFoundPageName;
+
+          loadContentFromUrl(notFoundURL);
+        }
+        else
+          currContent.innerHTML = '<h3>Sorry, there was a problem loading the content!</h3>(' + error + ')';
       });
   }
 
