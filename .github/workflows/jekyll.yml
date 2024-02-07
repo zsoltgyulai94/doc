@@ -55,7 +55,7 @@ jobs:
           echo "Updating navigation.yml"
           pwd
           mkdir -p _data
-          ./_tools/navgen "./_doc" "./_data/navigation.yml"
+          ./_tools/navgen "./doc" "./_data/navigation.yml"
           ls -Al _data/navigation.yml
 
       - name: Build with Jekyll
