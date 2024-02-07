@@ -92,7 +92,7 @@ author:
 # When using this template with a project (repository) page set the baseurl to '/project-name'
 # For user/organization pages set this to an empty string
 # When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
-# See http://jekyllrb.com/docs/github-pages/ for more info
+# See http://jekyllrb.com/docs/github-pages/ or https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/ for more info
 baseurl: /doc
 
 # Point the logo URL at a file in your repo or hosted elsewhere by your organization
@@ -185,6 +185,8 @@ search_full_content: true
 search_provider: lunr
 lunr:
   search_within_pages: true
+  # Setting search_full_content to true could impact page load performance!
+  search_full_content: true
 
 # search_provider: algolia
 # algolia:
