@@ -92,35 +92,26 @@ author:
 # When using this template with a project (repository) page set the baseurl to '/project-name'
 # For user/organization pages set this to an empty string
 # When working locally use jekyll serve --baseurl '' so that you can view everything at localhost:4000
-# See http://jekyllrb.com/docs/github-pages/ for more info
+# See http://jekyllrb.com/docs/github-pages/ or https://byparker.com/blog/2014/clearing-up-confusion-around-baseurl/ for more info
 baseurl: /doc
 
 # Point the logo URL at a file in your repo or hosted elsewhere by your organization
 # logourl: /assets/img/dc_logo.png
 # logoalt: The D.C. flag
 
-# collections:
-#   chapter_0:
-#     permalink: "/:collection/:path/"
-#     output: true
-#   chapter_1:
-#     permalink: "/:collection/:path/"
-#     output: true
-# 
-# syslog_ng_docs:
-#     collections:
-#       doc-guide:
-#         name: Documentation
-#       admin-guide:
-#         name: Administration
-#       dev-guide:
-#         name: Development
+collections_dir: doc
 
 collections:
-  doc:
-    # Do not use :collection, the GitHub forced project name we use as collection name and root
-    #permalink: "/:collection/:path/"
-    permalink: "/:path"
+  doc-guide:
+    name: Documentation
+    output: true
+
+  admin-guide:
+    name: Administration
+    output: true
+
+  dev-guide:
+    name: Development
     output: true
 
 
@@ -128,52 +119,39 @@ collections:
 # https://jekyllrb.com/docs/permalinks/
 # GitHub project name we use as collection name and root
 #permalink: /:path/
-# NOTE: the above is always expanded like this, for collections it seems (note mentioned correctly in the documentataion)
+# NOTE: the above is always expanded like this, for collections it seems (not mentioned correctly in the documentataion)
 #permalink: /:collection/:path/:basename
-#paginate_path: /page:num/
 
 # Defaults
 defaults:
   # All pages
   - scope:
       path: "" # an empty string here means all files in the project
-      type: doc
     values:
       layout: single
       toc: true
       toc_sticky: true
       sidebar:
         nav: ""
+
+  # Documentation guide pages
   - scope:
       # NOTE: type can be a collection name
-      type: doc
-      # NOTE: path is real file system path, not permalinks
-      # TODO: find a better filter, it is considered too slow
-      path: "**/README.md"
-    values:
-      # This would be like: _site/dev-guide/chapter_0/README.html
-      permalink: :path
-
-  # Documentation guide _pages
-  - scope:
-      type: doc
-      path: "*/doc-guide/*"
+      type: doc-guide
     values:
       sidebar:
         nav: "doc-guide-nav"
 
-  # Administrator guide _pages
+  # Administrator guide pages
   - scope:
-      type: doc
-      path: "*/admin-guide/*"
+      type: admin-guide
     values:
       sidebar:
         nav: "admin-guide-nav"
 
-  # Developer guide _pages
+  # Developer guide pages
   - scope:
-      type: doc 
-      path: "*/dev-guide/*"
+      type: dev-guide 
     values:
       sidebar:
         nav: "dev-guide-nav"
@@ -185,6 +163,8 @@ search_full_content: true
 search_provider: lunr
 lunr:
   search_within_pages: true
+  # Setting search_full_content to true could impact page load performance!
+  search_full_content: true
 
 # search_provider: algolia
 # algolia:
