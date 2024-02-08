@@ -47,22 +47,44 @@ jobs:
 
       - name: Run custom preparation steps
         run: |
-          echo "Updating main.min.js"
-          pwd
-          ./_tools/pack
-          ls -Al assets/js/main.min.js
-
           echo "Updating navigation.yml"
           pwd
+          
           mkdir -p _data
           ./_tools/navgen "./doc" "./_data/navigation.yml"
           ls -Al _data/navigation.yml
 
+          # This one is just for sure to have our final scripts result inplace 
+          # as in the following _site build step the assets/js folder will be modified unfortunately
+          # Theoretically, the site build will not hurt the already presented files
+          # See bellow for more
+          #
+          echo "Updating main.min.js and re-pack js scripts"
+          pwd
+          
+          ./_tools/pack          
+          ls -AlR assets/js
+
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: |
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          ls -AlR ./_site/assets/js          
         env:
           JEKYLL_ENV: production
+
+      - name: Run custom after build steps
+        # Seems jekyll build finds references from the minimal-mistakes bundle to the assets/js folder scripts
+        # even though most of them are packed in assets/js/main.min.js
+        # Re-packing only the required ones and overwrite the assets/js with the minimal result needed
+        # For more see the _tools/pack script
+        # TODO: Eliminat this later (probably building purely from local source the minimal-mistakes will solve this)
+        run: |
+          echo "Updating main.min.js and re-pack js scripts"
+          pwd
+          
+          ./_tools/pack
+          ls -AlR _site/assets/js
 
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default

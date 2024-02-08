@@ -1,79 +1,110 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 TEMPLATE_FILE="package.json.in"
 PACKAGE_FILE="package.json"
-#OUT_FLAGS="-b" # Debug
 OUT_FLAGS="-c -m"
+[ "$#" -gt 0 ] && OUT_FLAGS="-b" # Debug
+VERBOSE= #"-v"
 
-INPUT_FOLDER="assets"
-INPUT_FILE_PATTERN=("*.js")
-EXCLUDE_FILE_PATTERN= #("*lunr*")
+INPUT_FOLDER="_js"
+# Order is important here, and is still not yet foolproof as there still might be cross dependencies in a given folder :S
+INPUT_FOLDERS=("plugins" "custom")
+# TODO: Add array support both to input and exclude patterns
+# Original list was assets/js/vendor/jquery/jquery-3.6.0.js assets/js/plugins/jquery.fitvids.js assets/js/plugins/jquery.greedy-navigation.js assets/js/plugins/jquery.magnific-popup.js assets/js/plugins/jquery.ba-throttle-debounce.js assets/js/plugins/smooth-scroll.js assets/js/plugins/gumshoe.js assets/js/_main.js
+INPUT_FILE_PATTERN="*.js"
+# Do not add lunr as its language support, and other features are handled now during content generation via Liquid
+EXCLUDE_FILE_PATTERN="*lunr*"
 OUTPUT_FILE="assets/js/main.min.js"
+OUTPUT_DIR=$(dirname "$OUTPUT_FILE")
 
 generate_package_file() {
     # TODO: Why the hell the ouptut must be presented if it will be overwritten in a sec?!?!?!?!
-    # echo "Cleaning output target ${OUTPUT_FILE}"
-    # rm "${OUTPUT_FILE}" >/dev/null 2>&1
+    echo "Cleaning output target ${OUTPUT_FILE}"
+    rm "${OUTPUT_FILE}" >/dev/null 2>&1
+    rm "${PACKAGE_FILE}" >/dev/null 2>&1
 
+    echo "SCRIPT_DIR=${SCRIPT_DIR}"
     echo "INPUT_FOLDER=${INPUT_FOLDER}"
-    echo "INPUT_FILE_PATTERN=${INPUT_FILE_PATTERN}"
+    echo "INPUT_FILE_PATTERNS=${INPUT_FILE_PATTERNS}"
     echo "EXCLUDE_FILE_PATTERN=${EXCLUDE_FILE_PATTERN}"
     echo "OUTPUT_FILE=${OUTPUT_FILE}"
+    echo "OUTPUT_DIR=${OUTPUT_DIR}"
+    echo "WORK_DIR=${WORK_DIR}"
+    echo "JS_WORK_DIR=${JS_WORK_DIR}"
+    echo ""
+    echo "Preparing packaging input from ${JS_WORK_DIR}"
 
-    echo "Preparing packaging input from ${INPUT_FOLDER}"
-    MATCHING_FILES=$(find "${INPUT_FOLDER}" -type f \( -name "${INPUT_FILE_PATTERN[@]}" -and -not -name "${EXCLUDE_FILE_PATTERN[@]}" \) -exec printf "%s " {} +)
+    # NOTE: jquery must be the first now, otherwise packing will fail, and _main.js must be the last otherwise runtime lunr errors can occure
+    local MATCHING_FILES MATCHING_FILES="${JS_WORK_DIR}/vendor/jquery/jquery-3.6.0.js"
+	for JS_INPUT_FOLDER in "${INPUT_FOLDERS[@]}"; do
+        MATCHING_FILES="${MATCHING_FILES} $(find "${JS_WORK_DIR}/${JS_INPUT_FOLDER}" -type f \( -name "${INPUT_FILE_PATTERN}" -and -not -name "${EXCLUDE_FILE_PATTERN}" -and -not -name "main.min.js" -and -not -name "_main.js" -and -not -name "jquery-3.6.0.js" \) -exec printf "%s " {} + )"
+    done
+    MATCHING_FILES="${MATCHING_FILES} ${JS_WORK_DIR}/_main.js" 
+    
     echo -e "\nMATCHING_FILES to pack ${MATCHING_FILES[@]}"
-    JS_FILES_PATTERN="${INPUT_FOLDER}/**/${INPUT_FILE_PATTERN}"
+    local JS_FILES_PATTERN="${JS_WORK_DIR}/**/${INPUT_FILE_PATTERN}"
 
     sed -e "s|%OUT_FLAGS%|${OUT_FLAGS}|g" \
         -e "s|%JS_FILES%|${MATCHING_FILES}|g" \
         -e "s|%OUT_FILE%|${OUTPUT_FILE}|g" \
-        -e "s|%JS_FILES_PATTERN%|${JS_FILES_PATTERN}|g" \    
-        "${SCRIPT_DIR}/${TEMPLATE_FILE}" > "${SCRIPT_DIR}/${PACKAGE_FILE}"
+        -e "s|%JS_FILES_PATTERN%|${JS_FILES_PATTERN}|g" \
+        "${WORK_DIR}/${TEMPLATE_FILE}" > "${WORK_DIR}/${PACKAGE_FILE}"
 }
 
 echo ""
-#echo "SCRIPT_DIR=${SCRIPT_DIR}"
 
 # Still there are multiple errors with custom paths
 # Absolutely annoying the some many hardcoded requirements, shame.
-# Duplica everything and try to use inplace as it was "designed" to work
+# Duplicate everything and try to use inplace as it was "designed" to work
 #
 WORK_DIR=$(mktemp -d)
 #open "${WORK_DIR}"
 
-cp -Rf "${INPUT_FOLDER}" "${WORK_DIR}"
-cp -Rf "${SCRIPT_DIR}"/* "${WORK_DIR}"/
+JS_WORK_DIR="${WORK_DIR}/assets/js"
+rm -Rf "${JS_WORK_DIR}"
+mkdir -p "${JS_WORK_DIR}"
 
-pushd "${WORK_DIR}"
+cp -Rf ${VERBOSE} "${INPUT_FOLDER}"/* "${JS_WORK_DIR}"/
+cp -Rf ${VERBOSE} "${SCRIPT_DIR}"/* "${WORK_DIR}"/
 
+pushd "${WORK_DIR}" >/dev/null
 
-# So, the actual, sad state, it seems
-#   - building a fully standalone main.min.js requires a tones of other dependencies 
-#     not just we have (from the original minimal-mistakes theme) in the assetst/js folder
-#       - using an updated package list (npm install) bellow will lead to build time errors
-#       - using the package list produced with the original packages.json will build, but 
-#         will lead to multiple excpetions at runtime
-# What worked, but take care
-#   - modify just the _main.js now if needed, do not add our custom scripts to te main.min.js
-#   - use just now the default packaging.json
-#
-#generate_package_file 
+generate_package_file 
 
 rm -Rf "${WORK_DIR}/node_modules"
 npm install
 
-# call 2 times, it requires the original main.min.js nad build takes effect only in the second run
-npm run build:js # --prefix "${SCRIPT_DIR}" still bunch of issues
 npm run build:js # --prefix "${SCRIPT_DIR}" still bunch of issues
 
-popd
+popd >/dev/null
 
-mv "${WORK_DIR}/${OUTPUT_FILE}" "${OUTPUT_FILE}"
-echo "Output is written to: ${OUTPUT_FILE}"
+rm -Rf "${OUTPUT_DIR}" >/dev/null 2>&1
+mkdir -p "${OUTPUT_DIR}"
+
+# lunr is not included and must be presented fors _site generation 
+cp -Rf ${VERBOSE} "${INPUT_FOLDER}/lunr" "${OUTPUT_DIR}"
+cp -f ${VERBOSE} "${WORK_DIR}/${OUTPUT_FILE}" "${OUTPUT_FILE}"
+
+echo "Output is written to: ${OUTPUT_DIR}"
+
+if [ -d "_site" ]; then
+    echo "Updating _site as exists"
+    SITE_JS_DIR="_site/assets/js"
+
+    # backup lunr, as it is already a generated final _site versions
+    mv "${SITE_JS_DIR}"/lunr "${WORK_DIR}"
+
+    rm -Rf "${SITE_JS_DIR}" >/dev/null 2>&1
+    mkdir -p "${SITE_JS_DIR}"
+    cp -f ${VERBOSE} "${OUTPUT_FILE}" "${SITE_JS_DIR}"
+    
+    # Put back lunr backup
+    mv "${WORK_DIR}"/lunr "${SITE_JS_DIR}"
+fi
 
 # FIXME: Add proper error handling above
-if [[ "${WORK_DIR}" != "" ]]; then
-    rm -Rf "${WORK_DIR}"
-fi
+# if [[ "${WORK_DIR}" != "" ]]; then
+#     rm -Rf "${WORK_DIR}"
+# fi

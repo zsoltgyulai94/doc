@@ -75,6 +75,10 @@ figure.highlight {
   outline: none;
   color: $link-color;
   background-color: transparent;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .highlight pre {

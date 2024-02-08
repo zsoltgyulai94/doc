@@ -41,22 +41,14 @@ whitelist:
 #
 include:
   - .htaccess
-  # - assets/js/main.min.js
-  # - assets/css
-  # - assets/images
+  - assets/css
+  - assets/images
+  - assets/js/main.min.js
+  - assets/js/lunr
 exclude:
   - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
-  - assets/js/plugins
-  - assets/js/_main.js
-  - assets/js/vendor
-  # - assets
-  - .serve
-  - .reftime
-  - .vendor/
-  - .bundle
-  - .asset-cache
-  - .jekyll-assets-cache
-  - .sass-cache
+  # TODO: These are now packed into assets/js/main.min.js, not needed, but the _site building still adds them, double check the references why
+  - assets/js
   - Gemfile
   - Gemfile.lock
   - package.json
@@ -203,9 +195,6 @@ compress_html:
     envs: development  # disable compression in dev environment
 
 # These are introduced with our customized theme source, not part of mmistakes/minimal-mistakes
-
-# Option to add copy button to Code blocks
-enable_copy_code_button: true
 
 # Option to set the width of the page inner content part
 # Any max-with css value, theme default is $max-width that is $x-large: 1280px in _variables.scss
