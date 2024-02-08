@@ -33,6 +33,7 @@ $(function () {
           if (parentCheckbox && parentCheckbox.tagName === 'INPUT' && parentCheckbox.type === 'checkbox')
             parentCheckbox.checked = true;
 
+          // Check if we reached the top most list container item that is an <ul> with class 'nav__list'
           var immediateParent = parentUl.parentElement;
           if (immediateParent.classList.contains('nav__list'))
             break;
@@ -41,7 +42,7 @@ $(function () {
         }
 
         // Ensure the active item is visible within the "sidebar"
-        // TODO: This one is also not too reliable, browser dependant,get a better solution
+        // TODO: This one is also not too reliable, browser dependant, get a better solution
         matchingNavItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }
@@ -65,7 +66,8 @@ $(function () {
   // Function to load content based on relative URL
   function loadContentFromUrl(url) {
     const notFoundPageName = '404.html';
-    var currContent = document.querySelector('article');
+    const contentID = 'article';
+    var currContent = document.querySelector(contentID);
 
     fetch(url)
       .then(response => {
@@ -82,7 +84,7 @@ $(function () {
         var parser = new DOMParser();
         var doc = parser.parseFromString(html, 'text/html');
         // Find the "article" element in the parsed document
-        var newContent = doc.querySelector('article');
+        var newContent = doc.querySelector(contentID);
 
         // FIXME: This does not work, double check
         currContent.scrollTop;
@@ -130,6 +132,8 @@ $(function () {
       if (isChanged)
         loadContentFromUrl(url, isChanged);
     }
+    // Clear focus from the clicked element, as we have other visualization for the selected items
+    event.target.blur();
   }
 
   function updateNavLinks(event) {
