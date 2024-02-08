@@ -102,7 +102,7 @@ $(function () {
       .catch(error => {
         if (error == "Error: 404") {
           var baseURL = window.location.origin;
-          // FIXME: How to get the real base URL (without using Lyquid and front matter) ?!?!
+          // FIXME: How to get the real base URL (without using Liquid and Front Matter) ?!?!
           var notFoundURL = baseURL + '/doc/' + notFoundPageName;
 
           loadContentFromUrl(notFoundURL);
@@ -121,10 +121,12 @@ $(function () {
     if (anchorElement) {
       var url = new URL(anchorElement.href).pathname;
       var isChanged = (url != window.location.pathname);
+
+      // Update the browser URL
       history.pushState(null, null, url);
 
       // Load content based on the updated relative URL
-      // but only if the url changed
+      // but only if the url has changed
       if (isChanged)
         loadContentFromUrl(url, isChanged);
     }
@@ -184,9 +186,9 @@ $(function () {
     });
   }
 
-  // Initial load based on the relative URL if needed
-  // (e.g. when an inner embedded page link is opened directly in a new tab)
-  loadContentFromUrl(window.location.pathname);
+  // Make sure everything is initialized correctly on an initial load as well
+  // (e.g. when an inner embedded page link is opened directly in a new tab, not via the internal navigational links)
+  finalizeContent();
 
   // Listen for popstate events and update content accordingly
   window.addEventListener('popstate', function () {
