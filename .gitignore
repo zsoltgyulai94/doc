@@ -24,6 +24,8 @@ codekit-config.json
 
 ## Misc
 .reftime
-# Generated files
+
+# Generated files, must be regenerated during distribution always
 _data/navigation.yml
-assets/js/main.min.js
+_tools/package.json
+assets/js
