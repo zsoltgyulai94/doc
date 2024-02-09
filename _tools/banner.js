@@ -11,6 +11,12 @@ const banner = `/*!
  * Minimal Mistakes Jekyll Theme ${pkg.version} by ${pkg.author}
  * Copyright 2013-${dateObj.getFullYear()} Michael Rose - mademistakes.com | @mmistakes
  * Licensed under ${pkg.license}
+ * 
+ * --------------------------------------
+ * This file is auto generated
+ *       - DO NOT EDIT -
+ * Use the _tools/pack script instead
+ * --------------------------------------
  */
 `;
 
