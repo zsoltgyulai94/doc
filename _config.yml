@@ -88,7 +88,7 @@ author:
 baseurl: /doc
 
 # Point the logo URL at a file in your repo or hosted elsewhere by your organization
-# logourl: /assets/img/dc_logo.png
+logourl: /assets/images/favicons/mstile-150x150.png
 # logoalt: The D.C. flag
 
 collections_dir: doc

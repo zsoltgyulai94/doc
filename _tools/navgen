@@ -105,6 +105,13 @@ process_params() {
 
     > "$OUTPUT_FILE"
 
+    echo "# --------------------------------------" >> "$OUTPUT_FILE"
+    echo "# This file is auto generated           " >> "$OUTPUT_FILE"
+    echo "#      - DO NOT EDIT -                  " >> "$OUTPUT_FILE"
+    echo "# Use the _tools/navgen script instead  " >> "$OUTPUT_FILE"
+    echo "# --------------------------------------" >> "$OUTPUT_FILE"
+    echo ""
+
     for DOC_PROJECT_ITEM in $(find "${DOC_FOLDER}" -mindepth 1 -maxdepth 1 -type d | sort); do
         START_DIR=$(trim_trailing_slashes "${DOC_PROJECT_ITEM}")
         ROOT_DIR_NAME=$(basename "$START_DIR")

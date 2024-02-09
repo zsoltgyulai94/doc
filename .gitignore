@@ -26,6 +26,8 @@ codekit-config.json
 .reftime
 
 # Generated files, must be regenerated during distribution always
-_data/navigation.yml
+# These added back with warning headers to aid instant usage
+#_data/navigation.yml
+# _js/main.min.js
 _tools/package.json
 assets/js

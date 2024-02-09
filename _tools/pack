@@ -99,6 +99,8 @@ if [ -d "_site" ]; then
     rm -Rf "${SITE_JS_DIR}" >/dev/null 2>&1
     mkdir -p "${SITE_JS_DIR}"
     cp -f ${VERBOSE} "${OUTPUT_FILE}" "${SITE_JS_DIR}"
+    # Add back to the INPUT_FOLDER as well to get the auto reload work in serve
+    cp -f ${VERBOSE} "${OUTPUT_FILE}" "${INPUT_FOLDER}"
     
     # Put back lunr backup
     mv "${WORK_DIR}"/lunr "${SITE_JS_DIR}"
