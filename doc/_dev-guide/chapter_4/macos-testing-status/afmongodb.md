@@ -69,6 +69,6 @@ log {
 
 #### Proof
 
-![Testing mongodb() driver on macOS (x86)](</assets/images/Screenshot 2021-06-20 at 10.56.21 PM.png>)
+![Testing mongodb() driver on macOS (x86)]({{dev_img_folder}}/module-support/Screenshot 2021-06-20 at 10.56.21 PM.png)
 
-![Testing mongodb() driver on macOS (ARM)](</assets/images/Screen Shot 2021-08-21 at 7.10.16 PM.png>)
+![Testing mongodb() driver on macOS (ARM)]({{dev_img_folder}}/module-support/Screen Shot 2021-08-21 at 7.10.16 PM.png)
