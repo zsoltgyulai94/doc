@@ -540,11 +540,12 @@
 
   }
 
-  /* Style for the checkbox */
+  // Default style for the checkbox of foldimg/un-folding is folded (closed, hidden)
   input[type="checkbox"] {
     display: none;
   }
 
+  // Checked style for checkbox, un-folded, nested items are visible
   input[type="checkbox"]:checked+label+ul {
     display: block;
     -webkit-animation: $intro-transition;
@@ -579,12 +580,6 @@
       transition: 0.2s ease-out;
     }
 
-    &:after {
-      -webkit-transform: rotate(90deg);
-      -ms-transform: rotate(90deg);
-      transform: rotate(90deg);
-    }
-
     &:not(.active) {
       &:hover {
         margin-left: -0.5em;
@@ -602,7 +597,35 @@
     }
   }
 
-  /* un-folded */
+  // folded - default
+  label:after {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  // folded - hover
+  label:hover:after {
+    -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+ 
+  // un-folded - hover
+  input:checked + label:hover:after {
+      -webkit-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      transform: rotate(90deg);
+  }
+
+  // un-folded - default
+  input:checked + label:after {
+    -webkit-transform: rotate(0);
+    -ms-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  // un-folded - background
   //   input:checked + label {
   //     color: white;
   //     background-color: mix(white, #000, 20%);
@@ -612,19 +635,6 @@
   //       background-color: #fff;
   //     }
   //   }
-
-  /* on hover show expand*/
-  label:hover:after {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }
-
-  input:checked + label:hover:after {
-    -webkit-transform: rotate(0);
-    -ms-transform: rotate(0);
-    transform: rotate(0);
-  }
 
   a {
     &:not(.nav__sub-title), &:not(.nav__sub-title) {
