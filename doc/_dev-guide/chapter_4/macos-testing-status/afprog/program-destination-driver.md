@@ -33,7 +33,7 @@ done
 
 #### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -59,6 +59,6 @@ log {
 
 #### Proof
 
-![Testing program() destination on macOS (x86)](</assets/images/Screenshot 2021-06-15 at 2.23.06 PM.png>)
+![Testing program() destination on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-15 at 2.23.06 PM.png>)
 
-![Testing program() destination on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 12.06.18 PM.png>)
+![Testing program() destination on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 12.06.18 PM.png>)

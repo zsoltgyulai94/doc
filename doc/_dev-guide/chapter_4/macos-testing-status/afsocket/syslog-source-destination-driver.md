@@ -31,7 +31,7 @@ To test the syslog driver -- both source and destination drivers, we will run tw
 
 _**Destination Configuration File**_
 
-```conf
+```config
 #Detination 
 @version: 3.31
 @include "scl.conf"
@@ -87,7 +87,7 @@ log {
 
 _**Source Configuration File**_
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -113,6 +113,6 @@ log {
 
 ### **Proof**&#x20;
 
-![Syslog driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-09 at 3.43.27 PM.png>)
+![Syslog driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-09 at 3.43.27 PM.png>)
 
-![Syslog driver tested on macOS (ARM)](</assets/images/Screenshot 2021-06-09 at 3.49.45 PM.png>)
+![Syslog driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-09 at 3.49.45 PM.png>)

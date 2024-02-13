@@ -20,7 +20,7 @@ File() drivers are at the very core of syslog-ng. Chances are you are already us
 
 We can use the file() source driver as a source for log messages instead of internal() or system(). To do so, we just need to use:
 
-```conf
+```config
 source s_file {
     file("/var/log/messages");    #On Linux
     file("/var/log/system.log");  #On macOS
@@ -29,7 +29,7 @@ source s_file {
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -50,6 +50,6 @@ log {
 
 #### Proof
 
-![file() source driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-14 at 1.17.20 PM.png>)
+![file() source driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 1.17.20 PM.png>)
 
-![file() source driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 11.40.25 AM.png>)
+![file() source driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.40.25 AM.png>)

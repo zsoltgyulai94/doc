@@ -29,7 +29,7 @@ To run riemann in the foreground, use: \
 
 However, you might run into the issue of not having a config file present depending on your mode of installation. We can make our own config file for the same.&#x20;
 
-```conf
+```config
 ; -*- mode: clojure; -*-
 ; vim: filetype=clojure
 
@@ -67,7 +67,7 @@ Where, the last added statement allows us to print incoming messages that have t
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -109,6 +109,6 @@ log {
 
 ### Proof
 
-![Riemann driver tested on macOS (x86)](</assets/images/Screenshot 2021-07-31 at 9.45.07 PM.png>)
+![Riemann driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-31 at 9.45.07 PM.png>)
 
-![Riemann driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-07-31 at 9.53.58 PM.png>)
+![Riemann driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-31 at 9.53.58 PM.png>)

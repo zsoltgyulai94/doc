@@ -23,7 +23,7 @@ To test the wildcard\_file source driver, we will use it to display the contents
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -48,6 +48,6 @@ log {
 
 #### Proof
 
-![Testing wildcard\_file() with macOS (x86)](</assets/images/Screenshot 2021-06-14 at 6.39.54 PM.png>)
+![Testing wildcard\_file() with macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 6.39.54 PM.png>)
 
-![Testing wildcard\_file() with macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 11.51.53 AM.png>)
+![Testing wildcard\_file() with macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.51.53 AM.png>)

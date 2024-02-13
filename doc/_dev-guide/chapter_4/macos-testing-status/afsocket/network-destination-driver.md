@@ -25,7 +25,7 @@ The network source driver used in the latter has been tested, click [here](netwo
 
 _**Destination Config File**_
 
-```conf
+```config
 #Detination 
 @version: 3.31
 @include "scl.conf"
@@ -87,7 +87,7 @@ log {
 
 _**Source Config File**_
 
-```conf
+```config
 #Source
 @version: 3.31
 @include "scl.conf"
@@ -120,9 +120,9 @@ log {
 
 ### Proof
 
-![Network destination driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-08 at 3.13.33 PM.png>)
+![Network destination driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-08 at 3.13.33 PM.png>)
 
-![Network destination driver tested on macOS (ARM)](</assets/images/Screenshot 2021-06-08 at 3.31.08 PM.png>)
+![Network destination driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-08 at 3.31.08 PM.png>)
 
 
 

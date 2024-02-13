@@ -27,7 +27,7 @@ For this test, we will embed the Python class into the configuration file.&#x20;
 
 ### Configuration File Used
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -81,6 +81,6 @@ log {
 
 ### Proof
 
-![Python Destination driver tested in macOS (x86)](</assets/images/Screenshot 2021-08-16 at 1.27.36 AM.png>)
+![Python Destination driver tested in macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-16 at 1.27.36 AM.png>)
 
-![Python Destination driver tested in macOS (ARM)](</assets/images/Screen Shot 2021-08-16 at 1.32.19 AM.png>)
+![Python Destination driver tested in macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-16 at 1.32.19 AM.png>)

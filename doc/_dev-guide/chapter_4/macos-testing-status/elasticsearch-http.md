@@ -40,7 +40,7 @@ Once we do this, we can run our syslog-ng instance that is sending logs to an El
 
 **Configuration File Used**
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -112,4 +112,4 @@ Here, you can select the index pattern you just defined and you should be able t
 
 ### Proof
 
-![Incoming messages on Kibana using the elasticsearch-http() driver](</assets/images/Screenshot 2021-07-19 at 2.13.18 AM.png>)
+![Incoming messages on Kibana using the elasticsearch-http() driver](<{{dev_img_folder}}/module-support/Screenshot 2021-07-19 at 2.13.18 AM.png>)

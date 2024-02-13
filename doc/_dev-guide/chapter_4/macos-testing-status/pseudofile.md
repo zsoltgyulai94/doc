@@ -22,7 +22,7 @@ Note: The pseudofile() driver does not support templates in the filename.
 
 #### Configuration file used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -48,6 +48,6 @@ log {
 
 ### Proof
 
-![pseudofile() driver tested on macOS (x86)](</assets/images/Screenshot 2021-08-15 at 8.43.44 PM.png>)
+![pseudofile() driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-15 at 8.43.44 PM.png>)
 
-![pseudofile() driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-15 at 8.45.09 PM.png>)
+![pseudofile() driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-15 at 8.45.09 PM.png>)

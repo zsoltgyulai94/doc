@@ -18,7 +18,7 @@ File() drivers are at the very core of syslog-ng. Chances are you are already us
 
 File() destination driver is also used to display any output on the console. The code snippet is shown below.&#x20;
 
-```conf
+```config
 destination console{
     file(/dev/stdout);
 };
@@ -26,7 +26,7 @@ destination console{
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -46,6 +46,6 @@ log {
 
 #### Proof
 
-![file() destination driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-14 at 1.30.12 PM.png>)
+![file() destination driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 1.30.12 PM.png>)
 
-![file() destination driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 11.42.33 AM.png>)
+![file() destination driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.42.33 AM.png>)

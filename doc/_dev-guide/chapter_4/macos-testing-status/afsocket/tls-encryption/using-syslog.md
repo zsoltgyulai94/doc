@@ -11,7 +11,7 @@ To test the TLS-encryption using syslog() driver, we will run two instances of s
 
 _**Destination Configuration File (Client)**_
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -47,7 +47,7 @@ log {
 
 _**Source Configuration File (Server)**_
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -81,6 +81,6 @@ log {
 
 ### Proof
 
-![TLS-encryption tested on syslog() driver on macOS (x86)](</assets/images/Screenshot 2021-07-06 at 4.01.08 PM.png>)
+![TLS-encryption tested on syslog() driver on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-06 at 4.01.08 PM.png>)
 
-![TLS-encryption testing on the network() driver on macOS (ARM)](</assets/images/Screen Shot 2021-07-15 at 1.13.41 AM.png>)
+![TLS-encryption testing on the network() driver on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-15 at 1.13.41 AM.png>)

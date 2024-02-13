@@ -90,6 +90,6 @@ log {
 
 ### Proof
 
-![http() destination driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-27 at 10.05.23 PM.png>)
+![http() destination driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-27 at 10.05.23 PM.png>)
 
-![http() destination driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-21 at 6.52.45 PM.png>)
+![http() destination driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-21 at 6.52.45 PM.png>)

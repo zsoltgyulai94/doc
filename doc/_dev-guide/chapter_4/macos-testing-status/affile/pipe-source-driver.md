@@ -20,13 +20,13 @@ Pipe is very similar to the file() driver, but there are a few differences, for 
 
 To test the pipe() source driver, we can create a pipe using the mkfifo command. The mkfifo command basically lets you create FIFOs (a.k.a named pipes). Following is the syntax of the command:
 
-```conf
+```config
 mkfifo [OPTION]... NAME...
 ```
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -46,6 +46,6 @@ log {
 
 #### Proof
 
-![pipe() source driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-14 at 7.59.54 PM.png>)
+![pipe() source driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 7.59.54 PM.png>)
 
-![pipe() source driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 11.47.47 AM.png>)
+![pipe() source driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.47.47 AM.png>)

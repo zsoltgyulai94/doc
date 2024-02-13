@@ -38,7 +38,7 @@ Note: Localhost on port 6379 is the default setting for redis.&#x20;
 
 ### Configuration File Used
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -72,6 +72,6 @@ log {
 
 ### Proof
 
-![Redis Destination Driver Tested on MacOS (x86)](</assets/images/Screenshot 2021-07-31 at 5.19.17 PM.png>)
+![Redis Destination Driver Tested on MacOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-31 at 5.19.17 PM.png>)
 
-![Redis Destination Driver Tested on MacOS (ARM)](</assets/images/Screen Shot 2021-07-31 at 5.42.33 PM.png>)
+![Redis Destination Driver Tested on MacOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-07-31 at 5.42.33 PM.png>)
