@@ -9,7 +9,7 @@ description: >-
 
 The syslog-ng OSE mongodb() driver is compatible with MongoDB server version 1.4 and newer. Using mongo() without any parameters uses the following default values:
 
-```conf
+```config
 destination d_mongodb {
     mongodb(
         uri("mongodb://localhost:27017/syslog")
@@ -44,7 +44,7 @@ To do so,
 
 #### Configuration file used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 

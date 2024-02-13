@@ -60,7 +60,8 @@ $(function () {
     // Add toc to anchor scrolling
     addTocScrolling();
     // Add code block enhancements
-    addCodeBlocksTitle();
+    if (ClipboardJS.isSupported())
+      addCodeBlocksTitle();
   }
 
   // Function to load content based on relative URL
