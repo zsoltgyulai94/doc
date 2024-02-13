@@ -21,7 +21,7 @@ Note : The usertty() does not have any further options nor does it support templ
 
 #### Configuration file used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -48,6 +48,6 @@ log {
 
 ### Proof
 
-![usertty() driver tested on macOS (x86)](</assets/images/Screenshot 2021-08-15 at 8.22.48 PM.png>)
+![usertty() driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-15 at 8.22.48 PM.png>)
 
-![usertty() driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-15 at 8.34.14 PM.png>)
+![usertty() driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-15 at 8.34.14 PM.png>)

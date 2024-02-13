@@ -64,7 +64,7 @@ Currently, the following databases are supported and tested
 
 Configuration file used
 
-```conf
+```config
 @version: 4.2
 @include "scl.conf"
 

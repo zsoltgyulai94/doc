@@ -20,7 +20,7 @@ To test the pipe() destination driver, we create a pipe called "myPipe" and writ
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -44,6 +44,6 @@ log {
 
 #### Proof
 
-![pipe() destination driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-14 at 8.11.19 PM.png>)
+![pipe() destination driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 8.11.19 PM.png>)
 
-![pipe() destination driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 11.49.12 AM.png>)
+![pipe() destination driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.49.12 AM.png>)

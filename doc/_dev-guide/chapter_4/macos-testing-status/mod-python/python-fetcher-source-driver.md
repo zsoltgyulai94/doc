@@ -24,7 +24,7 @@ Python sources consist of two parts. The first is a syslog-ng OSE source object 
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 
@@ -65,6 +65,6 @@ log {
 
 ### Proof
 
-![python-fetcher() source tested on macOS (x86)](</assets/images/Screenshot 2021-08-16 at 1.51.48 AM.png>)
+![python-fetcher() source tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-16 at 1.51.48 AM.png>)
 
-![python-fetcher() source tested on macOS (x86)](</assets/images/Screen Shot 2021-08-16 at 1.52.45 AM.png>)
+![python-fetcher() source tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-16 at 1.52.45 AM.png>)

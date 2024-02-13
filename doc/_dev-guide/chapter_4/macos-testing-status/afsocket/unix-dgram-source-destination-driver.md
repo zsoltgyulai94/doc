@@ -24,7 +24,7 @@ To test the unix-dgram() drivers, we will run two instances of syslog-ng. One wh
 
 _**Source Configuration File**_
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -51,7 +51,7 @@ log {
 
 _**Destination Configuration File**_
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -80,6 +80,6 @@ log {
 
 ### **Proof**&#x20;
 
-![unix-dgram() drivers tested on macOS (x86)](</assets/images/Screenshot 2021-06-12 at 10.47.07 PM.png>)
+![unix-dgram() drivers tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-12 at 10.47.07 PM.png>)
 
-![unix-dgram() drivers tested on macOS (ARM)](</assets/images/Screenshot 2021-06-12 at 10.54.15 PM.png>)
+![unix-dgram() drivers tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-12 at 10.54.15 PM.png>)

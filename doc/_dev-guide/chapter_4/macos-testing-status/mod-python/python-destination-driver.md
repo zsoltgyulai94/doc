@@ -27,7 +27,7 @@ For this test, we will embed the Python class into the configuration file.
 
 ### Configuration File Used <a href="#configuration-file-used" id="configuration-file-used"></a>
 
-```conf
+```config
 @version: 3.33
 @include "scl.conf"
 

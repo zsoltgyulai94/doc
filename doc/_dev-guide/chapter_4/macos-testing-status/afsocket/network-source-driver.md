@@ -23,7 +23,7 @@ The network source driver also includes TCP source listening on a TLS-encrypted 
 
 We can set up our syslog-ng configuration, such that it is listening for TCP and UDP protocol messages on the specified ports.
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 

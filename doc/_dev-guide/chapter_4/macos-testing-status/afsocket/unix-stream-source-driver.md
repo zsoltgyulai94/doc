@@ -18,7 +18,7 @@ In the official documentation, `/dev/log` is the default entry for system loggin
 
 ### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -43,8 +43,8 @@ log {
 
 ### Proof
 
-![unix-stream() source driver tested using netcat on macOS (x86)](</assets/images/Screenshot 2021-06-12 at 6.02.44 PM.png>)
+![unix-stream() source driver tested using netcat on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-12 at 6.02.44 PM.png>)
 
 > Note : unix-stream() does not support multiple lines as the record separator is the NL character, so if you embed "\n" in the log message, they will become separate messages.
 
-![unix-stream() source driver tested using netcat on macOS (ARM)](</assets/images/Screenshot 2021-06-12 at 6.07.55 PM.png>)
+![unix-stream() source driver tested using netcat on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-12 at 6.07.55 PM.png>)

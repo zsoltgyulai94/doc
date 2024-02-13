@@ -20,7 +20,7 @@ To test the stdin() source driver, we run a very simple configuration file as sh
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -40,6 +40,6 @@ log {
 
 #### Proof
 
-![stdin() input tested on macOS (x86) ](</assets/images/Screenshot 2021-06-14 at 8.21.42 PM.png>)
+![stdin() input tested on macOS (x86) ](<{{dev_img_folder}}/module-support/Screenshot 2021-06-14 at 8.21.42 PM.png>)
 
-![stdin() input tested on macOS (ARM) ](</assets/images/Screen Shot 2021-08-20 at 11.52.54 AM.png>)
+![stdin() input tested on macOS (ARM) ](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 11.52.54 AM.png>)

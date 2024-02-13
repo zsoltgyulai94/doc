@@ -31,7 +31,7 @@ done
 
 #### Configuration File Used
 
-```conf
+```config
 @version: 3.31
 @include "scl.conf"
 
@@ -51,6 +51,6 @@ log {
 
 #### Proof
 
-![Program() Source Driver tested on macOS (x86)](</assets/images/Screenshot 2021-06-15 at 1.45.21 PM.png>)
+![Program() Source Driver tested on macOS (x86)](<{{dev_img_folder}}/module-support/Screenshot 2021-06-15 at 1.45.21 PM.png>)
 
-![Program() Source Driver tested on macOS (ARM)](</assets/images/Screen Shot 2021-08-20 at 12.01.17 PM.png>)
+![Program() Source Driver tested on macOS (ARM)](<{{dev_img_folder}}/module-support/Screenshot 2021-08-20 at 12.01.17 PM.png>)

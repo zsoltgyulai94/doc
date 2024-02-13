@@ -54,7 +54,7 @@ It automatically links to the default logs destination of the given platform thr
 
 ### Testing
 
-```conf
+```config
 @version: 4.2
 @include "scl.conf"
 
