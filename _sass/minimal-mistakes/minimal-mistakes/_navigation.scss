@@ -3,8 +3,8 @@
    ========================================================================== */
 
 /*
-   Breadcrumb navigation links
-   ========================================================================== */
+  Breadcrumb navigation links
+  ========================================================================== */
 
 .breadcrumbs {
   @include clearfix;
@@ -47,8 +47,8 @@
 }
 
 /*
-     Post pagination navigation links
-     ========================================================================== */
+  Post pagination navigation links
+  ========================================================================== */
 
 .pagination {
   @include clearfix();
@@ -260,8 +260,8 @@
 }
 
 /*
-     Priority plus navigation
-     ========================================================================== */
+  Priority plus navigation
+  ========================================================================== */
 
 .greedy-nav {
   position: relative;
@@ -430,8 +430,8 @@
 }
 
 /*
-     Navigation list
-     ========================================================================== */
+  Navigation list
+  ========================================================================== */
 
 .nav__list {
   margin-bottom: 1.5em;
@@ -531,13 +531,13 @@
   /* Style for the top-level ul */
   >ul {
     list-style-type: none;
+    margin-left: 0;
   }
 
   /* Style for the nested ul, initially hidden */
   ul {
     list-style-type: none;
     display: none;
-
   }
 
   // Default style for the checkbox of foldimg/un-folding is folded (closed, hidden)
@@ -688,6 +688,13 @@
   }
 }
 
+.nav__list {
+  // Do not add left margin to 0. level items
+  >.nav__items {
+    margin-left: 0;
+  }
+}
+
 @include breakpoint(max-width $large - 1px) {
   .nav__list input:checked ~ .nav__items {
     -webkit-transition: 0.5s ease-in-out;
@@ -733,8 +740,8 @@
 }
 
 /*
-     Table of contents navigation
-     ========================================================================== */
+  Table of contents navigation
+  ========================================================================== */
 
 .toc {
   font-family: $sans-serif-narrow;
