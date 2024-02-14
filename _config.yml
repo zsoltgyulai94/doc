@@ -123,6 +123,7 @@ defaults:
       layout: single
       toc: true
       toc_sticky: true
+      toc_hide_empty: true
       sidebar:
         nav: ""
 
