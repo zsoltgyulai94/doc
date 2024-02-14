@@ -768,6 +768,10 @@
     margin-bottom: 0;  }
 }
 
+.toc.toc-hide-empty.empty {
+  display: none;
+}
+
 .toc__menu {
   margin: 0;
   padding: 0;
