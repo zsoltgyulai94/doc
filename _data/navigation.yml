@@ -629,30 +629,351 @@ admin-guide-nav:
   - title: "Template and rewrite"
     url: admin-guide/110_Template_and_rewrite/README
     subnav:
-  - title: "Parsers"
-    url: admin-guide/120_Parsers/README
+    - title: "Customize message format using macros and templates"
+      url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/README
+      subnav:
+      - title: "Formatting messages, filenames, directories, and tablenames"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/000_Formatting_messages
+      - title: "Templates and macros"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/001_Templates_and_macros
+      - title: "Date-related macros"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/002_Date_related_macros
+      - title: "Hard versus soft macros"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/003_Hard_vs_soft_macros
+      - title: "Macros of syslog-ng OSE"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng
+      - title: "Example use case"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/005_Example
+      - title: "Using template functions"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/006_Using_template_functions
+      - title: "Template functions of syslog-ng OSE"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/007_Template_functions_of_syslog-ng
+      - title: "Modifying the on-the-wire message format"
+        url: admin-guide/110_Template_and_rewrite/000_Customize_message_format/008_Modifying_the_on-the-wire_message_format
+    - title: "Modifying messages using rewrite rules"
+      url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/README
+      subnav:
+      - title: "Replacing message parts"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/000_Replace
+      - title: "Setting message fields to specific values"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/001_Setting_fields
+      - title: "Setting severity"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/002_Setting_severity
+      - title: "Setting facility"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/003_Setting_facility
+      - title: "Setting priority"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/004_Setting_priority
+      - title: "Setting match variables"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/005_Setting_match
+      - title: "Unsetting message fields"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/006_Unsetting_fields
+      - title: "Renaming message fields"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/007_Rename
+      - title: "Creating custom SDATA fields"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/008_Custom_SDATA_fields
+      - title: "Setting multiple message fields to specific values"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/009_Setting_multiple_fields
+      - title: "map-value pairs"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/010_map-value_pairs
+      - title: "Conditional rewrites"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/011_Conditional_rewrite
+      - title: "Adding and deleting tags"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/012_Adding_deleting_tags
+      - title: "Rewrite the timezone of a message"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/013_Rewrite_timezone
+      - title: "Anonymizing credit card numbers"
+        url: admin-guide/110_Template_and_rewrite/001_Modifying_messages/014_Anonymizing_credit_card_numbers
+    - title: "Regular expressions"
+      url: admin-guide/110_Template_and_rewrite/002_Regular_expressions/README
+      subnav:
+      - title: "Options of regular expressions"
+        url: admin-guide/110_Template_and_rewrite/002_Regular_expressions/000_Options_of_regular_expressions/README
+        subnav:
+        - title: "The type() options of regular expressions"
+          url: admin-guide/110_Template_and_rewrite/002_Regular_expressions/000_Options_of_regular_expressions/000_type_options
+        - title: "The flags() options of regular expressions"
+          url: admin-guide/110_Template_and_rewrite/002_Regular_expressions/000_Options_of_regular_expressions/001_flags_options
+      - title: "Optimizing regular expressions"
+        url: admin-guide/110_Template_and_rewrite/002_Regular_expressions/001_Optimizing_regexp
+  - title: "Parse and segment structured messages"
+    url: admin-guide/120_Parser/README
     subnav:
+    - title: "Parsing syslog messages"
+      url: admin-guide/120_Parser/000_Parsing_syslog_messages/README
+      subnav:
+      - title: "Options of syslog-parser() parsers"
+        url: admin-guide/120_Parser/000_Parsing_syslog_messages/000_Syslog_parser_options
+    - title: "CSV parser"
+      url: admin-guide/120_Parser/001_Parsing_messages_with_comma/README
+      subnav:
+      - title: "Options of CSV parsers"
+        url: admin-guide/120_Parser/001_Parsing_messages_with_comma/000_CSV_parser_options
+    - title: "Parsing key=value pairs"
+      url: admin-guide/120_Parser/002_Parsing_key-value_pairs/README
+      subnav:
+      - title: "Options of key=value parsers"
+        url: admin-guide/120_Parser/002_Parsing_key-value_pairs/000_kv_parser_options
+    - title: "JSON parser"
+      url: admin-guide/120_Parser/003_JSON_parser/README
+      subnav:
+      - title: "Options of JSON parsers"
+        url: admin-guide/120_Parser/003_JSON_parser/000_JSON_parser_options
+    - title: "XML parser"
+      url: admin-guide/120_Parser/004_XML_parser/README
+      subnav:
+      - title: "Limitations of the XML parsers"
+        url: admin-guide/120_Parser/004_XML_parser/000_Limitations
+      - title: "Options of the XML parsers"
+        url: admin-guide/120_Parser/004_XML_parser/001_XML_Parser_options
+    - title: "Parsing dates and timestamps"
+      url: admin-guide/120_Parser/005_Parsing_dates/README
+      subnav:
+      - title: "Options of date-parser() parsers"
+        url: admin-guide/120_Parser/005_Parsing_dates/000_Date_parser_options
+    - title: "Python parser"
+      url: admin-guide/120_Parser/006_Python_parser
+    - title: "Parsing tags"
+      url: admin-guide/120_Parser/007_Parsing_tags
+    - title: "Apache access log parser"
+      url: admin-guide/120_Parser/008_Apache_access_log_parser/README
+      subnav:
+      - title: "Options of apache-accesslog-parser() parsers"
+        url: admin-guide/120_Parser/008_Apache_access_log_parser/000_Apache_parser_options
+    - title: "Linux audit parser"
+      url: admin-guide/120_Parser/009_Linux_audit_parser/README
+      subnav:
+      - title: "Options of linux-audit-parser() parsers"
+        url: admin-guide/120_Parser/009_Linux_audit_parser/000_Linux_audit_parser_options
+    - title: "Cisco parser"
+      url: admin-guide/120_Parser/010_Cisco_parser
+    - title: "Parsing EWWM messages"
+      url: admin-guide/120_Parser/011_EWMM_parser
+    - title: "iptables parser"
+      url: admin-guide/120_Parser/012_iptables_parser
+    - title: "Netskope parser"
+      url: admin-guide/120_Parser/013_netskope_parser
+    - title: "panos-parser()"
+      url: admin-guide/120_Parser/014_panos_parser/README
+      subnav:
+      - title: "Message format parsed by panos-parser()"
+        url: admin-guide/120_Parser/014_panos_parser/000_Message_format
+      - title: "PAN-OS parser options"
+        url: admin-guide/120_Parser/014_panos_parser/001_Panos_parser_options
+    - title: "Sudo parser"
+      url: admin-guide/120_Parser/015_sudo_parser
+    - title: "MariaDB parser"
+      url: admin-guide/120_Parser/016_mariadb_parser
+    - title: "Websense parser"
+      url: admin-guide/120_Parser/017_websense_parser
+    - title: "Fortigate parser"
+      url: admin-guide/120_Parser/018_Fortigate_parser/README
+      subnav:
+      - title: "Fortigate parser options"
+        url: admin-guide/120_Parser/018_Fortigate_parser/000_Fortigate_parser_options
+    - title: "Check Point Log Exporter parser"
+      url: admin-guide/120_Parser/019_Checkpoint_parser
+    - title: "Regular expression parser"
+      url: admin-guide/120_Parser/020_regexp_parser/README
+      subnav:
+      - title: "Options of Regular expression parsers"
+        url: admin-guide/120_Parser/020_regexp_parser/000_regex_parser_options
+    - title: "db-parser"
+      url: admin-guide/120_Parser/021_db_parser/README
+      subnav:
+      - title: "Classifying log messages"
+        url: admin-guide/120_Parser/021_db_parser/000_Classifying_log_messages/README
+        subnav:
+        - title: "The structure of the pattern database"
+          url: admin-guide/120_Parser/021_db_parser/000_Classifying_log_messages/000_Structure_of_a_patterndb
+        - title: "How pattern matching works"
+          url: admin-guide/120_Parser/021_db_parser/000_Classifying_log_messages/001_How_pattern_matching_works
+        - title: "Artificial ignorance"
+          url: admin-guide/120_Parser/021_db_parser/000_Classifying_log_messages/002_Artificial_ignorance
+      - title: "Using pattern databases"
+        url: admin-guide/120_Parser/021_db_parser/001_Using_pattern_databases/README
+        subnav:
+        - title: "Using parser results in filters and templates"
+          url: admin-guide/120_Parser/021_db_parser/001_Using_pattern_databases/000_Using_parser_results
+        - title: "Downloading sample pattern databases"
+          url: admin-guide/120_Parser/021_db_parser/001_Using_pattern_databases/001_Downloading_sample_patterndb
+        - title: "Correlating log messages using pattern databases"
+          url: admin-guide/120_Parser/021_db_parser/001_Using_pattern_databases/002_Correlating_log_messages
+      - title: "Triggering actions for identified messages"
+        url: admin-guide/120_Parser/021_db_parser/002_Triggering_actions/README
+        subnav:
+        - title: "Conditional actions"
+          url: admin-guide/120_Parser/021_db_parser/002_Triggering_actions/000_Conditional_actions
+        - title: "External actions"
+          url: admin-guide/120_Parser/021_db_parser/002_Triggering_actions/001_External_actions
+        - title: "Actions and message correlation"
+          url: admin-guide/120_Parser/021_db_parser/002_Triggering_actions/002_Actions_and_message_correlation
+      - title: "Creating pattern databases"
+        url: admin-guide/120_Parser/021_db_parser/003_Creating_pattern_databases/README
+        subnav:
+        - title: "Using pattern parsers"
+          url: admin-guide/120_Parser/021_db_parser/003_Creating_pattern_databases/000_Using_pattern_parsers
+        - title: "Pattern parsers of syslog-ng OSE"
+          url: admin-guide/120_Parser/021_db_parser/003_Creating_pattern_databases/001_Pattern_parsers
+        - title: "What's new in the syslog-ng pattern database format V5"
+          url: admin-guide/120_Parser/021_db_parser/003_Creating_pattern_databases/002_Whatsnew_in_patterndb_v5
+      - title: "The syslog-ng pattern database format"
+        url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/README
+        subnav:
+        - title: "patterndb"
+          url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/README
+          subnav:
+          - title: "ruleset"
+            url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/README
+            subnav:
+            - title: "patterns"
+              url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/000_patterns/README
+              subnav:
+            - title: "rules"
+              url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/README
+              subnav:
+              - title: "rule"
+                url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/README
+                subnav:
+                - title: "patterns"
+                  url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/000_patterns/README
+                  subnav:
+                  - title: "urls"
+                    url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/000_patterns/000_urls/README
+                    subnav:
+                  - title: "values"
+                    url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/000_patterns/001_values/README
+                    subnav:
+                  - title: "examples"
+                    url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/000_patterns/002_examples/README
+                    subnav:
+                    - title: "example"
+                      url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/001_rules/000_rule/000_patterns/002_examples/000_example/README
+                      subnav:
+            - title: "actions"
+              url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/002_actions/README
+              subnav:
+              - title: "action"
+                url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/002_actions/000_action/README
+                subnav:
+                - title: "create-context"
+                  url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/002_actions/000_action/000_create_context/README
+                  subnav:
+            - title: "tags"
+              url: admin-guide/120_Parser/021_db_parser/004_The_syslog-ng_patterndb_format/000_patterndb/000_ruleset/003_tags/README
+              subnav:
   - title: "Correlating log messages"
     url: admin-guide/130_Correlating_log_messages/README
     subnav:
+    - title: "Correlating messages using the grouping-by() parser"
+      url: admin-guide/130_Correlating_log_messages/000_Correlating_messages_with_grouping-by
+    - title: "Referencing earlier messages of the context"
+      url: admin-guide/130_Correlating_log_messages/001_Referencing_previous_messages_grouping-by
+    - title: "Options of grouping-by parsers"
+      url: admin-guide/130_Correlating_log_messages/002_grouping-by_options
   - title: "Enriching log messages with external data"
     url: admin-guide/140_Enriching_log_messages_with_external_data/README
     subnav:
+    - title: "Adding metadata from an external file"
+      url: admin-guide/140_Enriching_log_messages_with_external_data/000_Adding_metadata_from_external_file/README
+      subnav:
+      - title: "Using filters as selector"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/000_Adding_metadata_from_external_file/000_Using_filters_as_selector
+      - title: "Shell-style globbing in the selector"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/000_Adding_metadata_from_external_file/001_Shell_style_globbing
+      - title: "Options of add-contextual-data()"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/000_Adding_metadata_from_external_file/002_add-contextual-data_options
+    - title: "Looking up GeoIP2 data from IP addresses"
+      url: admin-guide/140_Enriching_log_messages_with_external_data/001_Looking_up_geoip2_data/README
+      subnav:
+      - title: "Referring to parts of the message as a macro"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/001_Looking_up_geoip2_data/000_Referring_to_parts_of_the_message_as_a_macro
+      - title: "Using the GeoIP2 parser"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/001_Looking_up_geoip2_data/001_Using_the_geoip2_parser
+      - title: "Transferring your logs to Elasticsearch using GeoIP2"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/001_Looking_up_geoip2_data/002_Transferring_your_logs_to_elasticsearch_using_geoip2
+      - title: "Options of geoip2 parsers"
+        url: admin-guide/140_Enriching_log_messages_with_external_data/001_Looking_up_geoip2_data/003_geoip2_parser_options
   - title: "Statistics of syslog-ng"
     url: admin-guide/150_Statistics_of_syslog-ng/README
     subnav:
+    - title: "Metrics and counters of syslog-ng OSE"
+      url: admin-guide/150_Statistics_of_syslog-ng/000_Metrics_and_counters
+    - title: "Log statistics from the internal() source"
+      url: admin-guide/150_Statistics_of_syslog-ng/001_Log_statistic_from_internal_source
   - title: "Multithreading and scaling"
     url: admin-guide/160_Multithreading_and_scaling/README
     subnav:
+    - title: "Multithreading concepts of syslog-ng OSE"
+      url: admin-guide/160_Multithreading_and_scaling/000_Multithreading_concepts
+    - title: "Configuring multithreading"
+      url: admin-guide/160_Multithreading_and_scaling/001_Configuring_multithreading
+    - title: "Optimizing multithreaded performance"
+      url: admin-guide/160_Multithreading_and_scaling/002_Optimizing_performance
   - title: "Troubleshooting syslog-ng"
     url: admin-guide/170_Troubleshooting_syslog-ng/README
     subnav:
+    - title: "Possible causes of losing log messages"
+      url: admin-guide/170_Troubleshooting_syslog-ng/000_Possible_causes_of_losing_log_messages
+    - title: "Creating syslog-ng core files"
+      url: admin-guide/170_Troubleshooting_syslog-ng/001_Creating_core_files
+    - title: "Collecting debugging info"
+      url: admin-guide/170_Troubleshooting_syslog-ng/002_Collecting_debug_info
+    - title: "Running a failure script"
+      url: admin-guide/170_Troubleshooting_syslog-ng/003_Running_a_failure_script
+    - title: "Stopping syslog-ng"
+      url: admin-guide/170_Troubleshooting_syslog-ng/004_Stopping_syslog-ng
+    - title: "Reporting bugs and finding help"
+      url: admin-guide/170_Troubleshooting_syslog-ng/005_Reporting_bugs
+    - title: "Recover data from orphaned diskbuffer files"
+      url: admin-guide/170_Troubleshooting_syslog-ng/006_Recovering_orphaned_diskbuffers
+    - title: "Unusual storage directory"
+      url: admin-guide/170_Troubleshooting_syslog-ng/007_Unusual_storage_directory
+    - title: "Unusual port number"
+      url: admin-guide/170_Troubleshooting_syslog-ng/008_Unusual_port_number
+    - title: "Error messages"
+      url: admin-guide/170_Troubleshooting_syslog-ng/009_Error_messages
+    - title: "Using execmem prevented by SELinux"
+      url: admin-guide/170_Troubleshooting_syslog-ng/010_SELinux
   - title: "Best practices and examples"
     url: admin-guide/180_Best_practices_and_examples/README
     subnav:
+    - title: "General recommendations"
+      url: admin-guide/180_Best_practices_and_examples/000_General_recommendations
+    - title: "Handling large message load"
+      url: admin-guide/180_Best_practices_and_examples/001_Handling_large_message_load
+    - title: "Using name resolution in syslog-ng"
+      url: admin-guide/180_Best_practices_and_examples/002_Using_name_resolution/README
+      subnav:
+      - title: "Resolving hostnames locally"
+        url: admin-guide/180_Best_practices_and_examples/002_Using_name_resolution/000_Resolving_hostnames_locally
+    - title: "Collecting logs from chroot"
+      url: admin-guide/180_Best_practices_and_examples/003_Collecting_logs_from_chroot
+    - title: "Configuring log rotation"
+      url: admin-guide/180_Best_practices_and_examples/004_Configuring_log_rotation
+    - title: "Load balancing logs between multiple destinations"
+      url: admin-guide/180_Best_practices_and_examples/005_Load_balancing_logs/README
+      subnav:
+      - title: "Load balancing with round robin"
+        url: admin-guide/180_Best_practices_and_examples/005_Load_balancing_logs/000_Round_robin
+      - title: "Configuration generator"
+        url: admin-guide/180_Best_practices_and_examples/005_Load_balancing_logs/001_msec_hashing
   - title: "The syslog-ng manual pages"
     url: admin-guide/190_The_syslog-ng_manual_pages/README
     subnav:
+    - title: "The dqtool tool manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/000_dqtool
+    - title: "The loggen manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/001_loggen
+    - title: "The pdbtool manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/002_pdbtool
+    - title: "The syslog-ng control tool manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/003_syslog-ng_control_tool
+    - title: "The syslog-debun manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/004_syslog_debun_tool
+    - title: "The syslog-ng manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual
+    - title: "The syslog-ng.conf manual page"
+      url: admin-guide/190_The_syslog-ng_manual_pages/006_syslog-ng_conf
   - title: "About us"
     url: admin-guide/200_About/README
     subnav:
