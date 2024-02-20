@@ -87,12 +87,17 @@ add_dir_entry()
 
 url_for_file()
 {
-    local DIR="$1"
-    local ITEM_NAME="$2"
+    local ITEM_PATH="$1"
+    local DIR="$2"
+    local ITEM_NAME="$3"
     local RELATIVE_PATH=${DIR#${START_DIR}}
     [ "$RELATIVE_PATH" == "${DIR}" ] && RELATIVE_PATH=""
     local URL="${ROOT_DIR_NAME}${RELATIVE_PATH}/${ITEM_NAME%.md}"
-    
+    if [ -f "${ITEM_PATH}" ]; then
+        local PERMALINK=$(read_file_permalink "${ITEM_PATH}")
+        [ "${PERMALINK}x" != "x" ] && URL="${PERMALINK}"
+    fi
+
     echo "${URL}"
 }
 
@@ -101,17 +106,17 @@ generate_yaml()
     local DIR="$1"
     local INDENT="$2"
     
-    for ITEM in $(/bin/ls -1 "$DIR" | grep -Ev "${INDEX_FILE_PATTERNS}" | sort); do
-        local ITEM_PATH="$DIR/$ITEM"
+    for ITEM in $(/bin/ls -1 "${DIR}" | grep -Ev "${INDEX_FILE_PATTERNS}" | sort); do
+        local ITEM_PATH="${DIR}/${ITEM}"
         local ITEM_NAME=$(basename "$ITEM")
-        local TITLE="\"$ITEM_NAME\""
-        local URL=$(url_for_file "${DIR}" "${ITEM_NAME}")
+        local TITLE="\"${ITEM_NAME}\""
+        local URL=$(url_for_file "${ITEM_PATH}" "${DIR}" "${ITEM_NAME}")
         
-        if [ -f "$ITEM_PATH" ]; then
-			add_file_entry "$ITEM_PATH"
-        elif [ -d "$ITEM_PATH" ]; then
-			add_dir_entry "$ITEM_PATH" "$URL" "" # "$(check_directory_content "$ITEM_PATH" || echo " true")"
-			generate_yaml "$ITEM_PATH" "${INDENT}${BASE_INDENT}"
+        if [ -f "${ITEM_PATH}" ]; then
+			add_file_entry "${ITEM_PATH}"
+        elif [ -d "${ITEM_PATH}" ]; then
+			add_dir_entry "${ITEM_PATH}" "${URL}" "" # "$(check_directory_content "$ITEM_PATH" || echo " true")"
+			generate_yaml "${ITEM_PATH}" "${INDENT}${BASE_INDENT}"
         fi
     done
 }
@@ -119,7 +124,7 @@ generate_yaml()
 read_file_header_item()
 {
     local FILE=$1
-    shift 1
+    shift
     local ITEMS_REGEXES=("$@")
     local DELIMITER_FOUND=false
     local TITLE=""
@@ -160,6 +165,11 @@ read_file_title()
     read_file_header_item "$1" '^short_title: (.*)$' '^title: (.*)$'
 }
 
+read_file_permalink()
+{
+    read_file_header_item "$1" '^permalink: (.*)$'
+}
+
 add_warning_header ()
 {
     local FILE=$1
@@ -183,7 +193,7 @@ gen_links()
     for ITEM in $(/bin/ls -1 "${DOC_FOLDER}"/*.md | sort); do
 		local TITLE=$(read_file_title "${ITEM}")
         local ITEM_NAME=$(basename "${ITEM}")
-        local URL=$(url_for_file "${DOC_FOLDER}" "${ITEM_NAME}")
+        local URL=$(url_for_file "${ITEM}" "${DOC_FOLDER}" "${ITEM_NAME}")
 
         add_link_entry "${ITEM}" "${TITLE}" "${URL}"
     done

@@ -5,20 +5,17 @@ description:  >-
   Here you can browse, search and contribute to most of the syslog-ng documentation.
 permalink: /
 toc: false
+id: doc-center
 ---
 
-[ref:admin-guide]: admin-guide/README
-[ref:dev-guide]: dev-guide/README
-[ref:doc-guide]: doc-guide/README
+## {% include markdown_link id="doc-guide" title="Documentation guide" %}
 
-## [Documentation guide][ref:doc-guide]
+If you would like to help us to make our documentation better, here you can find information about {% include markdown_link id="doc-guide" title="how to contribute" %}
 
-If you would like to help us to make our documentation better, you can find information about [how to contribute][ref:doc-guide].
+## {% include markdown_link id="admin-guide" title="Administrator guide" %}
 
-## [Administrator guide][ref:admin-guide]
+If you are an active user of syslog-ng, start here to {% include markdown_link id="admin-guide" title="learn" %} about installation, configuration, fine tuning syslog-ng.
 
-If you are an active user of syslog-ng, start here to [learn][ref:admin-guide] about installation, configuration, fine tuning syslog-ng.
+## {% include markdown_link id="dev-guide" title="Developer guide" %}
 
-## [Developer guide][ref:dev-guide]
-
-Want to add your idea, bug-fix to the fabolous syslog-ng? Take a look at our [developer guide][ref:dev-guide].
+Want to add your idea, bug-fix to the fabolous syslog-ng? Take a look at our {% include markdown_link id="dev-guide" title="developer guide" %}
