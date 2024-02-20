@@ -2,15 +2,20 @@
 
 BASE_INDENT="  "
 INDEX_FILE_PATTERNS="^(index\.md|README\.md)$"
+FRONT_MATTER_HEADER_FOOTER="---"
+
 USE_INDEX_FILE_FOR_FOLDER_LINKS="yes"
 REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES="yes"
 
-trim_trailing_slashes() {
+
+trim_trailing_slashes()
+{
     local INPUT_STRING="$1"
     echo "${INPUT_STRING%/}"
 }
 
-print_entry() {
+print_entry()
+{
 	echo "${1}  - title: ${2}"
 	echo "${1}    url: ${3}"
 	if [ "$#" -eq 4 ]; then
@@ -18,7 +23,8 @@ print_entry() {
 	fi
 }
 
-check_directory_content() {
+check_directory_content()
+{
     /bin/ls -1 -p "${1}" | grep -Ev "${INDEX_FILE_PATTERNS}" >/dev/null
 }
 
@@ -30,16 +36,43 @@ add_file_entry () {
 	print_entry "${INDENT}" "${TITLE}" "${URL}"
 }
 
-add_dir_entry () {
+add_link_entry()
+{
+    local FILE="$1"
+    local TITLE="$2"
+    local URL="$3"
+	local ID=$(read_file_id "${FILE}")
+    
+    if [[ "${ID}x" != "x" ]]; then
+        local OUT_FILE=${OUTPUT_LINKS_FOLDER}/${ID}.yml
+
+        > "${OUT_FILE}"
+        #echo "${FRONT_MATTER_HEADER_FOOTER}" >> "${OUT_FILE}"
+        #echo "${FRONT_MATTER_HEADER_FOOTER}" >> "${OUT_FILE}"
+        
+        add_warning_header "${OUT_FILE}"
+
+        echo "id: ${ID}" >> "${OUT_FILE}"
+        echo "url: ${URL}" >> "${OUT_FILE}"
+        echo "title: ${TITLE}" >> "${OUT_FILE}"
+    else
+        echo "Missing 'id:' property in file ${FILE}" >&2
+        #exit 2
+    fi
+}
+
+add_dir_entry()
+{
 	local EXCLUDED_FILES=("${1}/index.md" "${1}/README.md")
 	local INDEX_FILE="index"
 
 	for EXCLUDED_FILE in "${EXCLUDED_FILES[@]}"; do
-		if [ -f "$EXCLUDED_FILE" ]; then
-			local DIR_TITLE=$(read_file_title "$EXCLUDED_FILE")
+		if [ -f "${EXCLUDED_FILE}" ]; then
+			local DIR_TITLE=$(read_file_title "${EXCLUDED_FILE}")
             local BASE_NAME=$(basename "${EXCLUDED_FILE}")
+
             INDEX_FILE=${BASE_NAME%.*}
-			[ -n "$DIR_TITLE" ] && TITLE="\"$DIR_TITLE\""            
+			[ -n "${DIR_TITLE}" ] && TITLE="\"${DIR_TITLE}\""
 			break
 		fi
 	done
@@ -47,20 +80,32 @@ add_dir_entry () {
     local URL="${2}"
     [ "${USE_INDEX_FILE_FOR_FOLDER_LINKS}x" != "x" ] && URL="${URL}/${INDEX_FILE}"
 
+    add_link_entry "${EXCLUDED_FILE}" "${TITLE}" "${URL}"
+
 	print_entry "${INDENT}" "${TITLE}" "${URL}" "subnav:${3}"
 }
 
-generate_yaml() {
+url_for_file()
+{
+    local DIR="$1"
+    local ITEM_NAME="$2"
+    local RELATIVE_PATH=${DIR#${START_DIR}}
+    [ "$RELATIVE_PATH" == "${DIR}" ] && RELATIVE_PATH=""
+    local URL="${ROOT_DIR_NAME}${RELATIVE_PATH}/${ITEM_NAME%.md}"
+    
+    echo "${URL}"
+}
+
+generate_yaml()
+{
     local DIR="$1"
     local INDENT="$2"
-    local RELATIVE_PATH=${DIR#$START_DIR}
-    [ "$RELATIVE_PATH" == "$DIR" ] && RELATIVE_PATH=""
     
     for ITEM in $(/bin/ls -1 "$DIR" | grep -Ev "${INDEX_FILE_PATTERNS}" | sort); do
         local ITEM_PATH="$DIR/$ITEM"
         local ITEM_NAME=$(basename "$ITEM")
         local TITLE="\"$ITEM_NAME\""
-        local URL="$ROOT_DIR_NAME${RELATIVE_PATH}/${ITEM_NAME%.md}"
+        local URL=$(url_for_file "${DIR}" "${ITEM_NAME}")
         
         if [ -f "$ITEM_PATH" ]; then
 			add_file_entry "$ITEM_PATH"
@@ -71,69 +116,117 @@ generate_yaml() {
     done
 }
 
-read_file_title() {
-    local FILE="$1"
-    local TITLE_REGEXES=('^short_title: (.*)$' '^title: (.*)$')
+read_file_header_item()
+{
+    local FILE=$1
+    shift 1
+    local ITEMS_REGEXES=("$@")
     local DELIMITER_FOUND=false
     local TITLE=""
     
     while IFS= read -r LINE; do
-        if [ "$LINE" == "---" ]; then
-            if $DELIMITER_FOUND; then
+        if [ "${LINE}" == "${FRONT_MATTER_HEADER_FOOTER}" ]; then
+            if ${DELIMITER_FOUND}; then
+                # Stop if front matter is finished
                 break
             else
                 DELIMITER_FOUND=true
             fi
-        elif $DELIMITER_FOUND; then
-            if [[ "$LINE" =~ ${TITLE_REGEXES[0]} ]]; then
+        elif ${DELIMITER_FOUND}; then
+            if [[ "${LINE}" =~ ${ITEMS_REGEXES[0]} ]]; then
                 TITLE="${BASH_REMATCH[1]}"
-                # Can break here, sub-title has the top precedence now
+                # Can break here, first patter always has the top precedence now
                 break
-            elif [[ "$LINE" =~ ${TITLE_REGEXES[1]} ]]; then
+            elif [ ${#ITEMS_REGEXES[@]} -gt 1 ] && [[ "${LINE}" =~ ${ITEMS_REGEXES[1]} ]]; then
                 TITLE="${BASH_REMATCH[1]}"
                 # Do not break here the order can be anything
             fi
+        else
+            # First line was not a front matter header
+            break;
         fi
-    done < "$FILE"
+    done < "${FILE}"
     
-    echo "$TITLE"
+    echo "${TITLE}"
 }
 
-process_params() {
-    local DOC_FOLDER="${1}"
-    local OUTPUT_FILE="${2}"
+read_file_id()
+{
+    read_file_header_item "$1" '^id: (.*)$'
+}
 
-    > "$OUTPUT_FILE"
+read_file_title()
+{
+    read_file_header_item "$1" '^short_title: (.*)$' '^title: (.*)$'
+}
 
-    echo "# --------------------------------------" >> "$OUTPUT_FILE"
-    echo "# This file is auto generated           " >> "$OUTPUT_FILE"
-    echo "#      - DO NOT EDIT -                  " >> "$OUTPUT_FILE"
-    echo "# Use the _tools/navgen script instead  " >> "$OUTPUT_FILE"
-    echo "# --------------------------------------" >> "$OUTPUT_FILE"
+add_warning_header ()
+{
+    local FILE=$1
+
+    echo "# --------------------------------------" >> "${FILE}"
+    echo "# This file is auto generated           " >> "${FILE}"
+    echo "#      - DO NOT EDIT -                  " >> "${FILE}"
+    echo "# Use the _tools/navgen script instead  " >> "${FILE}"
+    echo "# --------------------------------------" >> "${FILE}"
     echo ""
+}
+
+gen_links()
+{    
+    rm -Rf "${OUTPUT_LINKS_FOLDER}" >/dev/null 2>&1
+    mkdir -p "${OUTPUT_LINKS_FOLDER}"
+
+    START_DIR=$(trim_trailing_slashes "${DOC_FOLDER}")
+
+    # Handling here only the items in the doc root, further links added during the navigaion.yml generation
+    for ITEM in $(/bin/ls -1 "${DOC_FOLDER}"/*.md | sort); do
+		local TITLE=$(read_file_title "${ITEM}")
+        local ITEM_NAME=$(basename "${ITEM}")
+        local URL=$(url_for_file "${DOC_FOLDER}" "${ITEM_NAME}")
+
+        add_link_entry "${ITEM}" "${TITLE}" "${URL}"
+    done
+}
+
+gen_navigation()
+{    
+    > "${OUTPUT_FILE}"
+    add_warning_header "${OUTPUT_FILE}"
 
     for DOC_PROJECT_ITEM in $(find -L "${DOC_FOLDER}" -mindepth 1 -maxdepth 1 -type d | sort); do
         START_DIR=$(trim_trailing_slashes "${DOC_PROJECT_ITEM}")
-        ROOT_DIR_NAME=$(basename "$START_DIR")
+        ROOT_DIR_NAME=$(basename "${START_DIR}")
         [ "${REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES}x" != "x" ] && ROOT_DIR_NAME=${ROOT_DIR_NAME#_}
 
-        echo "" >> "$OUTPUT_FILE"
-        echo "# ${ROOT_DIR_NAME}" >> "$OUTPUT_FILE"
-        echo "${ROOT_DIR_NAME}-nav:" >> "$OUTPUT_FILE"
+        echo "" >> "${OUTPUT_FILE}"
+        echo "# ${ROOT_DIR_NAME}" >> "${OUTPUT_FILE}"
+        echo "${ROOT_DIR_NAME}-nav:" >> "${OUTPUT_FILE}"
 
-        add_dir_entry "$START_DIR" "${ROOT_DIR_NAME}" "" >> "$OUTPUT_FILE"
-        generate_yaml "$START_DIR" "" >> "$OUTPUT_FILE"
+        add_dir_entry "${START_DIR}" "${ROOT_DIR_NAME}" "" >> "${OUTPUT_FILE}"
+        generate_yaml "${START_DIR}" "" >> "${OUTPUT_FILE}"
 
         shift
     done
-
-    echo "YAML structure has been generated and saved to $OUTPUT_FILE"
 }
 
+process_params()
+{
+    gen_links
+    gen_navigation
+    
+    echo "YAML structure and page links have  been generated and saved to $OUTPUT_FILE"
+}
+
+
 # Check for the correct number of command-line parameters
-if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <_doc_folder> <output_file>"
+if [ "$#" -lt 3 ]; then
+    echo "Usage: $0 <doc_folder> <output_nav_file> <output_links_folder>"
     exit 1
 fi
+
+DOC_FOLDER="${1}"
+OUTPUT_FILE="${2}"    
+OUTPUT_LINKS_FOLDER="${3}"
 
 process_params "$@"

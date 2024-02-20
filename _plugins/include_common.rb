@@ -4,7 +4,9 @@ module Jekyll
     def alter(markdown_extensions, item)        
         if markdown_extensions.include?(File.extname(item.relative_path)) || File.extname(item.relative_path) == ".html"
           #puts item.relative_path
-          item.content = "{% include doc/common-snippets %}\n" + item.content #if document.respond_to?(:content)
+          #if document.respond_to?(:content)
+            item.content = "{% include doc/common_snippets %}\n" + item.content
+          #end
         end
     end
 
