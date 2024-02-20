@@ -4,11 +4,11 @@ description: >-
   syslog-ng is an enhanced log daemon, supporting a wide range of input and
   output methods: syslog, unstructured text, message queues, databases (SQL and
   NoSQL alike), and more.
+id: dev-guide
 ---
 
 [ref:dev-guide]: dev-guide
 [ref:doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
-[gh:ose-official]: http://www.github.com/balabit/syslog-ng
 [gh:ose-monitor]: https://ci.syslog-ng.com/view/OSE-DAILY-MONITOR
 <!-- [gh:ose-dev-shell-badge]: https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg -->
 
@@ -27,7 +27,7 @@ Feel free to contribute and propose your chapter ideas.
 <!-- could not get the badge work with the embedded ref [gh:ose-dev-shell-badge] solution -->
 [![Build Status](https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg)][gh:ose-monitor]
 
-available here: [syslog-ng][gh:ose-official]
+available here: {% include markdown_link id="gh-syslog-ng" title="syslog-ng" newPage=true %}
 
 ## Generated document
 

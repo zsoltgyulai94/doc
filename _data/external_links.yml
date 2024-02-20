@@ -1,0 +1,10 @@
+gh-syslog-ng:
+  id: gh-syslog-ng
+  url: http://www.github.com/balabit/syslog-ng
+  title: syslog-ng on GitHub
+
+gh-syslog-ng-doc:
+  id: gh-syslog-ng-doc
+  url: https://github.com/syslog-ng/doc
+  title: syslog-ng Doc on GitHub
+

@@ -1,5 +1,6 @@
 ---
 title: Documentation Guide
+id: doc-guide
 ---
 
 [ref:mm-javascripts]: https://mmistakes.github.io/minimal-mistakes/docs/javascript/
@@ -9,7 +10,6 @@ title: Documentation Guide
 [ref:jekyll-dir-struct]: https://jekyllrb.com/docs/structure/
 [ref:jekyll-config]: https//jekyllrb.com/docs/configuration/
 [ref:ruby-and-gems-install]: https://jekyllrb.com/docs/installation/
-[gh:doc-project]: https://github.com/syslog-ng/doc
 
 ## Structure of this repository
 
@@ -70,7 +70,7 @@ Basically we follow [jekyll][ref:jekyll-dir-struct] and [minimal-mistake][ref:mm
 - Gemfile \
     [Jekyll and minimal-mistake][ref:mm-dependencies] Ruby gem dependencies
 - README.md \
-    The porject [GitHub repository][gh:doc-project] landing page readme file
+    The project {% include markdown_link id="gh-syslog-ng-doc" title="GitHub repository" %} landing page readme file
 - LICENSE.* \
     All the licence files of the modules the porject uses
 
