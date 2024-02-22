@@ -51,7 +51,11 @@ jobs:
           pwd
           
           mkdir -p _data
-          ./_tools/navgen "./doc" "./_data/navigation.yml"
+          # Last param turns off jekyll build for the links, let it be done in the next step, 
+          # together with the real site build, with the same parameters
+          #
+          ./_tools/navgen "./doc" "./_data/navigation.yml" "no"
+          
           ls -Al _data/navigation.yml
 
           # This one is just for sure to have our final scripts result inplace 

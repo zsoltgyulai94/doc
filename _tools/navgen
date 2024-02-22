@@ -6,6 +6,7 @@ FRONT_MATTER_HEADER_FOOTER="---"
 
 USE_INDEX_FILE_FOR_FOLDER_LINKS="yes"
 REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES="yes"
+GENERATE_LINKS="yes"
 
 
 trim_trailing_slashes()
@@ -192,17 +193,20 @@ gen_links()
 process_params()
 {
     gen_navigation
-    gen_links
+    [ "${GENERATE_LINKS}" == "yes" ] && gen_links
 }
 
 
 # Check for the correct number of command-line parameters
 if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <doc_folder> <output_nav_file>"
+    echo "Usage: $0 <doc_folder> <output_nav_file> [yes:no]"
     exit 1
 fi
 
 DOC_FOLDER="${1}"
-OUTPUT_FILE="${2}"    
+OUTPUT_FILE="${2}"
+[ "$#" -gt 2 ] && GENERATE_LINKS="${3}"
 
 process_params "$@"
+
+exit 0
