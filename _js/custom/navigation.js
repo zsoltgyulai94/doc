@@ -3,6 +3,9 @@
    ========================================================================== */
 
 $(function () {
+  const notFoundPageName = '404.html';
+  const contentID = 'article';
+
   function adjustSidebars() {
     // Identify the URL of the loaded page
     var loadedPageUrl = window.location.pathname;
@@ -72,14 +75,12 @@ $(function () {
     // Add code block enhancements
     if (ClipboardJS.isSupported())
       addCodeBlocksTitle();
+    // Add content tooltips
+    addContentTooltips();
   }
 
   // Function to load content based on relative URL
-  function loadContentFromUrl(url) {
-    const notFoundPageName = '404.html';
-    const contentID = 'article';
-    var currContent = document.querySelector(contentID);
-
+  function loadContentFromUrl(url, onSuccess, onError) {
     fetch(url)
       .then(response => {
         if (false == response.ok) {
@@ -96,6 +97,19 @@ $(function () {
         var doc = parser.parseFromString(html, 'text/html');
         // Find the "article" element in the parsed document
         var newContent = doc.querySelector(contentID);
+        onSuccess(newContent);
+      })
+      .catch(error => {
+        onError(error);
+      });
+  }
+
+  function updateContentFromUrl(url) {
+    var currContent = document.querySelector(contentID);
+
+    loadContentFromUrl(
+      url,
+      newContent => {
 
         // FIXME: This does not work, double check
         currContent.scrollTop;
@@ -107,22 +121,23 @@ $(function () {
         setTimeout(function () {
           // Replace the old content with the loaded content
           currContent.parentNode.replaceChild(newContent, currContent);
-        
+
           // Add all our custom modifications to all the self loaded pages
           finalizeContent();
         }, 100);
-      })
-      .catch(error => {
+      },
+      error => {
         if (error == "Error: 404") {
           var baseURL = window.location.origin;
           // FIXME: How to get the real base URL (without using Liquid and Front Matter) ?!?!
           var notFoundURL = baseURL + '/doc/' + notFoundPageName;
 
-          loadContentFromUrl(notFoundURL);
+          updateContentFromUrl(notFoundURL);
         }
         else
           currContent.innerHTML = '<h3>Sorry, there was a problem loading the content!</h3>(' + error + ')';
-      });
+      }
+    );
   }
 
   // Function to handle link clicks
@@ -141,7 +156,7 @@ $(function () {
       // Load content based on the updated relative URL
       // but only if the url has changed
       if (isChanged)
-        loadContentFromUrl(url, isChanged);
+        updateContentFromUrl(url);
     }
     // Clear focus from the clicked element, as we have other visualization for the selected items
     event.target.blur();
@@ -201,13 +216,70 @@ $(function () {
     });
   }
 
+  function loadContentPartFrom(url, onSuccess, onError) {
+    // Extract the anchor part of the URL
+    var hashIndex = url.indexOf('#');
+    if (hashIndex !== -1) {
+      var startHeadingId = url.substring(hashIndex + 1);
+
+      loadContentFromUrl(
+        url,
+        newContent => {
+          var startHeading = newContent.querySelector('#' + startHeadingId);
+          if (startHeading) {
+            var content = startHeading.outerHTML; // Include the starting <h> element itself
+
+            var nextSibling = startHeading.nextElementSibling;
+            // Collect all siblings until the next heading or the end of the document
+            while (nextSibling && nextSibling.tagName !== 'H1' && nextSibling.tagName !== 'H2' && nextSibling.tagName !== 'H3' && nextSibling.tagName !== 'H4' && nextSibling.tagName !== 'H5' && nextSibling.tagName !== 'H6') {
+              content += nextSibling.outerHTML;
+              nextSibling = nextSibling.nextElementSibling;
+            }
+            onSuccess(content);
+          }
+          else
+            console.error('Start heading not found.');
+        },
+        error => {
+          error(error);
+        }
+      );
+    }
+    else
+      console.error('Invalid URL: No anchor found.');
+  }
+
+  function addContentTooltips() {
+    var tooltipElements = document.querySelectorAll('.content-tooltip');
+
+    tooltipElements.forEach(function (element) {
+      var tooltip = document.createElement('span');
+      tooltip.className = 'tooltip';
+      tooltip.textContent = "";
+      element.appendChild(tooltip);
+
+      element.addEventListener('mouseover', function () {
+        var url = element.href;
+        loadContentPartFrom(
+          url,
+          newContent => {
+            tooltip.innerHTML = newContent;
+          },
+          error => {
+            console.error('There was a problem loading the content!' + error);
+          }
+        );
+      });
+    });
+  }
+
   // Make sure everything is initialized correctly on an initial load as well
   // (e.g. when an inner embedded page link is opened directly in a new tab, not via the internal navigational links)
   finalizeContent();
 
   // Listen for popstate events and update content accordingly
   window.addEventListener('popstate', function () {
-    loadContentFromUrl(window.location.pathname);
+    updateContentFromUrl(window.location.pathname);
   });
 
 });

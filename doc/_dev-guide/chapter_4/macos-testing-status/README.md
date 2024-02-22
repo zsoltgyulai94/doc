@@ -1,5 +1,5 @@
 ---
-title: macOS module suport status
+title: macOS module support status
 description: This testing effort was part of a Google Summer Of Code project, the details of which will be outlined here.
 ---
 
