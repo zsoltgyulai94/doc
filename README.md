@@ -1,5 +1,7 @@
 <!-- DO NOT ADD frontmatter, this belongs to the GitHub repository only -->
 
+[gh:gh-doc-pages]: https://syslog-ng.github.io/doc/
+[gh:gh-syslog-ng-doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
 [ref:admin-guide]: admin-guide
 [ref:dev-guide]: dev-guide
 [ref:doc-guide]: doc-guide
@@ -15,3 +17,9 @@ If you are an active user of syslog-ng, start here to [learn][ref:admin-guide] a
 ## [Developer guide][ref:dev-guide]
 
 Want to add your idea, bug-fix to the fabolous syslog-ng? Take a look at our [developer guide][ref:dev-guide].
+
+## Generated document
+
+Available here: [GitBook][gh:gh-doc-pages]
+
+We use github to track all of the [documentation issues][gh:gh-syslog-ng-doc-issue-tracker]
