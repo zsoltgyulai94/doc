@@ -93,7 +93,7 @@ if [ -d "_site" ]; then
     echo "Updating _site as exists"
     SITE_JS_DIR="_site/assets/js"
 
-    # backup lunr, as it is already a generated final _site versions
+    # backup lunr, as it is already a generated final _site version
     mv "${SITE_JS_DIR}"/lunr "${WORK_DIR}"
 
     rm -Rf "${SITE_JS_DIR}" >/dev/null 2>&1

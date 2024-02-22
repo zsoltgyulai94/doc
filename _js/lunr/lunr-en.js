@@ -22,6 +22,14 @@ var idx = lunr(function () {
   }
 });
 
+function removeExtension(url) {
+  var lastDotIndex = url.lastIndexOf('.');
+  if (lastDotIndex !== -1) {
+    return url.substring(0, lastDotIndex);
+  }
+  return url; // If no extension found, return the original URL
+}
+
 $(document).ready(function() {
   $('input#search').on('keyup', function () {
     var resultdiv = $('#results');
@@ -47,7 +55,7 @@ $(document).ready(function() {
           '<div class="list__item">'+
             '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
               '<h2 class="archive__item-title" itemprop="headline">'+
-                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+                '<a href="'+removeExtension(tore[ref].url)+'" rel="permalink">'+store[ref].title+'</a>'+
               '</h2>'+
               '<div class="archive__item-teaser">'+
                 '<img src="'+store[ref].teaser+'" alt="">'+
@@ -61,7 +69,7 @@ $(document).ready(function() {
           '<div class="list__item">'+
             '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
               '<h2 class="archive__item-title" itemprop="headline">'+
-                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+                '<a href="'+removeExtension(store[ref].url)+'" rel="permalink">'+store[ref].title+'</a>'+
               '</h2>'+
               '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
             '</article>'+

@@ -48,7 +48,8 @@ include:
 exclude:
   - README.md # The one in the root belongs to the GitHub repository page, not to the generated final site, use index.md
   # TODO: These are now packed into assets/js/main.min.js, not needed, but the _site building still adds them, double check the references why
-  - assets/js
+  #       Also the doc snippet above is lieing, if this is presented the include: will not add e.g. assets/js/lunr even it is presented over there
+  #- assets/js
   - Gemfile
   - Gemfile.lock
   - package.json
