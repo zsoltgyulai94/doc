@@ -97,18 +97,18 @@ We have a few useful tools in the `${PROJECT_ROOT}/_tools` folder some of them w
 
       Note: Unlike `--liverolad`, this will restart `jekyll serve` and not refreshing the opened web pages, so you have to refresh the opend pages
       {: .notice}
-2. Generating the left sidebar navigator content is semi-automatic yet, its content is generated from the `${PROJECT_ROOT}/_data/navigation.yml` file that will be read by jekyll automatically during the site build process, but adding the correct content of it is our responsibility. Fortunately we have already a helper to simplify this, you can call it from the `${PROJECT_ROOT}` like
+2. Generating the left sidebar navigator content, the page, and anchor links is semi-automatic yet, their content is generated from the `${PROJECT_ROOT}/_data/navigation.yml` file that will be read by jekyll automatically during the site build process, but adding the correct content of it is our responsibility. Fortunately we have already a helper to simplify this, you can call it from the `${PROJECT_ROOT}` like
 
     ```shell
     ./_tools/navgen ./doc ./_data/navigation.yml
     ```
 
-    This will update the `navigation.yml` file based on the content of the `${PROJECT_ROOT}/_doc` folder where all of our doumentation markdown files are located.
+    This will update the `navigation.yml` file based on the content of the `${PROJECT_ROOT}/_doc` folder where all of our doumentation markdown files are located, and also update the page, and anchor links in the `${PROJECT_ROOT}/_data/links/` folder (generation of the links can be turned off providing a 3rd param which not equals to `'yes'`, like `'no'`)
 
     Note: Automation of this during development is in progress, the `serve` tool will take care of this as well in the future.
     {: .notice}
 
-    Important: This tools is part of the GitHub deployment workflow too, so any modification you add to `${PROJECT_ROOT}/_data/navigation.yml` will be lost during the site build.
+    Important: This tools is part of the GitHub deployment workflow too, so any modification you add to `${PROJECT_ROOT}/_data/navigation.yml` file or `${PROJECT_ROOT}/_data/links` folder will be lost during the site build.
     {: .notice--danger}
 3. Sometimes its neded to [update][ref:mm-javascripts] the internally used `minimal-mistakes` theme default [.js scripts][ref:mm-js-update] \
     If you modify any of the scripts packed into the `${PROJECT_ROOT}/assets/js/main.min.js` file, you have to [re-pack][ref:mm-js-update] it.
