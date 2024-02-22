@@ -1029,7 +1029,7 @@ dev-guide-nav:
     subnav:
     - title: "macOS"
       url: /dev-guide/chapter_4/02_section
-    - title: "macOS module suport status"
+    - title: "macOS module support status"
       url: /dev-guide/chapter_4/macos-testing-status/README
       subnav:
       - title: "affile"
