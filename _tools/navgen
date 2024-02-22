@@ -179,13 +179,20 @@ gen_navigation()
 
         shift
     done
+    echo "YAML navigation structure is generated and saved to $OUTPUT_FILE"
+}
+
+gen_links()
+{
+    rm -Rf _data/links
+    JEKYLL_BUILD_LINKS='true' bundle exec jekyll build
+    echo "Jekyll page links are generated and saved to _data/links"
 }
 
 process_params()
 {
     gen_navigation
-    
-    echo "YAML structure and page links have  been generated and saved to $OUTPUT_FILE"
+    gen_links
 }
 
 

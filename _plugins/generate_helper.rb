@@ -97,6 +97,7 @@ module Jekyll
     public
 
     def generate(site)
+      shoud_build_links = (ENV['JEKYLL_BUILD_LINKS'] == 'true')
       markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
 
       site.layouts.each_value do |layout|
@@ -105,12 +106,12 @@ module Jekyll
       #puts ""
 
       site.pages.each do |page|
-        do_work(site, markdown_extensions, page, true)
+        do_work(site, markdown_extensions, page, shoud_build_links)
       end
       #puts ""
 
       site.documents.each do |document|
-        do_work(site, markdown_extensions, document, true)
+        do_work(site, markdown_extensions, document, shoud_build_links)
       end
       #puts ""
     end

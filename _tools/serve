@@ -34,11 +34,8 @@ start_process() {
     reset_watcher
 
     rm -Rf _site
-    rm -Rf _data/links
     rm -Rf .jekyll-cache
 
-    # TODO: We need a pre (double) build as the _data/links folder currently generated from th
-    bundle exec jekyll build
     bundle exec jekyll serve ${ALL_PARAMS} &
     PROC_PID=$!
 
