@@ -30,40 +30,17 @@ check_directory_content()
 
 add_file_entry () {
 	local FILE_TITLE=$(read_file_title "${1}")
+    local URL="${2}"
 	
 	[ -n "$FILE_TITLE" ] && TITLE="\"$FILE_TITLE\""
 
 	print_entry "${INDENT}" "${TITLE}" "${URL}"
 }
 
-add_link_entry()
-{
-    local FILE="$1"
-    local TITLE="$2"
-    local URL="$3"
-	local ID=$(read_file_id "${FILE}")
-    
-    if [[ "${ID}x" != "x" ]]; then
-        local OUT_FILE=${OUTPUT_LINKS_FOLDER}/${ID}.yml
-
-        > "${OUT_FILE}"
-        #echo "${FRONT_MATTER_HEADER_FOOTER}" >> "${OUT_FILE}"
-        #echo "${FRONT_MATTER_HEADER_FOOTER}" >> "${OUT_FILE}"
-        
-        add_warning_header "${OUT_FILE}"
-
-        echo "id: ${ID}" >> "${OUT_FILE}"
-        echo "url: ${URL}" >> "${OUT_FILE}"
-        echo "title: ${TITLE}" >> "${OUT_FILE}"
-    else
-        echo "Missing 'id:' property in file ${FILE}" >&2
-        #exit 2
-    fi
-}
-
 add_dir_entry()
 {
 	local EXCLUDED_FILES=("${1}/index.md" "${1}/README.md")
+    local URL="${2}"
 	local INDEX_FILE="index"
 
 	for EXCLUDED_FILE in "${EXCLUDED_FILES[@]}"; do
@@ -77,10 +54,7 @@ add_dir_entry()
 		fi
 	done
 
-    local URL="${2}"
     [ "${USE_INDEX_FILE_FOR_FOLDER_LINKS}x" != "x" ] && URL="${URL}/${INDEX_FILE}"
-
-    add_link_entry "${EXCLUDED_FILE}" "${TITLE}" "${URL}"
 
 	print_entry "${INDENT}" "${TITLE}" "${URL}" "subnav:${3}"
 }
@@ -98,7 +72,9 @@ url_for_file()
         [ "${PERMALINK}x" != "x" ] && URL="${PERMALINK}"
     fi
 
-    echo "${URL}"
+    # Adding now the leaign / to support proper root references as well everywhere
+    # links must be used via the markdown_link include (or with the '| relative_url' filter) that will handle this 
+    echo "/${URL}"
 }
 
 generate_yaml()
@@ -113,7 +89,7 @@ generate_yaml()
         local URL=$(url_for_file "${ITEM_PATH}" "${DIR}" "${ITEM_NAME}")
         
         if [ -f "${ITEM_PATH}" ]; then
-			add_file_entry "${ITEM_PATH}"
+			add_file_entry "${ITEM_PATH}" "${URL}"
         elif [ -d "${ITEM_PATH}" ]; then
 			add_dir_entry "${ITEM_PATH}" "${URL}" "" # "$(check_directory_content "$ITEM_PATH" || echo " true")"
 			generate_yaml "${ITEM_PATH}" "${INDENT}${BASE_INDENT}"
@@ -179,24 +155,7 @@ add_warning_header ()
     echo "#      - DO NOT EDIT -                  " >> "${FILE}"
     echo "# Use the _tools/navgen script instead  " >> "${FILE}"
     echo "# --------------------------------------" >> "${FILE}"
-    echo ""
-}
-
-gen_links()
-{    
-    rm -Rf "${OUTPUT_LINKS_FOLDER}" >/dev/null 2>&1
-    mkdir -p "${OUTPUT_LINKS_FOLDER}"
-
-    START_DIR=$(trim_trailing_slashes "${DOC_FOLDER}")
-
-    # Handling here only the items in the doc root, further links added during the navigaion.yml generation
-    for ITEM in $(/bin/ls -1 "${DOC_FOLDER}"/*.md | sort); do
-		local TITLE=$(read_file_title "${ITEM}")
-        local ITEM_NAME=$(basename "${ITEM}")
-        local URL=$(url_for_file "${ITEM}" "${DOC_FOLDER}" "${ITEM_NAME}")
-
-        add_link_entry "${ITEM}" "${TITLE}" "${URL}"
-    done
+    echo "" >> "${FILE}"
 }
 
 gen_navigation()
@@ -213,7 +172,9 @@ gen_navigation()
         echo "# ${ROOT_DIR_NAME}" >> "${OUTPUT_FILE}"
         echo "${ROOT_DIR_NAME}-nav:" >> "${OUTPUT_FILE}"
 
-        add_dir_entry "${START_DIR}" "${ROOT_DIR_NAME}" "" >> "${OUTPUT_FILE}"
+        # A bit cheating just to have the same formatting as for file URLs
+        local URL=$(url_for_file "${ROOT_DIR_NAME}" "" "")
+        add_dir_entry "${START_DIR}" "${URL}" "" >> "${OUTPUT_FILE}"
         generate_yaml "${START_DIR}" "" >> "${OUTPUT_FILE}"
 
         shift
@@ -222,7 +183,6 @@ gen_navigation()
 
 process_params()
 {
-    gen_links
     gen_navigation
     
     echo "YAML structure and page links have  been generated and saved to $OUTPUT_FILE"
@@ -230,13 +190,12 @@ process_params()
 
 
 # Check for the correct number of command-line parameters
-if [ "$#" -lt 3 ]; then
-    echo "Usage: $0 <doc_folder> <output_nav_file> <output_links_folder>"
+if [ "$#" -lt 2 ]; then
+    echo "Usage: $0 <doc_folder> <output_nav_file>"
     exit 1
 fi
 
 DOC_FOLDER="${1}"
 OUTPUT_FILE="${2}"    
-OUTPUT_LINKS_FOLDER="${3}"
 
 process_params "$@"

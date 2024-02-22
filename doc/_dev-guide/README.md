@@ -7,8 +7,6 @@ description: >-
 id: dev-guide
 ---
 
-[ref:dev-guide]: dev-guide
-[ref:doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
 [gh:ose-monitor]: https://ci.syslog-ng.com/view/OSE-DAILY-MONITOR
 <!-- [gh:ose-dev-shell-badge]: https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg -->
 
@@ -24,18 +22,17 @@ Feel free to contribute and propose your chapter ideas.
 
 ## The syslog-ng project
 
-<!-- could not get the badge work with the embedded ref [gh:ose-dev-shell-badge] solution -->
+<!-- could not get the badge work with the embedded ref [gh:ose-dev-shell-badge] or (gh:ose-dev-shell-badge) solution -->
 [![Build Status](https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg)][gh:ose-monitor]
 
 available here: {% include markdown_link id="gh-syslog-ng" title="syslog-ng" newPage=true %}
 
-## Generated document
-
-available here: [GitBook][ref:dev-guide]
-
 ## Issue tracker
 
-We use github to [track the documentation issues][ref:doc-issue-tracker].
+We use github to track the
+
+- {% include markdown_link id="gh-syslog-ng-issue-tracker" title="project issues" newPage=true %}
+- {% include markdown_link id="gh-syslog-ng-doc-issue-tracker" title="documentation issues" newPage=true %}
 
 ## Contribution
 

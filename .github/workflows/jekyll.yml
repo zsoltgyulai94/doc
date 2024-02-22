@@ -68,6 +68,10 @@ jobs:
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: |
+          # FIXME: a duble build is needed currently as the _data/links/ content must be rendered from the final html output, so
+          # the first run cannot use the not yet existing links
+          #
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
           bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
           ls -AlR ./_site/assets/js          
         env:

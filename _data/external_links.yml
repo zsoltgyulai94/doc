@@ -1,10 +1,25 @@
+gh-pages: 
+  id: gh-pages
+  url: https://syslog-ng.github.io/doc/
+  title: "syslog-ng documentation center"
+
 gh-syslog-ng:
   id: gh-syslog-ng
   url: http://www.github.com/balabit/syslog-ng
-  title: syslog-ng on GitHub
+  title: "syslog-ng on GitHub"
+
+gh-syslog-ng-issue-tracker:
+  id: gh-syslog-ng-issue-tracker
+  url: https://github.com/syslog-ng/syslog-ng/issues
+  title: "syslog-ng issue tracker on GitHub"
+
+gh-syslog-ng-doc-issue-tracker:
+  id: gh-syslog-ng-doc-issue-tracker
+  url: https://github.com/syslog-ng/doc/issues
+  title: "syslog-ng documentation issue tracker on GitHub"
 
 gh-syslog-ng-doc:
   id: gh-syslog-ng-doc
   url: https://github.com/syslog-ng/doc
-  title: syslog-ng Doc on GitHub
+  title: "syslog-ng Doc on GitHub"
 
