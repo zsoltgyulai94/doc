@@ -161,7 +161,7 @@ $(function () {
   }
 
   // Function to handle link clicks
-  function handleLinkClick(event) {
+  function handleNavLinkClick(event) {
     event.preventDefault(); // Prevent default navigation behavior
 
     // Get the relative URL value and update the browser URL
@@ -187,7 +187,7 @@ $(function () {
     // Attach click event listeners to all links with class 'nav-link'
     var navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(function (link) {
-      link.addEventListener('click', handleLinkClick);
+      link.addEventListener('click', handleNavLinkClick);
     });
   }
 
