@@ -40,7 +40,8 @@ add_file_entry () {
 
 add_dir_entry()
 {
-	local EXCLUDED_FILES=("${1}/index.md" "${1}/README.md")
+	local DIR="${1}"
+	local EXCLUDED_FILES=("${DIR}/index.md" "${DIR}/README.md")
     local URL="${2}"
 	local INDEX_FILE="index"
 
@@ -55,7 +56,9 @@ add_dir_entry()
 		fi
 	done
 
-    [ "${USE_INDEX_FILE_FOR_FOLDER_LINKS}x" != "x" ] && URL="${URL}/${INDEX_FILE}"
+    if [ "${USE_INDEX_FILE_FOR_FOLDER_LINKS}x" != "x" ]; then
+        URL=$(url_for_file "" "${DIR}" "${INDEX_FILE}")
+    fi
 
 	print_entry "${INDENT}" "${TITLE}" "${URL}" "subnav:${3}"
 }
@@ -63,11 +66,12 @@ add_dir_entry()
 url_for_file()
 {
     local ITEM_PATH="$1"
-    local DIR="$2"
+    local DIR=$(trim_trailing_slashes "$2")
     local ITEM_NAME="$3"
-    local RELATIVE_PATH=${DIR#${START_DIR}}
+    local RELATIVE_PATH=$(trim_trailing_slashes "${DIR#${START_DIR}}")    
     [ "$RELATIVE_PATH" == "${DIR}" ] && RELATIVE_PATH=""
     local URL="${ROOT_DIR_NAME}${RELATIVE_PATH}/${ITEM_NAME%.md}"
+
     if [ -f "${ITEM_PATH}" ]; then
         local PERMALINK=$(read_file_permalink "${ITEM_PATH}")
         [ "${PERMALINK}x" != "x" ] && URL="${PERMALINK}"
@@ -172,10 +176,8 @@ gen_navigation()
         echo "" >> "${OUTPUT_FILE}"
         echo "# ${ROOT_DIR_NAME}" >> "${OUTPUT_FILE}"
         echo "${ROOT_DIR_NAME}-nav:" >> "${OUTPUT_FILE}"
+        add_dir_entry "${START_DIR}" "${START_DIR}" "" >> "${OUTPUT_FILE}"
 
-        # A bit cheating just to have the same formatting as for file URLs
-        local URL=$(url_for_file "${ROOT_DIR_NAME}" "" "")
-        add_dir_entry "${START_DIR}" "${URL}" "" >> "${OUTPUT_FILE}"
         generate_yaml "${START_DIR}" "" >> "${OUTPUT_FILE}"
 
         shift

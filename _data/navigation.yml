@@ -8,7 +8,7 @@
 # admin-guide
 admin-guide-nav:
   - title: "syslog-ng Open Source Edition Administration Guides"
-    url: /admin-guide//README
+    url: /admin-guide/README
     subnav:
   - title: "Preface"
     url: /admin-guide/000_Preface/README
@@ -988,7 +988,7 @@ admin-guide-nav:
 # dev-guide
 dev-guide-nav:
   - title: "Developer guide"
-    url: /dev-guide//README
+    url: /dev-guide/README
     subnav:
   - title: "Install syslog-ng on different platforms"
     url: /dev-guide/chapter_0/README
@@ -1158,5 +1158,5 @@ dev-guide-nav:
 # doc-guide
 doc-guide-nav:
   - title: "Documentation Guide"
-    url: /doc-guide//README
+    url: /doc-guide/README
     subnav:
