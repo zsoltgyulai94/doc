@@ -36,6 +36,8 @@ start_process() {
     rm -Rf _site
     rm -Rf .jekyll-cache
 
+    update_js_files
+
     bundle exec jekyll serve ${ALL_PARAMS} &
     PROC_PID=$!
 
@@ -64,20 +66,49 @@ reset_watcher() {
     touch "${REF_FILE}"
 }
 
+generate_js_files() {
+    ./_tools/pack debug
+}
+
+update_js_files() {
+    cp -f "_js/main.min.js" "assets/js/"
+
+    # pack handles this already. prevent double site rebuild!
+    if [ "${USE_AUTO_PACK}" != "yes" ]; then
+        cp -f "_js/lunr/"* "assets/js/lunr/"
+    fi
+}
+
 # Function to handle file changes
 handle_file_changes() {
     # Space separated list of files to watch
-    FILES_TO_WATCH=("./_config.yml")
+    # TODO: add lunr files watching
+    FILES_TO_WATCH=("./_config.yml" "_js/main.min.js") 
 
     for FILE in "${FILES_TO_WATCH[@]}"; do
         if check_watched_file_changed "${FILE}" ; then
-            echo "\nFile $FILE has changed, processing."
+            local FILE_NAME=$(basename "${FILE}")
+            local BASENAME="${FILE_NAME%.*}"
+            local EXT="${FILE_NAME##*.}"
+            FILE_NAME=${BASENAME}.${EXT}
+            echo -e "\nFile ${FILE} (${FILE_NAME}) has changed, processing."
 
-            case "$FILE" in
-                "./_config.yml")
+            case "${FILE_NAME}" in
+                "_config.yml")
                     echo -e ". Restarting to serve...\n"
                     stop_process
                     start_process
+
+                    reset_watcher
+                    ;;
+
+                "main.min.js")
+                    echo -e ". Updating js files...\n"
+                    if [ "${USE_AUTO_PACK}" == "yes" ]; then
+                        # TODO: ./_tools/pack can generate broken man.min.js on some machines :S
+                        generate_js_files                        
+                    fi
+                    update_js_files
 
                     reset_watcher
                     ;;
