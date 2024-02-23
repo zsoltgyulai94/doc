@@ -62,7 +62,7 @@ $(function () {
   }
 
   // Function to apply all of our custom modifications on the self loaded pages
-  function finalizeContent() {
+  function finalizeContent(anchorId) {
     // Sync the sidebar with the current page url, migth be out of sync when the page is loaded initially from an inner url
     adjustSidebars();
     // There might be nav-links in the loaded new content as well (e.g.Next / Prev buttons
@@ -71,12 +71,15 @@ $(function () {
     // Add page heading anchors
     addPageAnchors();
     // Add toc to anchor scrolling
-    addTocScrolling();
+    addTOCScrolling();
     // Add code block enhancements
     if (ClipboardJS.isSupported())
       addCodeBlocksTitle();
     // Add content tooltips
     addContentTooltips();
+    // Try to scroll to a giben anchor, if any
+    if (anchorId)
+      scrollToAnchor(anchorId);
   }
 
   // Function to load content based on relative URL
@@ -104,16 +107,33 @@ $(function () {
       });
   }
 
+  function scrollToAnchor(anchorId) {
+    var anchorElement = document.getElementById(anchorId);
+    if (anchorElement) {
+      // Use the attched smooth scroll to have a consistent behavior
+      smoothScroll.animateScroll(anchorElement, null, { updateURL: false });
+    }
+  }
+
+  function anchorIDFromUrl(url) {
+    var anchorId = null;
+    var hash = url.hash;
+    if (hash && hash.length > 0) {
+      var hashIndex = hash.indexOf('#');
+      if (hashIndex !== -1)
+        anchorId = hash.substring(hashIndex + 1);
+    }
+    return anchorId;
+  }
+
   function updateContentFromUrl(url) {
     var currContent = document.querySelector(contentID);
 
     loadContentFromUrl(
       url,
       newContent => {
-
         // FIXME: This does not work, double check
         currContent.scrollTop;
-
         // As a workaround of the above, empty the old content, and with a short delay only, load the new one
         currContent.innerHTML = '';
 
@@ -123,7 +143,7 @@ $(function () {
           currContent.parentNode.replaceChild(newContent, currContent);
 
           // Add all our custom modifications to all the self loaded pages
-          finalizeContent();
+          finalizeContent(anchorIDFromUrl(url));
         }, 100);
       },
       error => {
@@ -147,15 +167,16 @@ $(function () {
     // Get the relative URL value and update the browser URL
     var anchorElement = event.currentTarget.closest('a');
     if (anchorElement) {
-      var url = new URL(anchorElement.href).pathname;
-      var isChanged = (url != window.location.pathname);
+      var url = new URL(anchorElement.href);
+      var urlStr = url.pathname + url.hash;
+      var changed = (urlStr != window.location.pathname + window.location.hash);
 
       // Update the browser URL
       history.pushState(null, null, url);
 
       // Load content based on the updated relative URL
       // but only if the url has changed
-      if (isChanged)
+      if (changed)
         updateContentFromUrl(url);
     }
     // Clear focus from the clicked element, as we have other visualization for the selected items
@@ -170,16 +191,16 @@ $(function () {
     });
   }
 
-  // TOC smooth scrolling
-  function addTocScrolling() {
-    const topOffset = 100;
-    var scroll = new SmoothScroll('a[href*="#"]', {
-      offset: topOffset,
-      speed: 400,
-      speedAsDuration: true,
-      durationMax: 500
-    });
+  const smoothScrollTopOffset = 100;
+  var smoothScroll = new SmoothScroll('a[href*="#"]', {
+    offset: smoothScrollTopOffset,
+    speed: 400,
+    speedAsDuration: true,
+    durationMax: 500
+  });
 
+  // TOC smooth scrolling
+  function addTOCScrolling() {
     // Gumshoe scroll spy init
     if ($("nav.toc a").length > 0) {
       var spy = new Gumshoe("nav.toc a", {
@@ -192,7 +213,7 @@ $(function () {
         nestedClass: "active", // applied to the parent items
 
         // Offset & reflow
-        offset: topOffset, // how far from the top of the page to activate a content area
+        offset: smoothScrollTopOffset, // how far from the top of the page to activate a content area
         reflow: true, // if true, listen for reflows
 
         // Event support
