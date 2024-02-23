@@ -3,6 +3,8 @@
    ========================================================================== */
 
 $(function () {
+  // FIXME: How to get the real base URL (without using Liquid and Front Matter) ?!?!
+  const docRootName = 'doc';
   const notFoundPageName = '404.html';
   const contentID = 'article';
 
@@ -149,8 +151,7 @@ $(function () {
       error => {
         if (error == "Error: 404") {
           var baseURL = window.location.origin;
-          // FIXME: How to get the real base URL (without using Liquid and Front Matter) ?!?!
-          var notFoundURL = baseURL + '/doc/' + notFoundPageName;
+          var notFoundURL = baseURL + '/' + docRoot + '/' + notFoundPageName;
 
           updateContentFromUrl(notFoundURL);
         }
@@ -160,27 +161,56 @@ $(function () {
     );
   }
 
+  function getCollectionFromDocPath(url) {
+    var parts = url.href.split('/');
+    var docIndex = parts.indexOf(docRootName);
+
+    // If 'doc' is not found or it's the last segment, return an empty string
+    if (docIndex === -1 || docIndex === parts.length - 1) {
+      return '';
+    }
+
+    return parts[docIndex + 1];
+  }
+
+  function areSameCollections(url1, url2) {
+    var collection1 = getCollectionFromDocPath(url1);
+    var collection2 = getCollectionFromDocPath(url2);
+
+    return collection1 === collection2;
+  }
+
   // Function to handle link clicks
   function handleNavLinkClick(event) {
-    event.preventDefault(); // Prevent default navigation behavior
-
     // Get the relative URL value and update the browser URL
     var anchorElement = event.currentTarget.closest('a');
+
     if (anchorElement) {
       var url = new URL(anchorElement.href);
-      var urlStr = url.pathname + url.hash;
-      var changed = (urlStr != window.location.pathname + window.location.hash);
 
-      // Update the browser URL
-      history.pushState(null, null, url);
+      // Try to load into the inner content frame only if the collection has not changed
+      // Otherwise let the original click flow take effect, as the nav bar must be reloaded too
+      // for a different collection
+      if (areSameCollections(url, window.location)) {
+        // Prevent default navigation behavior, we will use our content load method
+        event.preventDefault();
 
-      // Load content based on the updated relative URL
-      // but only if the url has changed
-      if (changed)
-        updateContentFromUrl(url);
+        var urlStr = url.pathname + url.hash;
+        var changed = (urlStr != window.location.pathname + window.location.hash);
+
+        // Update the browser URL
+        history.pushState(null, null, url);
+
+        // Load content based on the updated relative URL
+        // but only if the url has changed
+        if (changed)
+          updateContentFromUrl(url);
+      }
+      // Clear focus from the clicked element, as we have other visualization for the selected items
+      event.target.blur();
     }
-    // Clear focus from the clicked element, as we have other visualization for the selected items
-    event.target.blur();
+    else
+      console.debug("Different collection item requested, loading full page...")
   }
 
   function updateNavLinks(event) {
