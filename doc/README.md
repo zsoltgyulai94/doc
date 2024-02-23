@@ -12,9 +12,9 @@ id: doc-center
 
 If you would like to help us to make our documentation better, here you can find information about {% include markdown_link id="doc-guide" title="how to contribute" outOfFrame=true %}
 
-## {% include markdown_link id="admin-guide" title="Administrator guide" outOfFrame=true %}
+## {% include markdown_link id="adm-guide" title="Administrator guide" outOfFrame=true %}
 
-If you are an active user of syslog-ng, start here to {% include markdown_link id="admin-guide" title="learn" outOfFrame=true %} about installation, configuration, fine tuning syslog-ng.
+If you are an active user of syslog-ng, start here to {% include markdown_link id="adm-guide" title="learn" outOfFrame=true %} about installation, configuration, fine tuning syslog-ng.
 
 ## {% include markdown_link id="dev-guide" title="Developer guide" outOfFrame=true %}
 
