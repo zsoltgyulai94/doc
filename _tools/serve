@@ -101,7 +101,7 @@ handle_dir_changes() {
     if [[ ${LINE} != "" ]]; then
         echo "\nDir $PWD has changed, processing."
         echo -e ". Regenerating ${NAV_DATA_FILE}\n"
-        ./_tools/navgen ./dev-guide ./admin-guide ./doc-guide "${NAV_DATA_FILE}"
+        ./_tools/navgen ./doc "${NAV_DATA_FILE}"
     fi
 }
 
