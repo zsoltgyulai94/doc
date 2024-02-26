@@ -91,6 +91,9 @@ gem "faraday-retry"
 #    @level_override[Fiber.current] || @level
 gem "mercenary", "~> 0.4"
 
+# self made plugins dependencies
+gem "nokogiri"
+
 # Gems loaded irrespective of site configuration.
 # If you have any other plugins, put them here!
 # Cf. https://jekyllrb.com/docs/plugins/installation/

@@ -77,7 +77,7 @@ url_for_file()
         [ "${PERMALINK}x" != "x" ] && URL="${PERMALINK}"
     fi
 
-    # Adding now the leaign / to support proper root references as well everywhere
+    # Adding now the leadign / to support proper root references as well everywhere
     # links must be used via the markdown_link include (or with the '| relative_url' filter) that will handle this 
     echo "/${URL}"
 }
@@ -188,7 +188,7 @@ gen_navigation()
 gen_links()
 {
     rm -Rf _data/links
-    JEKYLL_BUILD_LINKS='true' bundle exec jekyll build
+    JEKYLL_BUILD_LINKS='yes' bundle exec jekyll build
     echo "Jekyll page links are generated and saved to _data/links"
 }
 
