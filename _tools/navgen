@@ -6,7 +6,7 @@ FRONT_MATTER_HEADER_FOOTER="---"
 
 USE_INDEX_FILE_FOR_FOLDER_LINKS="yes"
 REMOVE_UNDERLINE_FROM_DOC_DIR_NAMES="yes"
-GENERATE_LINKS="yes"
+JEKYLL_BUILD_LINKS="yes"
 
 
 trim_trailing_slashes()
@@ -188,26 +188,34 @@ gen_navigation()
 gen_links()
 {
     rm -Rf _data/links
-    JEKYLL_BUILD_LINKS='yes' bundle exec jekyll build
+    JEKYLL_BUILD_LINKS='yes' JEKYLL_BUILD_TOOLTIPS='no'  bundle exec jekyll build
     echo "Jekyll page links are generated and saved to _data/links"
+}
+
+gen_tooltips()
+{
+    JEKYLL_BUILD_LINKS='no' JEKYLL_BUILD_TOOLTIPS='yes' bundle exec jekyll build
+    echo "Jekyll tooltips are generated and saved"
 }
 
 process_params()
 {
     gen_navigation
-    [ "${GENERATE_LINKS}" == "yes" ] && gen_links
+    [ "${JEKYLL_BUILD_LINKS}" == "yes" ] && gen_links
+    [ "${JEKYLL_BUILD_TOOLTIPS}" == "yes" ] && gen_tooltips
 }
 
 
 # Check for the correct number of command-line parameters
 if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <doc_folder> <output_nav_file> [yes:no]"
+    echo "Usage: $0 <doc_folder> <output_nav_file> [yes:no] [yes:no] (Where 3rd param will set JEKYLL_BUILD_LINKS, 4th set JEKYLL_BUILD_TOOLTIPS)"
     exit 1
 fi
 
 DOC_FOLDER="${1}"
 OUTPUT_FILE="${2}"
-[ "$#" -gt 2 ] && GENERATE_LINKS="${3}"
+[ "$#" -gt 2 ] && JEKYLL_BUILD_LINKS="${3}"
+[ "$#" -gt 3 ] && JEKYLL_BUILD_TOOLTIPS="${4}"
 
 process_params "$@"
 

@@ -38,7 +38,10 @@ start_process() {
 
     update_js_files
 
-    bundle exec jekyll serve ${ALL_PARAMS} &
+    # Either use navgen or build once with JEKYLL_BUILD_LINKS manually in a separate run
+    # as the output of it must already be presented to be able to serve a valid content
+    #
+    JEKYLL_BUILD_LINKS='no' bundle exec jekyll serve ${ALL_PARAMS} &
     PROC_PID=$!
 
     echo -e "\n\n\n"
@@ -76,7 +79,7 @@ update_js_files() {
     cp -f "_js/main.min.js" "assets/js/"
 
     # pack handles this already. prevent double site rebuild!
-    if [ "${USE_AUTO_PACK}" != "yes" ]; then
+    if [ "${JEKYLL_USE_AUTO_PACK}" != "yes" ]; then
         cp -f "_js/lunr/"* "assets/js/lunr/"
     fi
 }
@@ -106,7 +109,7 @@ handle_file_changes() {
 
                 "main.min.js")
                     echo -e ". Updating js files...\n"
-                    if [ "${USE_AUTO_PACK}" == "yes" ]; then
+                    if [ "${JEKYLL_USE_AUTO_PACK}" == "yes" ]; then
                         # TODO: ./_tools/pack can generate broken man.min.js on some machines :S
                         generate_js_files                        
                     fi
