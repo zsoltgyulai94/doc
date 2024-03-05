@@ -182,35 +182,38 @@ $(function () {
 
   // Function to handle link clicks
   function handleNavLinkClick(event) {
-    // Get the relative URL value and update the browser URL
-    var anchorElement = event.currentTarget.closest('a');
+    if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
 
-    if (anchorElement) {
-      var url = new URL(anchorElement.href);
+      // Get the relative URL value and update the browser URL
+      var anchorElement = event.currentTarget.closest('a');
 
-      // Try to load into the inner content frame only if the collection has not changed
-      // Otherwise let the original click flow take effect, as the nav bar must be reloaded too
-      // for a different collection
-      if (areSameCollections(url, window.location)) {
-        // Prevent default navigation behavior, we will use our content load method
-        event.preventDefault();
+      if (anchorElement) {
+        var url = new URL(anchorElement.href);
 
-        var urlStr = url.pathname + url.hash;
-        var changed = (urlStr != window.location.pathname + window.location.hash);
+        // Try to load into the inner content frame only if the collection has not changed
+        // Otherwise let the original click flow take effect, as the nav bar must be reloaded too
+        // for a different collection
+        if (areSameCollections(url, window.location)) {
+          // Prevent default navigation behavior, we will use our content load method
+          event.preventDefault();
 
-        // Update the browser URL
-        history.pushState(null, null, url);
+          var urlStr = url.pathname + url.hash;
+          var changed = (urlStr != window.location.pathname + window.location.hash);
 
-        // Load content based on the updated relative URL
-        // but only if the url has changed
-        if (changed)
-          updateContentFromUrl(url);
+          // Update the browser URL
+          history.pushState(null, null, url);
+
+          // Load content based on the updated relative URL
+          // but only if the url has changed
+          if (changed)
+            updateContentFromUrl(url);
+        }
+        // Clear focus from the clicked element, as we have other visualization for the selected items
+        event.target.blur();
       }
-      // Clear focus from the clicked element, as we have other visualization for the selected items
-      event.target.blur();
+      else
+        console.debug("Different collection item requested, loading full page...")
     }
-    else
-      console.debug("Different collection item requested, loading full page...")
   }
 
   function updateNavLinks(event) {
