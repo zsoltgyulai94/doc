@@ -155,8 +155,10 @@ $(function () {
 
           updateContentFromUrl(notFoundURL);
         }
-        else
+        else {
           currContent.innerHTML = '<h3>Sorry, there was a problem loading the content!</h3>(' + error + ')';
+          console.error("Error loading content, " + error)
+        }
       }
     );
   }
@@ -173,7 +175,7 @@ $(function () {
     return parts[docIndex + 1];
   }
 
-  function areSameCollections(url1, url2) {
+  function sameCollection(url1, url2) {
     var collection1 = getCollectionFromDocPath(url1);
     var collection2 = getCollectionFromDocPath(url2);
 
@@ -185,7 +187,8 @@ $(function () {
     if (!event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
 
       // Get the relative URL value and update the browser URL
-      var anchorElement = event.currentTarget.closest('a');
+      // Use originalTarget or explicitTarget to get the correct one even for clicks from the tooltips
+      var anchorElement = event.originalTarget.closest('a');
 
       if (anchorElement) {
         var url = new URL(anchorElement.href);
@@ -193,7 +196,7 @@ $(function () {
         // Try to load into the inner content frame only if the collection has not changed
         // Otherwise let the original click flow take effect, as the nav bar must be reloaded too
         // for a different collection
-        if (areSameCollections(url, window.location)) {
+        if (sameCollection(url, window.location)) {
           // Prevent default navigation behavior, we will use our content load method
           event.preventDefault();
 
@@ -206,7 +209,7 @@ $(function () {
           // Load content based on the updated relative URL
           // but only if the url has changed
           if (changed)
-              updateContentFromUrl(url);
+            updateContentFromUrl(url);
         }
         // Clear focus from the clicked element, as we have other visualization for the selected items
         event.target.blur();
@@ -324,7 +327,7 @@ $(function () {
               tooltip.innerHTML = newContent;
             },
             error => {
-              console.error('There was a problem loading the content!' + error);
+              console.error('Error loading the tooltip content!' + error);
             }
           );
         }

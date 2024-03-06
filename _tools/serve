@@ -71,6 +71,8 @@ generate_js_files() {
 }
 
 update_js_files() {
+    # if generate_js_files did not run this might not yet exists
+    mkdir -p "assets/js/lunr" 2>/dev/null
     cp -f "_js/main.min.js" "assets/js/"
 
     # pack handles this already. prevent double site rebuild!
