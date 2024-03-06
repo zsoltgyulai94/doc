@@ -206,7 +206,7 @@ $(function () {
           // Load content based on the updated relative URL
           // but only if the url has changed
           if (changed)
-            updateContentFromUrl(url);
+              updateContentFromUrl(url);
         }
         // Clear focus from the clicked element, as we have other visualization for the selected items
         event.target.blur();
@@ -313,16 +313,21 @@ $(function () {
       element.appendChild(tooltip);
 
       element.addEventListener('mouseover', function () {
-        var url = element.href;
-        loadContentPartFrom(
-          url,
-          newContent => {
-            tooltip.innerHTML = newContent;
-          },
-          error => {
-            console.error('There was a problem loading the content!' + error);
-          }
-        );
+        // Load only once per page load
+        if (tooltip.innerHTML === '') {
+          var url = element.href;
+          loadContentPartFrom(
+            url,
+            newContent => {
+              // remove unnecessary inner content tooltips
+              newContent = newContent.replace(/\bcontent-tooltip\b/g, '');
+              tooltip.innerHTML = newContent;
+            },
+            error => {
+              console.error('There was a problem loading the content!' + error);
+            }
+          );
+        }
       });
     });
   }
