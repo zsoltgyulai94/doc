@@ -139,6 +139,9 @@ a {
     color: $link-color-hover;
     outline: 0;
   }
+
+  /* link color is nicely contrasted and well enough right now */
+  text-decoration: none;
 }
 
 /* buttons */

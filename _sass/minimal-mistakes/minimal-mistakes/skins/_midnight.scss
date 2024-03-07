@@ -5,6 +5,8 @@
 /* Colors */
 $background-color: #252525 !default;
 $text-color: #f0e7d5 !default;
+$selection-color: mix($text-color, $background-color, 20%) !default;
+$selection-background-color:  mix($text-color, $background-color, 80%) !default;
 $primary-color: #e8ba00 !default;
 $border-color: mix(#fff, $background-color, 20%) !default;
 $code-background-color: #1e1e1e !default;
@@ -14,6 +16,7 @@ $footer-background-color: mix(#000, $background-color, 30%) !default;
 $link-color: $primary-color !default;
 $link-color-visited: mix(#fff, $link-color, 40%) !default;
 $link-color-hover: mix(#fff, $link-color, 60%) !default;
+$link-color-selected: $selection-color !default;
 $masthead-link-color: $text-color !default;
 $masthead-link-color-hover: mix(#000, $text-color, 20%) !default;
 $navicon-link-color-hover: mix(#000, $background-color, 30%) !default;
