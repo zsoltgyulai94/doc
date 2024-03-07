@@ -31,6 +31,11 @@ $(function () {
       if (matchingNavItem) {
         matchingNavItem.classList.add('active');
 
+        // Sync the browser title too
+        title = matchingNavItem.text;
+        if (title)
+          window.top.document.title = title;
+
         // Expand all parent ul elements up to the nearest .nav__list
         var parentUl = matchingNavItem.closest('ul');
         while (parentUl) {
