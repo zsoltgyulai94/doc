@@ -112,15 +112,23 @@ module Jekyll
                   if markdown_index.even? # Content outside of special Markdown blocks
                     part_modified = false
 
-                    markdown_part = markdown_part.gsub(/((?<=(?:^|[\s.;:'`]))#{Regexp.escape(text_to_search)}(?=[\s.;:'`]|\z))/) do |match|
-                      # left_separator = $&
-                      # matched_text = $1
-                      # right_separator = $&
+                    markdown_part = markdown_part.gsub(/(^|[\s.;:'`])(#{Regexp.escape(text_to_search)})([\s.;:'`]|\z)/) do |match|
+                      left_separator = $1
+                      matched_text = $2
+                      right_separator = $3
                       puts "match: " + match
+                      puts "left_separator: " + left_separator
+                      puts "matched_text: " + matched_text
+                      puts "right_separator: " + right_separator
+
                       part_modified = page.data["modified"] = true
 
-                      tooltip = '{% include markdown_link id="' + id + '" title="%MATCH%" withTooltip="yes" %}' #'abrakadabra'
-                      replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, match)
+                      left_separator = ($1 == '`' ? '' : $1)
+                      matched_text = $2
+                      right_separator = ($3 == '`' ? '' : $3)
+
+                      tooltip = left_separator + '{% include markdown_link id="' + id + '" title="%MATCH%" withTooltip="yes" %}' + right_separator #'abrakadabra'
+                      replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, matched_text)
                       puts "replacement_text: " + replacement_text
 
                       # Take care, this must be the last one in this block!
