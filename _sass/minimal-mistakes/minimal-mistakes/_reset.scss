@@ -38,8 +38,8 @@ body { margin: 0; }
 }
 
 ::selection {
-  color: #fff;
-  background: #000;
+  color: $selection-color;
+  background: $selection-background-color;
 }
 
 /* Display HTML5 elements in IE6-9 and FF3 */
@@ -89,6 +89,11 @@ a:focus {
 a:hover,
 a:active {
   outline: 0;
+}
+
+a::selection {
+  color: $link-color-selected;
+  background: $selection-background-color;
 }
 
 /* Prevent sub and sup affecting line-height in all browsers */
