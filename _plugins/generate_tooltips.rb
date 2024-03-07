@@ -5,7 +5,7 @@ module Jekyll
   class TooltipGen
     class << self
 
-      private
+    private
 
       def add_matching_files(file_names, folder_path, pattern)
         fullPattern = File.join(folder_path, pattern)
@@ -13,66 +13,6 @@ module Jekyll
         Dir.glob(fullPattern, File::FNM_EXTGLOB).each do |file|
           file_names << file
         end
-      end
-
-      def render_markdown_content(site, doc, payload)
-        liquid_options = site.config["liquid"]
-
-        # create a template object
-        template = site.liquid_renderer.file(doc.path).parse(doc.content)
-
-        # the render method expects this information
-        info = {
-          :registers        => { :site => site, :page => payload['page'] },
-          :strict_filters   => liquid_options["strict_filters"],
-          :strict_variables => liquid_options["strict_variables"],
-        }
-
-        # render the content into a new property
-        doc.data['rendered_content'] = template.render!(payload, info)
-      end
-
-      public
-
-      def gen_page_link_data(links_dir, link_files_pattern)        
-        processed_titles = {}
-        page_link_data_array = []
-        link_file_names = []
-        add_matching_files(link_file_names, links_dir, link_files_pattern)
-                            
-        link_file_names.each do |file_name|
-          #puts file_name
-          yaml_content = YAML.load_file(file_name)
-
-          # Extract the necessary data from the YAML content
-          page_id = yaml_content['id']
-          page_url = yaml_content['url']
-          page_title = yaml_content['title']
-          chars_to_remove = %{"'!?.:;}
-          page_title = page_title.gsub(/\A[#{Regexp.escape(chars_to_remove)}]+|[#{Regexp.escape(chars_to_remove)}]+\z/, '')
-          #puts "page_title: " + page_title
-          if page_title.length == 0
-            page_title = link_data["title"]
-          end
-
-          # process only once a given title in the given page
-          next if processed_titles[page_title]
-          # otherwise add to the processsed list and process it
-          processed_titles[page_title] = true
-
-          # Create a page_link_data object
-          page_link_data = {
-            "id" => page_id,
-            "url" => page_url,
-            "title" => page_title
-          }
-
-          # Add the page_link_data object to the array
-          page_link_data_array << page_link_data
-        end
-
-        #puts page_link_data_array
-        return page_link_data_array
       end
 
       # More about rendering insights
@@ -113,13 +53,13 @@ module Jekyll
                     part_modified = false
 
                     markdown_part = markdown_part.gsub(/(^|[\s.;:'`])(#{Regexp.escape(text_to_search)})([\s.;:'`]|\z)/) do |match|
-                      left_separator = $1
-                      matched_text = $2
-                      right_separator = $3
-                      puts "match: " + match
-                      puts "left_separator: " + left_separator
-                      puts "matched_text: " + matched_text
-                      puts "right_separator: " + right_separator
+                      # left_separator = $1
+                      # matched_text = $2
+                      # right_separator = $3
+                      # puts "match: " + match
+                      # puts "left_separator: " + left_separator
+                      # puts "matched_text: " + matched_text
+                      # puts "right_separator: " + right_separator
 
                       part_modified = page.data["modified"] = true
 
@@ -165,17 +105,25 @@ module Jekyll
         return modified_content
       end
 
+      def write_to_file(file_path, content)
+        File.open(file_path, "w") do |file|
+          file.write(content)
+        end
+      end
+      
+    public
+
       def generate_tooltips(site, markdown_extensions, page_links, page, payload, write_back)
         #puts page.relative_path
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          return if page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" and
-                    page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
+          # return if page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" and
+          #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
           puts "------------------------------------"
           puts page.relative_path
           puts "------------------------------------"
 
-          content = page.content #render_markdown_content(site, page, payload)
+          content = page.content
           #puts content
 
           processed_titles = {}
@@ -204,10 +152,45 @@ module Jekyll
         end # if extension is matching
       end # def do_site_post_render_work
 
-      def write_to_file(file_path, content)
-        File.open(file_path, "w") do |file|
-          file.write(content)
+      def gen_page_link_data(links_dir, link_files_pattern)        
+        processed_titles = {}
+        page_link_data_array = []
+        link_file_names = []
+        add_matching_files(link_file_names, links_dir, link_files_pattern)
+                            
+        link_file_names.each do |file_name|
+          #puts file_name
+          yaml_content = YAML.load_file(file_name)
+
+          # Extract the necessary data from the YAML content
+          page_id = yaml_content['id']
+          page_url = yaml_content['url']
+          page_title = yaml_content['title']
+          chars_to_remove = %{"'!?.:;}
+          page_title = page_title.gsub(/\A[#{Regexp.escape(chars_to_remove)}]+|[#{Regexp.escape(chars_to_remove)}]+\z/, '')
+          #puts "page_title: " + page_title
+          if page_title.length == 0
+            page_title = link_data["title"]
+          end
+
+          # process only once a given title, first one wins now
+          next if processed_titles[page_title]
+          # otherwise add to the processsed list and process it
+          processed_titles[page_title] = true
+
+          # Create a page_link_data object
+          page_link_data = {
+            "id" => page_id,
+            "url" => page_url,
+            "title" => page_title
+          }
+
+          # Add the page_link_data object to the array
+          page_link_data_array << page_link_data
         end
+
+        #puts page_link_data_array
+        return page_link_data_array
       end
 
     end # class << self
