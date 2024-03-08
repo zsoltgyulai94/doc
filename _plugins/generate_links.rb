@@ -6,81 +6,7 @@ module Jekyll
   class LinkGen
     class << self
 
-      public
-      
-      def generate_links(site, markdown_extensions, page)
-        #puts page.relative_path
-        
-        if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          #puts "------------------------------------"
-          #puts page.relative_path
-          #puts "------------------------------------"
-
-          # Skip and warn about pages without an 'id' property
-          if page.data["id"]
-            page_id = page.data["id"].to_s
-            # Not removing now the leadign / to support proper root references as well everywhere
-            # links must be used via the markdown_link include (or with the '| relative_url' filter) that will handle this 
-            page_url = page.url.sub(/\.[^.]+$/, "") # page.url.sub(/^\//, "").sub(/\.[^.]+$/, "")
-            page_path = page.destination("").split("_site/").last  # Get the path to the generated HTML file
-            #puts page_id
-            #puts page_url
-            #puts page_path
-
-            # Extract headings from the rendered content
-            headings = page.content.scan(/<h([1-6]).*id=\"(.*?)\">(.*?)<\/h\1>/)
-            #puts headings
-            #puts ""
-
-            headings.each do |heading|
-              #heading_level = heading[0].to_i
-              heading_id = heading[1]
-              heading_text = extract_title(heading[2])
-
-              # Create links data for the heading
-              link_data = {
-                "id" => page_id + "##{heading_id}",
-                "url" => page_url + "##{heading_id}",
-                "title" => '"' + heading_text + '"'
-              }
-
-              # Write data to separate YAML file for each heading
-              file_path = "_data/links/#{page_id}##{heading_id}.yml"
-              write_yaml_file(file_path, link_data)
-            end
-
-            # Create links data for the page
-            page_title = page.data["short_title"] || page.data["title"]
-            page_link_data = {
-              "id" => page_id,
-              "url" => page_url,
-              "title" => '"' + page_title + '"'
-            }
-            # Write data to separate YAML file for each page
-            page_file_path = "#{page_id}.yml"
-            page_file_path = "_data/links/" + page_file_path.gsub(/\/|:|\s/, "-").downcase
-            write_yaml_file(page_file_path, page_link_data)
-          
-          else
-            puts "Missing 'id:' property in file " + page.relative_path
-          end
-
-        end # if extension is matching
-      end # def do_site_post_render_work
-
-      private
-
-      def extract_title(node)
-        title = node.strip
-
-        # Check if the title contains HTML tags
-        if title.match?(/<[^>]*>/)
-          doc = Nokogiri::HTML.fragment(title)
-          title = doc.text.strip
-        end
-
-        title
-      end
+    private
 
       def write_yaml_file(file_path, data)
         header = "# ---------------------------------------------\n" + 
@@ -95,8 +21,78 @@ module Jekyll
           file.write("id: " + data["id"] + "\n")
           file.write("url: " + data["url"] + "\n")
           file.write("title: " + data["title"] + "\n")
+          file.write("description: " + data["description"] + "\n")
         end
+        #puts file_path
       end
+
+    public
+      
+      def generate_links(site, markdown_extensions, page)
+        #puts page.relative_path
+        
+        if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
+          #puts "------------------------------------"
+          #puts page.relative_path
+          #puts "------------------------------------"
+
+          # Skip and warn about pages without an 'id' property
+          if page.data["id"]
+            doc = Nokogiri::HTML(page.content)
+        
+            page_id = page.data["id"].to_s
+            # Not removing now the leadign / to support proper root references as well everywhere
+            # links must be used via the markdown_link include (or with the '| relative_url' filter) that will handle this 
+            page_url = page.url.sub(/\.[^.]+$/, "") # page.url.sub(/^\//, "").sub(/\.[^.]+$/, "")
+            page_path = page.destination("").split("_site/").last  # Get the path to the generated HTML file
+            page_description = page['description']&.strip 
+            page_description = page_description ? page_description : ""
+            #puts "page_id: " + page_id + "\npage_url :" + page_url + "\npage_path: " + page_path + "\npage_description: " + page_description
+
+            # Find all heading elements (now from h1 to h6)
+            # NOTE: This will not contain the <h1 id="page-title" page title, as that is out of the page.content>
+            # FIXME: This magic 6 must be maintained together now with navigation.js (and other places?!)
+            (1..6).each do |level|
+              headings = doc.css("h#{level}")
+
+              # Enumerate and output the text of each heading
+              headings.each_with_index do |heading, index|
+                #puts "Heading #{level} - #{index + 1}: #{heading.text}"
+
+                heading_id = heading["id"]
+                # Create links data for the heading
+                link_data = {
+                  "id" => page_id + "##{heading_id}",
+                  "url" => page_url + "##{heading_id}",
+                  "title" => '"' + heading.text + '"',
+                  "description" => '""'              
+                }
+
+                # Write data to separate YAML file for each heading
+                file_path = "_data/links/#{page_id}##{heading_id}.yml"
+                write_yaml_file(file_path, link_data)
+              end
+            end
+
+            # Create links data for the page
+            page_title = page.data["title"]
+            page_link_data = {
+              "id" => page_id,
+              "url" => page_url,
+              "title" => '"' + page_title + '"',
+              "description" => '"' + page_description + '"'              
+            }
+            # Write data to separate YAML file for each page
+            page_file_path = "#{page_id}.yml"
+            page_file_path = "_data/links/" + page_file_path.gsub(/\/|:|\s/, "-").downcase
+            write_yaml_file(page_file_path, page_link_data)
+          
+          else
+            puts "Missing 'id:' property in file " + page.relative_path
+          end
+
+        end # if extension is matching
+      end # def do_site_post_render_work
 
     end # class << self
   end # class LinkGen
