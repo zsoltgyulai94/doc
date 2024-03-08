@@ -8,10 +8,16 @@ module Jekyll
     private
 
       def add_matching_files(file_names, folder_path, pattern)
-        fullPattern = File.join(folder_path, pattern)
-        
+        fullPattern = File.join(folder_path, '*') #pattern
+                
+        # NOTE: This is not a real reg-exp https://docs.ruby-lang.org/en/master/Dir.html#method-c-glob
+        #       and actually, how it works is a mess
+        #       Trying to use a manual solution instead, filtering * with useable regex 
         Dir.glob(fullPattern, File::FNM_EXTGLOB).each do |file|
-          file_names << file
+          if file.match?(pattern)
+            #puts "match: " + file
+            file_names << file
+          end
         end
         file_names = file_names.sort
         puts file_names
@@ -72,7 +78,7 @@ module Jekyll
                         # puts "matched_text: " + matched_text
                         # puts "right_separator: " + right_separator
 
-                        if $1 != '`' or $3 == '`' # we accept exact surrounding `` pairs only as a direct signal for a tooltip (and the default markdown highlighting)
+                        if ($1 != '`' and $3 != '`') or ($1 == '`' and $3 == '`') # we accept exact surrounding `` pairs only as a direct signal for a tooltip (and the default markdown highlighting)
                           part_modified = page.data["modified"] = true
 
                           left_separator = ($1 == '`' ? '' : $1)
@@ -133,9 +139,10 @@ module Jekyll
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
           # return if 
           #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" and 
-          #           page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and
+          #           page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
+          #           page.relative_path != "_admin-guide/120_Parser/README.md" and
           #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
-          #           # and page.relative_path != "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
+                    # and page.relative_path != "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
           puts "------------------------------------"
           puts page.relative_path
           puts "------------------------------------"
@@ -229,9 +236,9 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
 
   if shoud_build_tooltips    
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
-    # NOTE: This is not a real reg-exp https://docs.ruby-lang.org/en/master/Dir.html#method-c-glob
-    # Skip one letter long Glossary header items    
-    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', 'adm-*.yml')
+    # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
+    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/adm-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
+    #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
     #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', 'adm-temp-macro-ose#message.yml')
     #puts page_links
 
