@@ -15,6 +15,17 @@ trim_trailing_slashes()
     echo "${INPUT_STRING%/}"
 }
 
+trim() 
+{
+    local VAR="${1}"
+    local TO_TRIM="${2}"
+
+    VAR="${VAR%%[${TO_TRIM}]}"
+    VAR="${VAR##[${TO_TRIM}]}"
+
+    printf '%s' "$VAR"
+}
+
 print_entry()
 {
 	echo "${1}  - title: ${2}"
@@ -33,7 +44,7 @@ add_file_entry () {
 	local FILE_TITLE=$(read_file_title "${1}")
     local URL="${2}"
 	
-	[ -n "$FILE_TITLE" ] && TITLE="\"$FILE_TITLE\""
+	[ -n "$FILE_TITLE" ] && TITLE="$FILE_TITLE"
 
 	print_entry "${INDENT}" "${TITLE}" "${URL}"
 }
@@ -51,7 +62,7 @@ add_dir_entry()
             local BASE_NAME=$(basename "${EXCLUDED_FILE}")
 
             INDEX_FILE=${BASE_NAME%.*}
-			[ -n "${DIR_TITLE}" ] && TITLE="\"${DIR_TITLE}\""
+			[ -n "${DIR_TITLE}" ] && TITLE="${DIR_TITLE}"
 			break
 		fi
 	done
@@ -143,7 +154,14 @@ read_file_id()
 
 read_file_title()
 {
-    read_file_header_item "$1" '^short_title: (.*)$' '^title: (.*)$'
+    TITLE=$(read_file_header_item "$1" '^short_title: (.*)$' '^title: (.*)$')
+
+  	if [[ -n "${TITLE}" ]]; then
+        TITLE=$(trim "${TITLE}" "\"'")
+        TITLE="\"${TITLE}\""
+    fi
+
+    echo "${TITLE}"
 }
 
 read_file_permalink()
