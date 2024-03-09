@@ -139,10 +139,10 @@ module Jekyll
         #puts page.relative_path
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          return if 
+          #return if 
           #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" and 
           #           page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
-                    page.relative_path != "_admin-guide/120_Parser/README.md"
+          #          page.relative_path != "_admin-guide/120_Parser/README.md"
           #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
                     # and page.relative_path != "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
           puts "------------------------------------"
