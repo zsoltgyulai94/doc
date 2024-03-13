@@ -718,16 +718,9 @@
   font-size: $type-size-5;
   font-weight: bold;
 
-  // margin: 0;
-  // padding: 0.25rem 0;// 0.75rem;
-  // font-family: $sans-serif-narrow;
-  // font-size: $type-size-5;
-  // font-weight: bold;
-
    text-transform: uppercase;
 }
 
-//.nav__title, 
 .nav__sub-title {
   border-bottom: 1px solid $border-color;
   margin: 0.5rem 0;
@@ -750,42 +743,43 @@
 //   src: local('Muli'), url(http://themes.googleusercontent.com/static/fonts/muli/v4/kU4XYdV4jtS72BIidPtqyw.woff) format('woff');
 // }
 
-.content-tooltip {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
+.tooltip-text {
+  display: none;
 }
 
 .tooltip {
+  position: absolute;
+  z-index: 99; /* Higher than anything else */
   opacity: 0;
-  z-index: 99;
+
   color: #c0c0c0;
   font-size: $type-size-7;
+  text-align: left;
+  text-shadow: 1px 1px 2px #111;
+  background: rgba(51, 51, 51, 0.9);
   
-  position: absolute;
   // FIXME: Get rid of the dependency on size of the container
   width: 500%;
   max-width: 600px;
   min-width: 200px;
   height: auto;
-  bottom: calc(100% + 10px);
-  right: -65%;
+  //top: calc(100% - 10px);
 
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 15px;
   padding-right: 15px;
-  border-radius: 3px;
-  text-align: left;
-  text-shadow: 1px 1px 2px #111;
-  background: rgba(51, 51, 51, 0.9);
+  
+  border-radius: 5px;
   border: 1px solid rgba(34, 34, 34, 0.9);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+
   -webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
   -o-transition: all .2s ease-in-out;
   -ms-transition: all .2s ease-in-out;
   transition: all .2s ease-in-out;
+
   -webkit-transform: scale(0);
   -moz-transform: scale(0);
   -o-transform: scale(0);
@@ -793,21 +787,24 @@
   transform: scale(0);
 }
 
-.tooltip:before,
-.tooltip:after {
+.tooltip:before //, .tooltip:after
+{
+  // These are mandatory, do not remove
   content: '';
   position: absolute;
-  bottom: -10px;
-  left: 65%;  
 
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid rgba(51, 51, 51, 0.9);
+  // These are for the tooltip arrow parts manipulation and altered from js code as well
+  top: var(--tooltip-arrow-top, -10px);
+  left: var(--tooltip-arrow-left, 0px);
+
+  border-bottom: var(--tooltip-arrow-border-bottom, 10px) solid rgba(51, 51, 51, 0.9);
+  border-left: var(--tooltip-arrow-border-left, 10px) solid transparent;
+  border-right: var(--tooltip-arrow-border-right, 10px) solid transparent;
 }
 
-.content-tooltip:hover .tooltip,
-a:hover .tooltip {
+.tooltip.visible {
   opacity: 1;
+
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -o-transform: scale(1);

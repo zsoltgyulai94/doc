@@ -117,7 +117,7 @@ $(function () {
   function scrollToAnchor(anchorId) {
     var anchorElement = document.getElementById(anchorId);
     if (anchorElement) {
-      // Use the attched smooth scroll to have a consistent behavior
+      // Use the attached smooth scroll to have a consistent behavior
       smoothScroll.animateScroll(anchorElement, null, { updateURL: false });
     }
   }
@@ -333,32 +333,131 @@ $(function () {
     );
   }
 
+  const toolTipArrowSize = 10;
+  var tooltip = null;
+  var tooltipTarget = null;
+  var shouldShowTooltip = false;
+  var showTimeoutFuncID;
+  var hideTimeoutFuncID;
+
+  function getTooltipPos(event, tooltipTarget) {
+    const scrollLeft = document.documentElement.scrollLeft;
+    const scrollTop = document.documentElement.scrollTop;
+    const rect = tooltipTarget.getBoundingClientRect();    
+    var pos = new DOMPoint(); // mouse pos relative ?!?!, (event.pageX, 0); // event.pageY);
+
+    pos.x = Math.max(0, pos.x + scrollLeft + rect.left);
+    pos.y = pos.y + rect.top + scrollTop + rect.height + toolTipArrowSize / 2;
+
+    return pos;
+  }
+
+  function setArrowPosition(posName, position) {
+    var newPosition = position + 'px';
+    tooltip.style.setProperty(posName, newPosition);
+  }
+  
+  function showTooltip(event, tooltipText) {
+    tooltip.innerHTML = tooltipText.innerHTML;
+
+    var pos = getTooltipPos(event, tooltipTarget)
+    tooltip.style.left = pos.x + 'px';
+    tooltip.style.top = pos.y + toolTipArrowSize + 'px';
+
+    // Postion the tooltip arrow as well
+    var computedStyle = window.getComputedStyle(tooltipTarget);
+    var lineHeight = parseFloat(computedStyle.getPropertyValue('line-height'));
+    const rect = tooltipTarget.getBoundingClientRect();
+    // If the occupied space of the tooltip target is bigger than its line height, it means it spanws to multiple lines
+    // just align to the left in that case, otherwise align the arrow to the horizontal middle of it
+    var arrowLeftPos = (rect.height > lineHeight ? toolTipArrowSize : rect.width / 2 - toolTipArrowSize /*/ 2*/);
+    setArrowPosition('--tooltip-arrow-top', -1 * toolTipArrowSize);
+    setArrowPosition('--tooltip-arrow-left', arrowLeftPos);
+
+    shouldShowTooltip = true;
+
+    clearTimeout(hideTimeoutFuncID);
+    clearTimeout(showTimeoutFuncID);
+    showTimeoutFuncID = setTimeout(function () {
+      if (shouldShowTooltip) {
+        // Size is still not yet calculated correctly here
+        // var rect = tooltip.getBoundingClientRect();
+        // tooltip.style.top = (pos.y + rect.height) + 'px';
+        // tooltip.style.left = (pos.x + rect.width / 2) + 'px';
+
+        tooltip.classList.add('visible');
+      }
+    }, 100);
+  }
+
+  function shouldHideTooltip(activeTarget) {
+    return ((tooltipTarget == null || activeTarget != tooltipTarget) && (tooltip == null || (activeTarget != tooltip && activeTarget.closest('.tooltip') == null)));
+  }
+  
+  function hideTooltip(withDelay) {
+    function doHideTooltip() {
+      if (false == shouldShowTooltip && tooltip)
+        tooltip.classList.remove('visible');
+      tooltipTarget = null;
+    }
+    
+    shouldShowTooltip = false;
+
+    if (withDelay) {
+      clearTimeout(hideTimeoutFuncID);
+      hideTimeoutFuncID = setTimeout(function () {
+        doHideTooltip();
+      }, 25); // Give a small chance to move inside the tooltip (e.g. to allow click on links inside it)
+    }
+    else
+      doHideTooltip();
+  }
+
   function addContentTooltips() {
     var tooltipElements = document.querySelectorAll('.content-tooltip');
+    tooltip = document.getElementById('tooltip');
+    hideTooltip();
 
     tooltipElements.forEach(function (element) {
-      var tooltip = document.createElement('span');
-      tooltip.className = 'tooltip';
-      tooltip.textContent = "";
-      element.appendChild(tooltip);
+      var tooltipText = document.createElement('span');
+      tooltipText.className = 'tooltip-text';
+      tooltipText.textContent = "";
+      element.appendChild(tooltipText);
 
-      element.addEventListener('mouseover', function () {
+      element.addEventListener('mouseover', function (event) {
+        tooltipTarget = element;
+
         // Load only once per page load
-        if (tooltip.innerHTML === '') {
+        if (tooltipText.innerHTML === '') {
           var url = element.href;
           loadContentPartFrom(
             url,
             newContent => {
-                // remove unnecessary inner content tooltips
-                newContent = newContent.replace(/\bcontent-tooltip\b/g, '');
-                tooltip.innerHTML = newContent;
+              // remove unnecessary inner content tooltips
+              newContent = newContent.replace(/\bcontent-tooltip\b/g, '');
+              // cache for reuse
+              tooltipText.innerHTML = newContent;
+              showTooltip(event, tooltipText);
             },
             error => {
               console.error('Error loading the tooltip content!' + error);
             }
           );
         }
+        else
+          showTooltip(event, tooltipText);
       });
+    });
+
+    document.addEventListener('mousemove', (event) => {
+      if (shouldHideTooltip(event.target)) {
+        if (tooltipTarget)
+          hideTooltip(true)
+      }
+      else {
+        clearTimeout(hideTimeoutFuncID);
+        shouldShowTooltip = true;
+      }
     });
   }
 
