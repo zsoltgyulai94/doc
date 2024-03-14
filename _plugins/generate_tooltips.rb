@@ -29,6 +29,13 @@ module Jekyll
       end
 
       def make_tooltip(id, description, url_has_anchor, match)
+        match_parts = match.split('|')
+        if match_parts.length > 1
+          #puts match_parts
+          match = match_parts[0]
+          id = match_parts[1]
+        end
+
         tooltip = '{% include markdown_link id="' + id + '" title="%MATCH%"' + (url_has_anchor || description ? ' withTooltip="yes"' : '') + ' %}' #'abrakadabra'
         replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, match)
         puts "replacement_text: " + replacement_text
@@ -83,7 +90,8 @@ module Jekyll
                       replacement_text = left_separator + make_tooltip(id, description, url_has_anchor, matched_text) + right_separator
                     end
                   else
-                    markdown_part = markdown_part.gsub(/(\[\[)(#{Regexp.escape(text_to_search)})(\]\])/) do |match|
+                    pattern = Regexp.escape(text_to_search)
+                    markdown_part = markdown_part.gsub(/(\[\[)(#{pattern}|#{pattern}\|.+)(\]\])/) do |match|
                       matched_text = $2
                       # left_separator = $1
                       # right_separator = $3
