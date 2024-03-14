@@ -142,8 +142,8 @@ module Jekyll
         #puts page.relative_path
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          return if 
-                    page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" #and 
+          # return if 
+          #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" #and 
                     # page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
                     # page.relative_path != "_admin-guide/120_Parser/README.md" and
                     # page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" and
@@ -156,18 +156,10 @@ module Jekyll
           content = page.content
           #puts content
 
-          processed_titles = {}
           page.data["modified"] = false
           page_links.each do |link_data|
-            title = link_data["title"]
-            #puts "searching for " + title
-
-            # process only once a given title in the given page
-            next if processed_titles[title]
-
-            # otherwise add to the processsed list and process it
-            processed_titles[title] = true
-            content = replace_text(page, content, title, link_data["id"], link_data["url"], link_data["description"])
+            #puts "searching for " + link_data["title"]
+            content = replace_text(page, content, link_data["title"], link_data["id"], link_data["url"], link_data["description"])
           end
 
           if page.data["modified"]
@@ -183,7 +175,6 @@ module Jekyll
 
       def gen_page_link_data(links_dir, link_files_pattern)
         excluded_titles = YAML.load_file(File.join('_data', 'excluded_titles.yml'))
-        processed_titles = {}
         page_link_data_array = []
         link_file_names = []
         add_matching_files(link_file_names, links_dir, link_files_pattern)
@@ -206,11 +197,8 @@ module Jekyll
             page_title = link_data["title"]
           end
 
-          # Process only once a given title, first one wins now
-          # skip also excluded ones
-          next if processed_titles[page_title] or (excluded_titles and false == excluded_titles.empty? and excluded_titles[page_title])
-          # otherwise add to the processsed list and process it
-          processed_titles[page_title] = true
+          # Skip excluded titles
+          next if (excluded_titles and false == excluded_titles.empty? and excluded_titles[page_title])
 
           # Create a page_link_data object
           page_link_data = {
@@ -221,6 +209,8 @@ module Jekyll
           }
 
           # Add the page_link_data object to the array
+          # NOTE: Title duplications are allowed now [[title|id]] format must be used 
+          #       to get the propwer matching tooltip for duplicated title items
           page_link_data_array << page_link_data
         end
 
