@@ -28,6 +28,14 @@ module Jekyll
         !!(url =~ anchor_regex)
       end
 
+      def make_tooltip(id, description, url_has_anchor, match)
+        tooltip = '{% include markdown_link id="' + id + '" title="%MATCH%"' + (url_has_anchor || description ? ' withTooltip="yes"' : '') + ' %}' #'abrakadabra'
+        replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, match)
+        puts "replacement_text: " + replacement_text
+        
+        return replacement_text
+      end
+
       # More about rendering insights
       # https://humanwhocodes.com/blog/2019/04/jekyll-hooks-output-markdown/
       #
@@ -40,7 +48,7 @@ module Jekyll
         liquid_block_pattern = /{%.*?%}|\{\:.*?\}/m
         # Regular expression pattern to match special Markdown blocks
         # Unlike the above this needs grouping as we use do |match| for enumeration
-        special_markdown_blocks_pattern = /(```.*?```|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m # [^`]*`|
+        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m
         url_has_anchor = has_anchor?(url)
 
         # Split the content by HTML comments and special Markdown blocks
@@ -63,45 +71,32 @@ module Jekyll
                 markdown_parts.each_with_index do |markdown_part, markdown_index|            
                   #puts "---------------\ntext_to_search: " + text_to_search + "\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
 
+                  part_modified = false
                   if markdown_index.even? # Content outside of special Markdown blocks
-                    part_modified = false
-                    #patterns = [ '/(^|[\s.,;:\'])(' + Regexp.escape(text_to_search) + ')([\s.,;:\']|\z)/', '/(`)(' + Regexp.escape(text_to_search) + ')(`)/' ]
+                    markdown_part = markdown_part.gsub(/(^|[\s.;:'])(#{Regexp.escape(text_to_search)})([\s.;:']|\z)/) do |match|
+                      left_separator = $1
+                      matched_text = $2
+                      right_separator = $3
+                      # puts "\nmatch: " + match + "\nleft_separator: " + left_separator + "\nmatched_text: " + matched_text + "\nright_separator: " + right_separator
 
-                    #patterns.each do |pattern|            
-                    #  puts "pattern: " + pattern
-                      markdown_part = markdown_part.gsub(/(^|[\s.;:'`])(#{Regexp.escape(text_to_search)})([\s.;:'`]|\z)/) do |match|
-                        # left_separator = $1
-                        # matched_text = $2
-                        # right_separator = $3
-                        # puts "\nmatch: " + match
-                        # puts "left_separator: " + left_separator
-                        # puts "matched_text: " + matched_text
-                        # puts "right_separator: " + right_separator
-
-                        if ($1 != '`' and $3 != '`') or ($1 == '`' and $3 == '`') # we accept exact surrounding `` pairs only as a direct signal for a tooltip (and the default markdown highlighting)
-                          part_modified = page.data["modified"] = true
-
-                          left_separator = (($1 == '`' and $3 == '`') ? '' : $1)
-                          matched_text = $2
-                          right_separator = (($1 == '`' and $3 == '`') ? '' : $3)
-
-                          tooltip = left_separator + '{% include markdown_link id="' + id + '" title="%MATCH%"' + (url_has_anchor || description ? ' withTooltip="yes"' : '') + ' %}' + right_separator #'abrakadabra'
-                          replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, matched_text)
-                          puts "replacement_text: " + replacement_text
-
-                          # Take care, this must be the last one in this block!
-                          replacement_text
-                        else
-                          match
-                        end
-                      end
-                    #end
-                    if part_modified
-                      #puts "new markdown_part: " + markdown_part
-                      markdown_parts[markdown_index] = markdown_part
+                      part_modified = true
+                      replacement_text = left_separator + make_tooltip(id, description, url_has_anchor, matched_text) + right_separator
                     end
                   else
-                    #puts "markdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
+                    markdown_part = markdown_part.gsub(/(\[\[)(#{Regexp.escape(text_to_search)})(\]\])/) do |match|
+                      matched_text = $2
+                      # left_separator = $1
+                      # right_separator = $3
+                      # puts "\nmatch: " + match + "\nleft_separator: " + left_separator + "\nmatched_text: " + matched_text + "\nright_separator: " + right_separator
+
+                      part_modified = true
+                      replacement_text = make_tooltip(id, description, url_has_anchor, matched_text)
+                    end
+                  end
+                  if part_modified
+                    page.data["modified"] = true
+                    #puts "new markdown_part: " + markdown_part
+                    markdown_parts[markdown_index] = markdown_part
                   end
                 end
 
@@ -139,11 +134,12 @@ module Jekyll
         #puts page.relative_path
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          #return if 
-          #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" and 
-          #           page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
-          #          page.relative_path != "_admin-guide/120_Parser/README.md"
-          #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
+          return if 
+                    page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" #and 
+                    # page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
+                    # page.relative_path != "_admin-guide/120_Parser/README.md" and
+                    # page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" and
+                    # page.relative_path != "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md"
                     # and page.relative_path != "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
           puts "------------------------------------"
           puts page.relative_path
