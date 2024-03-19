@@ -2,8 +2,8 @@
 {%- assign md_link_title = include.title -%}
 {%- assign md_link_with_toltip = include.withTooltip -%}
 {%- assign md_link_new_page = include.newPage -%}
-{%- assign md_link_decl = include.decl -%}
 {%- assign md_link_out_of_frame = include.outOfFrame -%}
+{%- assign md_link_decl = include.decl -%}
 
 {%- assign md_link_style = "nav-link" -%}
 {%- if md_link_out_of_frame -%}{%- assign md_link_style = '' -%}{%- endif -%}

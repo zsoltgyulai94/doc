@@ -36,7 +36,7 @@ module Jekyll
           id = match_parts[1]
         end
 
-        tooltip = '{% include markdown_link id=\'' + id + '\' title=\'%MATCH%\'' + (url_has_anchor || description ? ' withTooltip=\'yes\'' : '') + ' %}' #'abrakadabra'
+        tooltip = '{% include markdown_link id=\'' + id + '\' title=\'%MATCH%\'' + (url_has_anchor || description ? ' withTooltip=\'yes\'' : '') + ' %}'
         replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, match)
         puts "replacement_text: " + replacement_text
         
@@ -233,7 +233,7 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
   if shoud_build_tooltips    
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
     # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
-    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/adm-(([^#]+)|(.*\#{1}.{3,}))\.lnk\z/)
+    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/adm-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
     #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
     #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', 'adm-temp-macro-ose#message.yml')
     #puts page_links

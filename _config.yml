@@ -49,6 +49,8 @@ include:
   - assets/js/main.min.js
   # Only lunr is not included now to main.min.js
   - assets/js/lunr
+  # site.data.links input
+  - _data/links/
 exclude:
   - .reftime
   - .bundle/
@@ -62,9 +64,6 @@ exclude:
   #- assets/js
   - _js/ 
   - _tools/
-  # This one does not work either, as it seems .yml files are always parsed, so the content file extensions are renamed to .lnk
-  # that will not be parsed :S
-  - _data/links/*.yml
   - Gemfile
   - Gemfile.lock
   - node_modules

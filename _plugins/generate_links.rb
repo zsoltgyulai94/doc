@@ -30,6 +30,8 @@ module Jekyll
       
       def generate_links(site, markdown_extensions, page)
         #puts page.relative_path
+        # Must have to get it parsed by jekyll, these links will be part of the site.data.links array as well, do not touch them
+        link_ext = 'yml'
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
           #puts "------------------------------------"
@@ -69,7 +71,7 @@ module Jekyll
                 }
 
                 # Write data to separate YAML file for each heading
-                file_path = "_data/links/#{page_id}##{heading_id}.lnk"
+                file_path = "_data/links/#{page_id}##{heading_id}.#{link_ext}"
                 write_yaml_file(file_path, link_data)
               end
             end
@@ -83,7 +85,7 @@ module Jekyll
               "description" => '"' + page_description + '"'
             }
             # Write data to separate YAML file for each page
-            page_file_path = "#{page_id}.lnk"
+            page_file_path = "#{page_id}.#{link_ext}"
             page_file_path = "_data/links/" + page_file_path.gsub(/\/|:|\s/, "-").downcase
             write_yaml_file(page_file_path, page_link_data)
           
