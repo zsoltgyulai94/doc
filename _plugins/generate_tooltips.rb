@@ -91,7 +91,7 @@ module Jekyll
                     end
                   else
                     pattern = Regexp.escape(text_to_search)
-                    markdown_part = markdown_part.gsub(/(\[\[)(#{pattern}|#{pattern}\|.+)(\]\])/) do |match|
+                    markdown_part = markdown_part.gsub(/(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/) do |match|
                       matched_text = $2
                       # left_separator = $1
                       # right_separator = $3
