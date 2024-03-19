@@ -62,6 +62,9 @@ exclude:
   #- assets/js
   - _js/ 
   - _tools/
+  # This one does not work either, as it seems .yml files are always parsed, so the content file extensions are renamed to .lnk
+  # that will not be parsed :S
+  - _data/links/*.yml
   - Gemfile
   - Gemfile.lock
   - node_modules
