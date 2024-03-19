@@ -13,10 +13,6 @@ admin-guide-nav:
   - title: "Preface"
     url: /admin-guide/000_Preface/README
     subnav:
-    - title: "Target audience and prerequisites"
-      url: /admin-guide/000_Preface/000_Target_audience
-    - title: "Acknowledgments"
-      url: /admin-guide/000_Preface/001_Acknowledgements
   - title: "Introduction to syslog-ng"
     url: /admin-guide/010_Introduction_to_syslog-ng/README
     subnav:
@@ -391,7 +387,7 @@ admin-guide-nav:
     - title: "opensearch"
       url: /admin-guide/070_Destinations/155_opensearch/README
       subnav:
-      - title: "Batch mode and load balancing "
+      - title: "Batch mode and load balancing"
         url: /admin-guide/070_Destinations/155_opensearch/000_batch-mode
       - title: "OpenSearch() destination options "
         url: /admin-guide/070_Destinations/155_opensearch/001_opensearch()-destination-options
@@ -435,6 +431,8 @@ admin-guide-nav:
     - title: "s3"
       url: /admin-guide/070_Destinations/225_Amazon-s3/README
       subnav:
+      - title: "Amazon s3 options"
+        url: /admin-guide/070_Destinations/225_Amazon-s3/000_amazon_s3_options
     - title: "slack"
       url: /admin-guide/070_Destinations/230_Slack/README
       subnav:
@@ -452,8 +450,11 @@ admin-guide-nav:
         url: /admin-guide/070_Destinations/250_snmp/000_Converting_Cisco_messages
       - title: "snmp() destination options"
         url: /admin-guide/070_Destinations/250_snmp/001_snmp_options
-    - title: "SPLUNK"
-      url: /admin-guide/070_Destinations/260_Splunk
+    - title: "Splunk"
+      url: /admin-guide/070_Destinations/260_Splunk/README
+      subnav:
+      - title: "splunk-hec-event: Send log messages to Splunk HEC' "
+        url: /admin-guide/070_Destinations/260_Splunk/000_Splunk-hec-event
     - title: "sql"
       url: /admin-guide/070_Destinations/270_sql/README
       subnav:
@@ -470,6 +471,11 @@ admin-guide-nav:
           url: /admin-guide/070_Destinations/270_sql/002_Interaction/001_mssql_specific_interaction_methods
       - title: "sql() destination options"
         url: /admin-guide/070_Destinations/270_sql/003_sql_destination_options
+    - title: "stdout: Send messages to standard output"
+      url: /admin-guide/070_Destinations/275_stdout/README
+      subnav:
+      - title: "stdout options"
+        url: /admin-guide/070_Destinations/275_stdout/000_stdout_options
     - title: "Stomp"
       url: /admin-guide/070_Destinations/280_Stomp/README
       subnav:

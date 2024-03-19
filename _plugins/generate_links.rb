@@ -65,11 +65,11 @@ module Jekyll
                   "id" => page_id + "##{heading_id}",
                   "url" => page_url + "##{heading_id}",
                   "title" => '"' + heading.text + '"',
-                  "description" => '""'              
+                  "description" => '""'
                 }
 
                 # Write data to separate YAML file for each heading
-                file_path = "_data/links/#{page_id}##{heading_id}.yml"
+                file_path = "_data/links/#{page_id}##{heading_id}.lnk"
                 write_yaml_file(file_path, link_data)
               end
             end
@@ -80,10 +80,10 @@ module Jekyll
               "id" => page_id,
               "url" => page_url,
               "title" => '"' + page_title + '"',
-              "description" => '"' + page_description + '"'              
+              "description" => '"' + page_description + '"'
             }
             # Write data to separate YAML file for each page
-            page_file_path = "#{page_id}.yml"
+            page_file_path = "#{page_id}.lnk"
             page_file_path = "_data/links/" + page_file_path.gsub(/\/|:|\s/, "-").downcase
             write_yaml_file(page_file_path, page_link_data)
           
