@@ -41,7 +41,7 @@ layout: default
             {% else %}
               {% assign subtitle = page.description %}
             {% endif %}
-            <p id="page-subtitle" class="page__subtitle p-name page__title_decoration" itemprop="headline">{{ subtitle }}</p>
+            <p id="page-subtitle" class="page__subtitle p-name page__title_decoration" itemprop="headline">{{ subtitle | liquify | markdownify | remove: "<p>" | remove: "</p>" }}</p>
           {% endif %}
           {% include page__meta.html %}
         </header>
