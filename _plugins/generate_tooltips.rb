@@ -28,22 +28,51 @@ module Jekyll
         !!(url =~ anchor_regex)
       end
 
-      def make_tooltip(id, description, url_has_anchor, match)
+      def save_from_markdownify(text)
+        text = text.gsub(/\'/, "&#8217;")   # '
+        text = text.gsub(/\|/, "&#124;")    # |
+       end
+
+      def make_tooltip(id, link_has_description, link_url_has_anchor, match)
         match_parts = match.split('|')
         if match_parts.length > 1
           #puts match_parts
           match = match_parts[0]
           id = match_parts[1]
         end
-
-        tooltip = '{% include markdown_link id=\'' + id + '\' title=\'%MATCH%\'' + (url_has_anchor || description ? ' withTooltip=\'yes\'' : '') + ' %}'
-        replacement_text = tooltip.gsub(/#{Regexp.escape('%MATCH%')}/, match)
+        
+        match = save_from_markdownify(match)
+        replacement_text = '{% include markdown_link id=\'' + id + '\' title=\'' + match + '\'' + (link_url_has_anchor || link_has_description ? ' withTooltip=\'yes\'' : '') + ' %}'
         puts "replacement_text: " + replacement_text
         
         return replacement_text
       end
 
-      def process_markdown_parts(page, markdown, text_to_search, id, url_has_anchor, description)
+      def process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, add_separator)
+        part_modified = false
+
+        markdown_part = markdown_part.gsub(full_pattern) do |match|
+          left_separator = $1
+          matched_text = $2
+          right_separator = $3
+          #puts "\nmatch: #{match}\nleft_separator: #{left_separator}\nmatched_text: #{matched_text}\nright_separator: #{right_separator}"
+
+          part_modified = true
+          replacement_text = make_tooltip(id, link_has_description, link_url_has_anchor, matched_text)
+          if add_separator
+            replacement_text = left_separator + replacement_text + right_separator
+          end
+          replacement_text
+        end
+
+        if part_modified
+          page.data["modified"] = true
+        end
+        return markdown_part
+      end
+
+      def process_markdown_parts(page, markdown, text_to_search, id, link_url_has_anchor, link_has_description)
+        pattern = Regexp.escape(text_to_search)
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
         special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m
@@ -53,31 +82,17 @@ module Jekyll
         markdown_parts.each_with_index do |markdown_part, markdown_index|            
           #puts "---------------\ntext_to_search: " + text_to_search + "\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
 
-          part_modified = false
-          if markdown_index.even? # Content outside of special Markdown blocks
-            markdown_part = markdown_part.gsub(/(^|[\s.;:'])(#{Regexp.escape(text_to_search)})([\s.;:']|\z)/) do |match|
-              left_separator = $1
-              matched_text = $2
-              right_separator = $3
-              # puts "\nmatch: " + match + "\nleft_separator: " + left_separator + "\nmatched_text: " + matched_text + "\nright_separator: " + right_separator
+          if markdown_index.even? # Content outside of special Markdown blocks, aka. pure text
+            full_pattern = /(^|[\s.;:&'])(#{pattern})([\s.;:&']|\z)/
 
-              part_modified = true
-              replacement_text = left_separator + make_tooltip(id, description, url_has_anchor, matched_text) + right_separator
-            end
+            markdown_part = process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, true)
           else
-            pattern = Regexp.escape(text_to_search)
-            markdown_part = markdown_part.gsub(/(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/) do |match|
-              matched_text = $2
-              # left_separator = $1
-              # right_separator = $3
-              # puts "\nmatch: " + match + "\nleft_separator: " + left_separator + "\nmatched_text: " + matched_text + "\nright_separator: " + right_separator
+            # Handle own auto tooltip links [[ ]], [[ | ]], [[ |id ]]
+            full_pattern = /(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/
 
-              part_modified = true
-              replacement_text = make_tooltip(id, description, url_has_anchor, matched_text)
-            end
+            markdown_part = process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, false)
           end
-          if part_modified
-            page.data["modified"] = true
+          if page.data["modified"]
             #puts "new markdown_part: " + markdown_part
             markdown_parts[markdown_index] = markdown_part
           end
@@ -89,7 +104,7 @@ module Jekyll
       # More about rendering insights
       # https://humanwhocodes.com/blog/2019/04/jekyll-hooks-output-markdown/
       #
-      def replace_text(page, content, text_to_search, id, url_has_anchor, description)
+      def replace_text(page, content, text_to_search, id, link_url_has_anchor, link_has_description)
         #puts content
 
         # Regular expression pattern to match HTML comments
@@ -111,7 +126,7 @@ module Jekyll
               #puts "---------------\nliquid_index: " + liquid_index.to_s + "\nliquid_part: " + liquid_part
 
               if liquid_index.even? # Content outside of Liquid blocks
-                liquid_part = process_markdown_parts(page, liquid_part, text_to_search, id, url_has_anchor, description)
+                liquid_part = process_markdown_parts(page, liquid_part, text_to_search, id, link_url_has_anchor, link_has_description)
                 liquid_parts[liquid_index] = liquid_part
               else
                 #puts "liquid_index: " + liquid_index.to_s + "\nliquid_part: " + liquid_part
@@ -144,7 +159,7 @@ module Jekyll
         #puts page.relative_path
         
         if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          # return if 
+          # return if           
           #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" #and 
                     # page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
                     # page.relative_path != "_admin-guide/120_Parser/README.md" and
@@ -158,29 +173,32 @@ module Jekyll
           content = page.content
           #puts "content:\n#{content}"
 
+          page_has_description = (page.data["description"] && false == page.data["description"].empty?)
+          page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+
           page.data["modified"] = false
           page_links.each do |link_data|
             #puts "searching for " + link_data["title"]
 
             title = link_data["title"]
             id = link_data["id"]
-            description = link_data["description"]
+            link_has_description = link_data["description"]
             url = link_data["url"]
-            url_has_anchor = has_anchor?(url)
+            link_url_has_anchor = has_anchor?(url)
 
-            # NOTE: Description (and any other front matter header elemtns) must be handled in a separate pass, as those ar already stripped out from the content,
-            #       what more, there's no hook exosed render pass that still contains it.
+            # NOTE: Description (and any other front matter header elements) must be handled in a separate pass, as those ar already stripped out from the content,
+            #       what more, there's no hook exposed render pass that still contains it.
             #       Unfortunately we cannot use here the extracted process_markdown_parts to prevent touching the already processed (or originally presented) liquid parts
-            if page.data["description"] && false == page.data["description"].empty?
-              page.data["description"] = replace_text(page, page.data["description"], title, id, url_has_anchor, description)
-              #puts "description:\n#{page.data["description"]}"
+            if page_has_description
+              page.data["description"] = replace_text(page, page.data["description"], title, id, link_url_has_anchor, link_has_description)
+              #puts "page.data[description]:\n#{page.data["description"]}"
             end
-            if page.data["subtitle"] && false == page.data["subtitle"].empty?
-              page.data["subtitle"] = replace_text(page, page.data["subtitle"], title, id, url_has_anchor, description)
-              #puts "subtitle:\n#{page.data["subtitle"]}"
+            if page_has_subtitle
+              page.data["subtitle"] = replace_text(page, page.data["subtitle"], title, id, link_url_has_anchor, link_has_description)
+              #puts "page.data[subtitle]:\n#{page.data["subtitle"]}"
             end
 
-            content = replace_text(page, content, title, id, url_has_anchor, description)
+            content = replace_text(page, content, title, id, link_url_has_anchor, link_has_description)
           end
 
           if page.data["modified"]
