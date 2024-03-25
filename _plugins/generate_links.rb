@@ -91,9 +91,11 @@ module Jekyll
           
           else
             puts "Missing 'id:' property in file " + page.relative_path
+            #exit 1
           end
-
+          return page_id
         end # if extension is matching
+        return nil
       end # def do_site_post_render_work
 
     end # class << self
@@ -101,21 +103,25 @@ module Jekyll
 end # module jekyll
 
 Jekyll::Hooks.register :site, :post_render do |site|
-
+  puts ""
   shoud_build_links = (ENV['JEKYLL_BUILD_LINKS'] == 'yes')
 
   if shoud_build_links
+    ids = {}
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
 
-    site.pages.each do |page|
-      Jekyll::LinkGen.generate_links(site, markdown_extensions, page)
-    end
-    #puts ""
-
-    site.documents.each do |document|
-      Jekyll::LinkGen.generate_links(site, markdown_extensions, document)
-    end
-    #puts ""
+    [site.pages, site.documents].each do |pages|
+      pages.each do |page|
+        id = Jekyll::LinkGen.generate_links(site, markdown_extensions, page)
+        if id != nil 
+          if ids[id]
+            puts "Duplicated 'id: #{id}' in file " + page.relative_path
+            #exit 2
+          else
+            ids[id] = id
+          end
+        end
+      end
+    end    
   end
-
 end
