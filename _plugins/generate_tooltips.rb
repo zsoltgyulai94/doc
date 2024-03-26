@@ -33,22 +33,24 @@ module Jekyll
         text = text.gsub(/\|/, "&#124;")    # |
        end
 
-      def make_tooltip(id, link_has_description, link_url_has_anchor, match)
-        match_parts = match.split('|')
+      def make_tooltip(page, page_links, id, url, needs_tooltip, match)
+        match_parts = match.split(/\|/)
         if match_parts.length > 1
-          #puts match_parts
+          #puts "match_parts: #{match_parts}"
           match = match_parts[0]
           id = match_parts[1]
+          base_url = page.site.config["baseurl"]
+          url = base_url + page_links[id]["url"]
         end
         
         match = save_from_markdownify(match)
-        replacement_text = '{% include markdown_link id=\'' + id + '\' title=\'' + match + '\'' + (link_url_has_anchor || link_has_description ? ' withTooltip=\'yes\'' : '') + ' %}'
+        replacement_text = '<a href="' + url + '" class="nav-link' + (needs_tooltip ? ' content-tooltip' : '') + '">' + match + '</a>'
         puts "replacement_text: " + replacement_text
         
         return replacement_text
       end
 
-      def process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, add_separator)
+      def process_markdown_part(page, markdown_part, page_links, full_pattern, id, url, needs_tooltip, add_separator)
         part_modified = false
 
         markdown_part = markdown_part.gsub(full_pattern) do |match|
@@ -58,7 +60,7 @@ module Jekyll
           #puts "\nmatch: #{match}\nleft_separator: #{left_separator}\nmatched_text: #{matched_text}\nright_separator: #{right_separator}"
 
           part_modified = true
-          replacement_text = make_tooltip(id, link_has_description, link_url_has_anchor, matched_text)
+          replacement_text = make_tooltip(page, page_links, id, url, needs_tooltip, matched_text)
           if add_separator
             replacement_text = left_separator + replacement_text + right_separator
           end
@@ -71,32 +73,50 @@ module Jekyll
         return markdown_part
       end
 
-      def process_markdown_parts(page, markdown, text_to_search, id, link_url_has_anchor, link_has_description)
-        pattern = Regexp.escape(text_to_search)
+      def process_markdown_parts(page, markdown)
+        base_url = page.site.config["baseurl"]
+        page_links = page.data["page_links"]
+        sorted_keys = page.data["sorted_link_keys"]
+
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
-        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m
+        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/
+        
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
         #puts markdown_parts
         markdown_parts.each_with_index do |markdown_part, markdown_index|            
-          #puts "---------------\ntext_to_search: " + text_to_search + "\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
+          #puts "---------------\ntitle: " + title + "\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
 
-          if markdown_index.even? # Content outside of special Markdown blocks, aka. pure text
-            full_pattern = /(^|[\s.;:&'])(#{pattern})([\s.;:&']|\z)/
+          sorted_keys.each do |page_id|
+            link_data = page_links[page_id]
 
-            markdown_part = process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, true)
-          else
-            # Handle own auto tooltip links [[ ]], [[ | ]], [[ |id ]]
-            full_pattern = /(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/
+            title = link_data["title"]
+            id = link_data["id"]
+            url = base_url + link_data["url"]
+            needs_tooltip = (link_data["description"] || has_anchor?(url))
 
-            markdown_part = process_markdown_part(page, markdown_part, full_pattern, id, link_url_has_anchor, link_has_description, false)
+            #puts "searching for #{title}"
+            pattern = Regexp.escape(title)
+
+            if markdown_index.even? # Content outside of special Markdown blocks, aka. pure text (NOTE: Also excludes the reqursively self added <a ...>title</a> tooltips/links)
+              full_pattern = /(^|[\s.;:&'])(#{pattern})([\s.;:&']|\z)(?![^<]*?<\/a>)/
+
+              markdown_part = process_markdown_part(page, markdown_part, page_links, full_pattern, id, url, needs_tooltip, true)
+            else
+              # Handle own auto tooltip links [[ ]], [[ | ]], [[ |id ]]
+              full_pattern = /(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/
+
+              markdown_part = process_markdown_part(page, markdown_part, page_links, full_pattern, id, url, needs_tooltip, false)
+            end
           end
+
           if page.data["modified"]
             #puts "new markdown_part: " + markdown_part
             markdown_parts[markdown_index] = markdown_part
           end
         end
+
         # Join the modified markdown parts back together
         markdown_parts.join
       end
@@ -104,47 +124,24 @@ module Jekyll
       # More about rendering insights
       # https://humanwhocodes.com/blog/2019/04/jekyll-hooks-output-markdown/
       #
-      def replace_text(page, content, text_to_search, id, link_url_has_anchor, link_has_description)
+      def process_text(page, content)
         #puts content
 
-        # Regular expression pattern to match HTML comments
-        html_comment_pattern = /<!--.*?-->/m
-        # Regular expression pattern to match Liquid blocks
-        liquid_block_pattern = /{%.*?%}|\{\:.*?\}/m
-
-        # Split the content by HTML comments and special Markdown blocks
-        parts = content.split(/(#{html_comment_pattern})/m)
+        # Split the content by HTML comments
+        parts = content.split(/(<!--.*?-->)/m)
         #puts parts
         parts.each_with_index do |part, index|
           #puts "---------------\nindex: " + index.to_s + "\npart: " + part
 
           if index.even? # Content outside of HTML comments
-            # Split the content by HTML comments and special Markdown blocks
-            liquid_parts = part.split(/(#{liquid_block_pattern})/m)
-            #puts parts
-            liquid_parts.each_with_index do |liquid_part, liquid_index|
-              #puts "---------------\nliquid_index: " + liquid_index.to_s + "\nliquid_part: " + liquid_part
-
-              if liquid_index.even? # Content outside of Liquid blocks
-                liquid_part = process_markdown_parts(page, liquid_part, text_to_search, id, link_url_has_anchor, link_has_description)
-                liquid_parts[liquid_index] = liquid_part
-              else
-                #puts "liquid_index: " + liquid_index.to_s + "\nliquid_part: " + liquid_part
-              end
-            end
-
-            # Join the modified liquid parts back together
-            parts[index] = liquid_parts.join
-
+            parts[index] = process_markdown_parts(page, part)
           else
             #puts "index: " + index.to_s + "\npart: " + part
           end
         end
 
         # Join the parts back together
-        modified_content = parts.join
-
-        return modified_content
+        parts.join
       end
 
       def write_to_file(file_path, content)
@@ -155,66 +152,30 @@ module Jekyll
       
     public
 
-      def generate_tooltips(site, markdown_extensions, page_links, page, write_back)
-        #puts page.relative_path
-        
-        if (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
-          # return if           
-          #           page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" #and 
-                    # page.relative_path != "_admin-guide/070_Destinations/020_Discord/README.md" and          
-                    # page.relative_path != "_admin-guide/120_Parser/README.md" and
-                    # page.relative_path != "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" and
-                    # page.relative_path != "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md"
-                    # and page.relative_path != "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
-          puts "------------------------------------"
-          puts page.relative_path
-          puts "------------------------------------"
+      def generate_tooltips(page, write_back)
+        puts "------------------------------------"
+        puts page.relative_path
+        puts "------------------------------------"
 
-          content = page.content
-          #puts "content:\n#{content}"
+        content = page.content
+        #puts "content:\n#{content}"
 
-          page_has_description = (page.data["description"] && false == page.data["description"].empty?)
-          page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+        page.data["modified"] = false
 
-          page.data["modified"] = false
-          page_links.each do |link_data|
-            #puts "searching for " + link_data["title"]
+        content = process_text(page, content)
 
-            title = link_data["title"]
-            id = link_data["id"]
-            link_has_description = link_data["description"]
-            url = link_data["url"]
-            link_url_has_anchor = has_anchor?(url)
-
-            # NOTE: Description (and any other front matter header elements) must be handled in a separate pass, as those ar already stripped out from the content,
-            #       what more, there's no hook exposed render pass that still contains it.
-            #       Unfortunately we cannot use here the extracted process_markdown_parts to prevent touching the already processed (or originally presented) liquid parts
-            if page_has_description
-              page.data["description"] = replace_text(page, page.data["description"], title, id, link_url_has_anchor, link_has_description)
-              #puts "page.data[description]:\n#{page.data["description"]}"
-            end
-            if page_has_subtitle
-              page.data["subtitle"] = replace_text(page, page.data["subtitle"], title, id, link_url_has_anchor, link_has_description)
-              #puts "page.data[subtitle]:\n#{page.data["subtitle"]}"
-            end
-
-            content = replace_text(page, content, title, id, link_url_has_anchor, link_has_description)
+        if page.data["modified"]
+          page.content = content
+          #puts "\n\n\n" + page.content
+          if write_back
+            write_to_file(page.path, page.content)
           end
-
-          if page.data["modified"]
-            page.content = content
-            #puts "\n\n\n" + page.content
-            if write_back
-              write_to_file(page.path, page.content)
-            end
-          end
-          #exit
-        end # if extension is matching
-      end # def do_site_post_render_work
+        end
+      end # def generate_tooltips
 
       def gen_page_link_data(links_dir, link_files_pattern)
         excluded_titles = YAML.load_file(File.join('_data', 'excluded_titles.yml'))
-        page_link_data_array = []
+        page_links_dictionary = {}
         link_file_names = []
         add_matching_files(link_file_names, links_dir, link_files_pattern)
                             
@@ -227,13 +188,14 @@ module Jekyll
           page_url = yaml_content['url']
           page_title = yaml_content['title']
           page_description = yaml_content['description']
-          chars_to_remove = %{"'!?.:;}
+          chars_to_remove = %{"'} #!?.:;}
           page_description = page_description.gsub(/\A[#{Regexp.escape(chars_to_remove)}]+|[#{Regexp.escape(chars_to_remove)}]+\z/, '')
           #puts "page_description: " + page_description
           page_title = page_title.gsub(/\A[#{Regexp.escape(chars_to_remove)}]+|[#{Regexp.escape(chars_to_remove)}]+\z/, '')
           #puts "page_title: " + page_title
           if page_title.length == 0
-            page_title = link_data["title"]
+            puts "Page title is empty, ID: #{page_id}"
+            exit 3
           end
 
           # Skip excluded titles
@@ -247,21 +209,39 @@ module Jekyll
             "description" => (page_description.length > 0 ? true : false)
           }
 
-          # Add the page_link_data object to the array
+          # Add the page_link_data object to the ID dictionary
           # NOTE: Title duplications are allowed now [[title|id]] format must be used 
           #       to get the propwer matching tooltip for duplicated title items
-          page_link_data_array << page_link_data
+          page_links_dictionary[page_id] = page_link_data
         end
 
-        page_link_data_array = page_link_data_array.sort_by { |page| page["title"] }.reverse
-        puts page_link_data_array
+        sorted_keys = page_links_dictionary.keys.sort_by { |key| page_links_dictionary[key]["title"] }.reverse
+        sorted_keys.each do |page_id|
+          link_data = page_links_dictionary[page_id]
+          puts link_data
+        end
 
-        return page_link_data_array
+        return page_links_dictionary
       end
 
     end # class << self
   end # class TooltipGen
 end # module jekyll
+
+def Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
+  ok = (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
+  debug_ok = true
+  # debug_ok = page.relative_path == "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md"
+                  # or page.relative_path == "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md"
+                  # or page.relative_path == "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md"
+                  # or page.relative_path == "_includes/doc/admin-guide/host-from-macro.md"
+                  # or page.relative_path == "_admin-guide/070_Destinations/020_Discord/README.md"
+                  # or page.relative_path == "_admin-guide/120_Parser/README.md"
+                  # or page.relative_path == "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
+                  # or page.relative_path == "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md"
+                  # or page.relative_path == "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
+  return (ok && debug_ok)
+end
 
 #
 # Some more info about render passes, and why we are using these
@@ -269,7 +249,7 @@ end # module jekyll
 #   - https://jekyllrb.com/docs/plugins/hooks/
 #   - https://github.com/jekyll/jekyll/blob/12ab35011f6e86d49c7781514f9dd1d92e43ea11/features/hooks.feature#L37
 #
-Jekyll::Hooks.register :site, :pre_render do |site, payload| # Kept this version, as it has the payload (that we are not using actually)
+Jekyll::Hooks.register :site, :pre_render do |site, payload|
 
   should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
   should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
@@ -281,16 +261,47 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload| # Kept this version
     #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
     #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', 'adm-temp-macro-ose#message.yml')
     #puts page_links
+    # Sort the page_links dictionary keys based on the "title" values in reverse order case insensitive
+    sorted_link_keys = page_links.keys.sort_by { |key| page_links[key]['title'].downcase }.reverse
+    liquid_options = site.config["liquid"]
 
-    site.pages.each do |page|
-      Jekyll::TooltipGen.generate_tooltips(site, markdown_extensions, page_links, page, should_build_persistent_tooltips)
+    [site.pages, site.documents].each do |pages|
+      pages.each do |page|
+        next if false == Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
+
+        # create a template object
+        template = site.liquid_renderer.file(page.path).parse(page.content)
+        # the render method expects this information
+        info = {
+          :registers        => { :site => site, :page => payload['page'] },
+          :strict_filters   => liquid_options["strict_filters"],
+          :strict_variables => liquid_options["strict_variables"],
+        }
+
+        page.data["page_links"] = page_links
+        page.data["sorted_link_keys"] = sorted_link_keys
+
+        page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+        page_has_description = (page.data["description"] && false == page.data["description"].empty?)
+
+        # NOTE: Description (and any other front matter header elements) must be handled in a separate pass, as those ar already stripped out from the content,
+        #       what more, there's no hook exposed render pass that still contains it.
+        #       Unfortunately we cannot use here the extracted process_markdown_parts to prevent touching the already processed (or originally presented) liquid parts
+        # if page_has_description
+        #   page.data["description"] = process_text(page, page.data["description"], title, id, url, need_tooltip)
+        #   #puts "page.data[description]:\n#{page.data["description"]}"
+        # end
+        # if page_has_subtitle
+        #   page.data["subtitle"] = process_text(page, page.data["subtitle"], title, id, url, needs_tooltip)
+        #   #puts "page.data[subtitle]:\n#{page.data["subtitle"]}"
+        # end
+
+        page.content = template.render!(payload, info)
+
+        Jekyll::TooltipGen.generate_tooltips(page, should_build_persistent_tooltips)
+      end
     end
     #puts ""
-
-    site.documents.each do |document|
-      Jekyll::TooltipGen.generate_tooltips(site, markdown_extensions, page_links, document, should_build_persistent_tooltips)
-    end
-    #puts ""    
   end
 end
 
@@ -301,8 +312,9 @@ end
 # should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
 # markdown_extensions = []
 # page_links = []
+# sorted_link_keys = {}
 # 
-# Jekyll::Hooks.register [:pages, :documents], :pre_render do |page|
+# Jekyll::Hooks.register [:pages, :documents], :pre_render do |page, payload| # pre_render has pay_load as well
 # 
 #   if should_build_tooltips
 #     site = page.site
@@ -315,9 +327,29 @@ end
 #       #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
 #       #page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', 'adm-temp-macro-ose#message.yml')
 #       #puts page_links
+#       # Sort the page_links dictionary keys based on the "title" values in reverse order case insensitive
+#       sorted_link_keys = page_links.keys.sort_by { |key| page_links[key]['title'].downcase }.reverse
 #     end
 # 
-#     Jekyll::TooltipGen.generate_tooltips(site, markdown_extensions, page_links, page, should_build_persistent_tooltips)
-#     #puts ""    
+#     if Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
+#       # create a template object
+#       template = site.liquid_renderer.file(page.path).parse(page.content)
+# 
+#       liquid_options = site.config["liquid"]
+#       # the render method expects this information
+#       info = {
+#         :registers        => { :site => site, :page => payload['page'] },
+#         :strict_filters   => liquid_options["strict_filters"],
+#         :strict_variables => liquid_options["strict_variables"],
+#       }
+# 
+#       page.data["page_links"] = page_links
+#       page.data["sorted_link_keys"] = sorted_link_keys
+# 
+#       page.content = template.render!(payload, info)
+# 
+#       Jekyll::TooltipGen.generate_tooltips(page, should_build_persistent_tooltips)
+#       #puts ""    
+#     end
 #   end
 # end

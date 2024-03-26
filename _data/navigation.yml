@@ -52,7 +52,7 @@ admin-guide-nav:
         url: /admin-guide/020_The_concepts_of_syslog-ng/007_The_structure_of_a_log_message/001_IETF_syslog_messages
       - title: "Enterprise-wide message model (EWMM)"
         url: /admin-guide/020_The_concepts_of_syslog-ng/007_The_structure_of_a_log_message/002_EWMM_messages
-    - title: "Message representation in syslog-ng OSE"
+    - title: "Message's representation in syslog-ng OSE"
       url: /admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation
     - title: "Structuring macros, metadata, and other value-pairs"
       url: /admin-guide/020_The_concepts_of_syslog-ng/009_Structuring_macros/README
@@ -453,7 +453,7 @@ admin-guide-nav:
     - title: "Splunk"
       url: /admin-guide/070_Destinations/260_Splunk/README
       subnav:
-      - title: "splunk-hec-event: Send log messages to Splunk HEC' "
+      - title: "splunk-hec-event: Send log messages to Splunk HEC"
         url: /admin-guide/070_Destinations/260_Splunk/000_Splunk-hec-event
     - title: "sql"
       url: /admin-guide/070_Destinations/270_sql/README
@@ -582,7 +582,7 @@ admin-guide-nav:
         url: /admin-guide/080_Log/030_Filters/001_Combining_filters_with_boolean
       - title: "Comparing macro values in filters"
         url: /admin-guide/080_Log/030_Filters/002_Comparing_macro_values
-      - title: "Using wildcards in filter"
+      - title: "Using wildcards in filters"
         url: /admin-guide/080_Log/030_Filters/003_Using_wildcard_and_regexp
       - title: "Tagging messages"
         url: /admin-guide/080_Log/030_Filters/004_Tagging_messages
