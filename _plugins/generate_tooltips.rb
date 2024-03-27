@@ -243,6 +243,48 @@ def Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
   return (ok && debug_ok)
 end
 
+def Jekyll_TooltipGen_hack_description_in(page_has_subtitle, page_has_description, page, desc_hack_separator)
+  description = nil
+  if page_has_subtitle
+    description = page.data["subtitle"]
+    #puts "subtitle: #{description}"
+  else
+    if page_has_description
+      description = page.data["description"]
+      #puts "description: #{description}"
+    end
+  end
+  if page_has_description || page_has_subtitle
+    page.content = page.content + desc_hack_separator + description 
+  end
+end
+
+def Jekyll_TooltipGen_hack_description_out(page_has_subtitle, page_has_description, page, desc_hack_separator)
+  description = nil
+
+  content_parts = page.content.split(desc_hack_separator)
+  content_parts.each_with_index do |content_part, content_part_index|            
+    #puts "---------------\ncontent_part_index: " + content_part_index.to_s + "\ncontent_part: " + content_part
+    if content_part_index.even?
+      page.content = content_part
+    else
+      description = content_part
+    end
+  end
+
+  if page_has_subtitle
+    page.data["subtitle"] = description
+    #puts "subtitle: #{description}"
+  else
+    if page_has_description
+      page.data["description"] = description
+      #puts "description: #{description}"
+    end
+  end
+end
+
+Jekyll_TooltipGen_desc_hack_separator = '<p>%%%description-separator-DO-NOT-REMOVE%%%</p>'
+
 #
 # Some more info about render passes, and why we are using these
 #   - https://humanwhocodes.com/blog/2019/04/jekyll-hooks-output-markdown/
@@ -254,7 +296,7 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
   should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
   should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
 
-  if should_build_tooltips    
+  if should_build_tooltips
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
     # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
     page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/adm-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)
@@ -269,6 +311,14 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
       pages.each do |page|
         next if false == Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
 
+        page.data["page_links"] = page_links
+        page.data["sorted_link_keys"] = sorted_link_keys
+
+        page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+        page_has_description = (page.data["description"] && false == page.data["description"].empty?)
+
+        Jekyll_TooltipGen_hack_description_in(page_has_subtitle, page_has_description, page, Jekyll_TooltipGen_desc_hack_separator)
+
         # create a template object
         template = site.liquid_renderer.file(page.path).parse(page.content)
         # the render method expects this information
@@ -277,25 +327,6 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
           :strict_filters   => liquid_options["strict_filters"],
           :strict_variables => liquid_options["strict_variables"],
         }
-
-        page.data["page_links"] = page_links
-        page.data["sorted_link_keys"] = sorted_link_keys
-
-        page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
-        page_has_description = (page.data["description"] && false == page.data["description"].empty?)
-
-        # NOTE: Description (and any other front matter header elements) must be handled in a separate pass, as those ar already stripped out from the content,
-        #       what more, there's no hook exposed render pass that still contains it.
-        #       Unfortunately we cannot use here the extracted process_markdown_parts to prevent touching the already processed (or originally presented) liquid parts
-        # if page_has_description
-        #   page.data["description"] = process_text(page, page.data["description"], title, id, url, need_tooltip)
-        #   #puts "page.data[description]:\n#{page.data["description"]}"
-        # end
-        # if page_has_subtitle
-        #   page.data["subtitle"] = process_text(page, page.data["subtitle"], title, id, url, needs_tooltip)
-        #   #puts "page.data[subtitle]:\n#{page.data["subtitle"]}"
-        # end
-
         page.content = template.render!(payload, info)
 
         Jekyll::TooltipGen.generate_tooltips(page, should_build_persistent_tooltips)
@@ -305,8 +336,26 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
   end
 end
 
+Jekyll::Hooks.register [:pages, :documents], :post_convert do |page|
+
+  should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
+  should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
+
+  if should_build_tooltips
+    markdown_extensions = page.site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
+    next if false == Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
+    
+    page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+    page_has_description = (page.data["description"] && false == page.data["description"].empty?)
+    next if false == page_has_subtitle && false == page_has_description
+
+    Jekyll_TooltipGen_hack_description_out(page_has_subtitle, page_has_description, page, Jekyll_TooltipGen_desc_hack_separator)
+    #puts ""
+  end
+end
+
 #
-# Equivalaent with the above, kept for an other example
+# Equivalaent with the above, site hook one, kept for an other example
 #
 # should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
 # should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
