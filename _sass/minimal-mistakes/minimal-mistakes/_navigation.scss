@@ -760,11 +760,16 @@
   
   // FIXME: Get rid of the dependency on size of the container
   width: 500%;
-  max-width: 600px;
   min-width: 200px;
+  max-width: 200px;
+  @include breakpoint($large) {
+    max-width: $right-sidebar-width-narrow + 100px;
+  }
+  @include breakpoint($x-large) {
+    max-width: $right-sidebar-width + 125px;
+  }
   height: auto;
-  //top: calc(100% - 10px);
-
+  
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 15px;
