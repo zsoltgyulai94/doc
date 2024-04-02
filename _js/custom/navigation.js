@@ -341,13 +341,17 @@ $(function () {
   var hideTimeoutFuncID;
 
   function getTooltipPos(event, tooltipTarget) {
-    const scrollLeft = document.documentElement.scrollLeft;
-    const scrollTop = document.documentElement.scrollTop;
-    const rect = tooltipTarget.getBoundingClientRect();    
-    var pos = new DOMPoint(); // mouse pos relative ?!?!, (event.pageX, 0); // event.pageY);
+    const mouseX = event.clientX; 
+    const rect = tooltipTarget.getBoundingClientRect();
+    var computedStyle = window.getComputedStyle(tooltipTarget);
+    var lineHeight = parseFloat(computedStyle.getPropertyValue('line-height'));
 
-    pos.x = Math.max(0, pos.x + scrollLeft + rect.left);
-    pos.y = pos.y + rect.top + scrollTop + rect.height + toolTipArrowSize / 2;
+    var pos = new DOMPoint();
+    pos.x = mouseX; // Use now mouse X instead - Math.max(0, pos.x + document.documentElement.scrollLeft + rect.left);
+    // If the occupied space of the tooltip target is bigger than its line height, it means it spanws to multiple lines
+    // align to the upper line part in that case if the mouse is on the right side of the middle of its rect, otherwise align to the bottom row part
+    var multilineUpperPart = (rect.height > lineHeight && mouseX > rect.x + rect.width / 2);
+    pos.y = pos.y + document.documentElement.scrollTop + rect.top + rect.height / (multilineUpperPart ? 2 : 1);
 
     return pos;
   }
@@ -360,19 +364,14 @@ $(function () {
   function showTooltip(event, tooltipText) {
     tooltip.innerHTML = tooltipText.innerHTML;
 
-    var pos = getTooltipPos(event, tooltipTarget)
-    tooltip.style.left = pos.x + 'px';
-    tooltip.style.top = pos.y + toolTipArrowSize + 'px';
-
-    // Postion the tooltip arrow as well
-    var computedStyle = window.getComputedStyle(tooltipTarget);
-    var lineHeight = parseFloat(computedStyle.getPropertyValue('line-height'));
-    const rect = tooltipTarget.getBoundingClientRect();
-    // If the occupied space of the tooltip target is bigger than its line height, it means it spanws to multiple lines
-    // just align to the left in that case, otherwise align the arrow to the horizontal middle of it
-    var arrowLeftPos = (rect.height > lineHeight ? toolTipArrowSize : rect.width / 2 - toolTipArrowSize /*/ 2*/);
+    var tooltipPos = getTooltipPos(event, tooltipTarget)
+    var tooltipArrowLeftShift = 2 * toolTipArrowSize;
+      
     setArrowPosition('--tooltip-arrow-top', -1 * toolTipArrowSize);
-    setArrowPosition('--tooltip-arrow-left', arrowLeftPos);
+    setArrowPosition('--tooltip-arrow-left', tooltipArrowLeftShift + toolTipArrowSize / 2);
+
+    tooltip.style.left = tooltipPos.x - 2 * tooltipArrowLeftShift + 'px';
+    tooltip.style.top = tooltipPos.y + toolTipArrowSize + 'px';
 
     shouldShowTooltip = true;
 
@@ -382,8 +381,8 @@ $(function () {
       if (shouldShowTooltip) {
         // Size is still not yet calculated correctly here
         // var rect = tooltip.getBoundingClientRect();
-        // tooltip.style.top = (pos.y + rect.height) + 'px';
-        // tooltip.style.left = (pos.x + rect.width / 2) + 'px';
+        // tooltip.style.top = (tooltipPos.y + rect.height) + 'px';
+        // tooltip.style.left = (tooltipPos.x + rect.width / 2) + 'px';
 
         tooltip.classList.add('visible');
       }
