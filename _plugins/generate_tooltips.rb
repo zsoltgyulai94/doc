@@ -20,7 +20,7 @@ module Jekyll
           end
         end
         file_names = file_names.sort
-        puts file_names
+        #puts file_names
       end
 
       def has_anchor?(url)
@@ -80,13 +80,14 @@ module Jekyll
 
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
-        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/
+        # NOTE: Use multi line matching as e.g. code blocks can span multilines
+        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m
         
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
         #puts markdown_parts
         markdown_parts.each_with_index do |markdown_part, markdown_index|            
-          #puts "---------------\ntitle: " + title + "\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
+          #puts "---------------\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
 
           sorted_keys.each do |page_id|
             link_data = page_links[page_id]
@@ -99,11 +100,14 @@ module Jekyll
             #puts "searching for #{title}"
             pattern = Regexp.escape(title)
 
-            if markdown_index.even? # Content outside of special Markdown blocks, aka. pure text (NOTE: Also excludes the reqursively self added <a ...>title</a> tooltips/links)
+            if markdown_index.even? 
+              # Content outside of special Markdown blocks, aka. pure text (NOTE: Also excludes the reqursively self added <a ...>title</a> tooltips/links)
               full_pattern = /(^|[\s.;:&'])(#{pattern})([\s.;:&']|\z)(?![^<]*?<\/a>)/
 
               markdown_part = process_markdown_part(page, markdown_part, page_links, full_pattern, id, url, needs_tooltip, true)
-            else
+            else 
+              # Content inside of special Markdown blocks
+
               # Handle own auto tooltip links [[ ]], [[ | ]], [[ |id ]]
               full_pattern = /(\[\[)(#{pattern}|#{pattern}\|.+|.*\|#{id})(\]\])/
 
@@ -218,7 +222,7 @@ module Jekyll
         sorted_keys = page_links_dictionary.keys.sort_by { |key| page_links_dictionary[key]["title"] }.reverse
         sorted_keys.each do |page_id|
           link_data = page_links_dictionary[page_id]
-          puts link_data
+          #puts link_data
         end
 
         return page_links_dictionary
@@ -228,19 +232,28 @@ module Jekyll
   end # class TooltipGen
 end # module jekyll
 
+def Jekyll_TooltipGen_debug_pages?(page)
+  debug_pages = {
+    "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" => true,
+    "_admin-guide/050_The_configuration_file/006_Modules_in_syslog-ng/001_Listing_configuration_options.md" => true,
+    # "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md" => true,
+    # "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md" => true,
+    # "_includes/doc/admin-guide/host-from-macro.md" => true,
+    # "_admin-guide/070_Destinations/020_Discord/README.md" => true,
+    # "_admin-guide/120_Parser/README.md" => true,
+    # "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" => true,
+    # "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md" => true,
+    # "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md" => true,
+  }
+  return debug_pages[page.relative_path] != nil
+end
+
 def Jekyll_TooltipGen_filter_pages?(markdown_extensions, page)
-  ok = (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
+  ext_ok = (markdown_extensions.include?(File.extname(page.relative_path)) || File.extname(page.relative_path) == ".html")
   debug_ok = true
-  # debug_ok = page.relative_path == "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md"
-                  # or page.relative_path == "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md"
-                  # or page.relative_path == "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md"
-                  # or page.relative_path == "_includes/doc/admin-guide/host-from-macro.md"
-                  # or page.relative_path == "_admin-guide/070_Destinations/020_Discord/README.md"
-                  # or page.relative_path == "_admin-guide/120_Parser/README.md"
-                  # or page.relative_path == "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md"
-                  # or page.relative_path == "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md"
-                  # or page.relative_path == "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md"
-  return (ok && debug_ok)
+  # Comment this line out if not debugging!!!
+  debug_ok = Jekyll_TooltipGen_debug_pages?(page)
+  return ext_ok && debug_ok
 end
 
 def Jekyll_TooltipGen_hack_description_in(page_has_subtitle, page_has_description, page, desc_hack_separator)
