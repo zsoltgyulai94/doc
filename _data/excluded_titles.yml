@@ -1,1 +1,3 @@
-syslog-ng: yes
+- 'syslog-ng'
+- '[Ee]xample[:]?'
+- '[Nn]ote[:]?'
