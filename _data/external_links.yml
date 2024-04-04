@@ -23,3 +23,33 @@ gh-syslog-ng-doc:
   url: https://github.com/syslog-ng/doc
   title: "syslog-ng Doc on GitHub"
 
+mm-javascripts:
+  id: mm-javascripts
+  url: https://mmistakes.github.io/minimal-mistakes/docs/javascript/
+  title: "Minimal Mistakes JavaScript"
+
+mm-js-update: 
+  id: mm-js-update
+  url: https://mmistakes.github.io/minimal-mistakes/docs/javascript/#build-process
+  title: "Minimal Mistakes build"
+
+mm-dir-struct: 
+  id: mm-dir-struct
+  url: https://mmistakes.github.io/minimal-mistakes/docs/structure/
+  title: "Minimal Mistakes doc structure"
+
+jekyll-dir-struct: 
+  id: jekyll-dir-struct
+  url: https://jekyllrb.com/docs/structure/
+  title: "Jekyll doc structure"
+
+jekyll-config:
+  id: jekyll-config
+  url: https://jekyllrb.com/docs/configuration/
+  title: "Jekyll configuration"
+
+ruby-and-gems-install:
+  id: ruby-and-gems-install
+  url: https://jekyllrb.com/docs/installation/
+  title: "Jekyll installation"
+

@@ -333,6 +333,7 @@ $(function () {
     );
   }
 
+  // Tooltip generation and handling
   const toolTipArrowSize = 10;
   var tooltip = null;
   var tooltipTarget = null;
