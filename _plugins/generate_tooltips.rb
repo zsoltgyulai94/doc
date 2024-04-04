@@ -39,12 +39,18 @@ module Jekyll
           #puts "match_parts: #{match_parts}"
           match = match_parts[0]
           id = match_parts[1]
-          base_url = page.site.config["baseurl"]
-          url = base_url + page_links[id]["url"]
+          url = page_links[id]["url"]
+          external_url = false
+          if url =~ %r{^\w+://}
+            external_url = true
+          else
+            base_url = page.site.config["baseurl"]
+            url = base_url + url
+          end
         end
         
         match = save_from_markdownify(match)
-        replacement_text = '<a href="' + url + '" class="nav-link' + (needs_tooltip ? ' content-tooltip' : '') + '">' + match + '</a>'
+        replacement_text = '<a href="' + url + '" class="nav-link' + (needs_tooltip ? ' content-tooltip' : '') + '"' + (external_url ? ' target="_blank"' : '') + '>' + match + '</a>'
         puts "replacement_text: " + replacement_text
         
         return replacement_text
@@ -75,7 +81,7 @@ module Jekyll
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
         # NOTE: Use multi line matching as e.g. code blocks can span to multiple lines
-        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m
+        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
         
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
@@ -200,7 +206,8 @@ module Jekyll
 
       def gen_page_link_data(links_dir, link_files_pattern)
         excluded_titles = YAML.load_file(File.join('_data', 'excluded_titles.yml'))
-        page_links_dictionary = {}
+        page_links_dictionary = YAML.load_file(File.join('_data', 'external_links.yml'))
+        #page_links_dictionary = {}
         link_file_names = []
         add_matching_files(link_file_names, links_dir, link_files_pattern)
                             
@@ -370,7 +377,7 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
     # Sort the page_links dictionary keys based on the "title" values in reverse order case insensitive
     page_links_ids_sorted_by_title = Jekyll::TooltipGen.page_links_ids_sorted_by_title(page_links)
     # Create nav_links dictionary using "url" as key and add nav_ndx to all items based on we can adjust navigation order (in page_pagination.html)
-    # TODO: We can replace nav_gen.sh now to handle everything related to link generation at a single place
+    # TODO: We can replace the nav_gen shell tool now to handle everything related to link generation at a single place
     nav_links = Jekyll::TooltipGen.gen_nav_link_data('_data/navigation.yml')
 
     [site.pages, site.documents].each do |pages|

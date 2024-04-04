@@ -226,7 +226,7 @@ process_params()
 
 # Check for the correct number of command-line parameters
 if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <doc_folder> <output_nav_file> [yes:no] [yes:no] (Where 3rd param will set JEKYLL_BUILD_LINKS, 4th set JEKYLL_BUILD_TOOLTIPS)"
+    echo "Usage: $0 <doc_folder> <output_nav_file> [yes:no, default:yes] [yes:no, default:no] (Where 3rd param will set JEKYLL_BUILD_LINKS, 4th set JEKYLL_BUILD_TOOLTIPS)"
     exit 1
 fi
 
