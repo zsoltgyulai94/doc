@@ -85,7 +85,7 @@ README.md
 - _config.yml \
     [[Jekyll configuration|jekyll-config]] file
 - Gemfile \
-    [[Jekyll and minimal-mistake|jekyll-config]] Ruby gem dependencies
+    Jekyll and minimal-mistake [[Ruby gem|jekyll-ruby-gems]] dependencies
 - README.md \
     The project [[GitHub repository|gh-syslog-ng-doc]] landing page readme file
 - LICENSE.* \
@@ -160,7 +160,7 @@ Important: Most of the tools are not really prepared runnig outside of their ori
 
     Important: This tools is part of the GitHub deployment workflow too, so any modification you add to `${PROJECT_ROOT}/_data/navigation.yml` file or `${PROJECT_ROOT}/_data/links` folder will be lost during the site build.
     {: .notice--danger}
-3. <a name="modify-and-repack-js"></a>Sometimes its needed to [[update|mm-javascripts]] the internally used `minimal-mistakes` theme default [[.js scripts|mm-js-update]] \
+3. <a name="modify-and-repack-js"></a>Sometimes its needed to [[update|mm-js-update]] the internally used `minimal-mistakes` theme default [[.js scripts|mm-javascripts]] \
     If you modify any of the scripts packed into the `${PROJECT_ROOT}/assets/js/main.min.js` file, you have to [[re-pack|mm-js-update]] it.
     You can use our, still a work in progress, but usable `pack` helper tool.
     After updated the given dependency .js file you can simply run

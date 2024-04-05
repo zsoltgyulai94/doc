@@ -10,9 +10,6 @@ admin-guide-nav:
   - title: "syslog-ng Open Source Edition Administration Guides"
     url: /admin-guide/README
     subnav:
-  - title: "Preface"
-    url: /admin-guide/000_Preface/README
-    subnav:
   - title: "Introduction to syslog-ng"
     url: /admin-guide/010_Introduction_to_syslog-ng/README
     subnav:
@@ -301,6 +298,11 @@ admin-guide-nav:
       subnav:
       - title: "file() destination options"
         url: /admin-guide/070_Destinations/040_File/000_File_destination_options
+    - title: "Google BigQuery"
+      url: /admin-guide/070_Destinations/045_Google_bigQuery/README
+      subnav:
+      - title: "bigquery() destination options"
+        url: /admin-guide/070_Destinations/045_Google_bigQuery/000_bigquery_dest_options
     - title: "graphite"
       url: /admin-guide/070_Destinations/050_Graphite/README
       subnav:
