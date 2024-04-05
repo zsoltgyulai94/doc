@@ -81,13 +81,13 @@ module Jekyll
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
         # NOTE: Use multi line matching as e.g. code blocks can span to multiple lines
-        special_markdown_blocks_pattern = /(```.*?```|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
+        special_markdown_blocks_pattern = /(````.*?````|```.*?```|``.*?``|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
         
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
         #puts markdown_parts
         markdown_parts.each_with_index do |markdown_part, markdown_index|            
-          #puts "---------------\nmarkdown_index: " + markdown_index.to_s + "\nmarkdown_part: " + markdown_part
+          #puts "---------------\nmarkdown_index: " + markdown_index.to_s + "\n" + (markdown_index.even? ? "NONE " : "") + "markdown_part: " + markdown_part
 
           page.data["page_links_ids_sorted_by_title"].each do |page_id|
             link_data = page_links[page_id]
