@@ -12,6 +12,8 @@ If you would like to help us to make our documentation better, you can find info
 
 ## [Administrator guide][ref:admin-guide]
 
+This repository contains the source code of [The syslog-ng Open Source Edition Administration Guide](https://www.syslog-ng.com/technical-documents/list/syslog-ng-open-source-edition/).
+
 If you are an active user of syslog-ng, start here to [learn][ref:admin-guide] about installation, configuration, fine tuning syslog-ng.
 
 ## [Developer guide][ref:dev-guide]

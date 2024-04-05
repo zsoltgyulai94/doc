@@ -25,14 +25,14 @@ Feel free to contribute and propose your chapter ideas.
 <!-- could not get the badge work with the embedded ref [gh:ose-dev-shell-badge] or (gh:ose-dev-shell-badge) solution -->
 [![Build Status](https://github.com/syslog-ng/syslog-ng/actions/workflows/devshell.yml/badge.svg)][gh:ose-monitor]
 
-available here: {% include markdown_link id="gh-syslog-ng" title="syslog-ng" newPage=true %}
+available here: [[syslog-ng|gh-syslog-ng]]
 
 ## Issue tracker
 
 We use github to track the
 
-- {% include markdown_link id="gh-syslog-ng-issue-tracker" title="project issues" newPage=true %}
-- {% include markdown_link id="gh-syslog-ng-doc-issue-tracker" title="documentation issues" newPage=true %}
+- [[project issues|gh-syslog-ng-issue-tracker]]
+- [[documentation issues|gh-syslog-ng-doc-issue-tracker]]
 
 ## Contribution
 

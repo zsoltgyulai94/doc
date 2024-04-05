@@ -23,6 +23,36 @@ gh-syslog-ng-doc:
   url: https://github.com/syslog-ng/doc
   title: "syslog-ng Doc on GitHub"
 
+bb-syslog-ng-mail-list:
+  id: bb-syslog-ng-mail-list
+  url: https://lists.balabit.hu/mailman/listinfo/syslog-ng
+  title: "syslog-ng mailing list"
+
+pe-product: 
+  id: pe-product
+  url: https://www.syslog-ng.com/products/log-management-software/
+  title: "syslog-ng Premium Edition product"
+
+oi-llc: 
+  id: oi-llc
+  url: https://www.oneidentity.com/
+  title: "One Identity LLC"
+
+sn-ccanndw-license:
+  id: sn-ccanndw-license
+  url: https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.33/administration-guide/104
+  title: "Creative Commons Attribution-Noncommercial-No Derivative Works (by-nc-nd) 3.0 license"
+
+sn-doc-entity-cla:
+  id: sn-doc-entity-cla
+  url: FIXME
+  title: "syslog-ng Open Source Edition Documentation Entity Contributor License Agreement"
+
+sn-doc-individual-cla:
+  id: sn-doc-individual-cla
+  url: FIXME
+  title: "syslog-ng Open Source Edition Documentation Individual Contributor License Agreement"
+
 mm-javascripts:
   id: mm-javascripts
   url: https://mmistakes.github.io/minimal-mistakes/docs/javascript/
@@ -53,3 +83,7 @@ ruby-and-gems-install:
   url: https://jekyllrb.com/docs/installation/
   title: "Jekyll installation"
 
+jekyll-ruby-gems:
+  id: jekyll-ruby-gems
+  url: https://jekyllrb.com/docs/ruby-101/
+  title: "Jekyll Ruby Gems"
