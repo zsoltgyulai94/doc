@@ -317,6 +317,7 @@ def Jekyll_TooltipGen_debug_filter_pages?(page)
     "_dev-guide/README.md" => true,
     "_admin-guide/README.md" => true,
     "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" => true,
+    "_admin-guide/060_Sources/150_snmptrap/000_snmptrap_options.md" => true,
     # "_admin-guide/050_The_configuration_file/005_Global_and_environmental_variables.md" => true,
     # "_admin-guide/050_The_configuration_file/006_Modules_in_syslog-ng/001_Listing_configuration_options.md" => true,
     #"_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
@@ -331,7 +332,7 @@ def Jekyll_TooltipGen_debug_filter_pages?(page)
   }
   debug_ok = true  
   # Comment this line out if not debugging!!!
-  debug_ok = (debug_pages[page.relative_path] != nil)
+  # debug_ok = (debug_pages[page.relative_path] != nil)
   return debug_ok
 end
 
@@ -375,72 +376,75 @@ def Jekyll_TooltipGen_hack_description_out(page_has_subtitle, page_has_descripti
   end
 end
 
-Jekyll_TooltipGen_desc_hack_separator = '<p>%%%description-separator-DO-NOT-REMOVE%%%</p>'
-
 #
 # Some more info about render passes, and why we are using these
 #   - https://humanwhocodes.com/blog/2019/04/jekyll-hooks-output-markdown/
 #   - https://jekyllrb.com/docs/plugins/hooks/
 #   - https://github.com/jekyll/jekyll/blob/12ab35011f6e86d49c7781514f9dd1d92e43ea11/features/hooks.feature#L37
 #
-Jekyll::Hooks.register :site, :pre_render do |site, payload|
+# NOTE: Do not use the site based enumeration (Jekyll::Hooks.register :site, :pre_render do |site, payload|
+#       as we need proper per-page apyload data (or TODO: figure out how to get that in tha case properly)
+#
 
+Jekyll_TooltipGen_desc_hack_separator = '<p>%%%description-separator-DO-NOT-REMOVE%%%</p>'
+
+$Jekyll_TooltipGen_markdown_extensions = nil
+$Jekyll_TooltipGen_page_links = nil
+$Jekyll_TooltipGen_page_links_ids_sorted_by_title = nil
+$Jekyll_TooltipGen_nav_links = nil
+
+Jekyll::Hooks.register [:pages, :documents], :pre_render do |page, payload|
   should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
   should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
 
   if should_build_tooltips
-    liquid_options = site.config["liquid"]
-    markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
-    # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
-    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)   # /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/       'adm-temp-macro-ose#message.yml'
-    # Sort the page_links dictionary keys based on the "title" values in reverse order case insensitive
-    page_links_ids_sorted_by_title = Jekyll::TooltipGen.page_links_ids_sorted_by_title(page_links)
-    # Create nav_links dictionary using "url" as key and add nav_ndx to all items based on we can adjust navigation order (in page_pagination.html)
-    # TODO: We can replace the nav_gen shell tool now to handle everything related to link generation at a single place
-    nav_links = Jekyll::TooltipGen.gen_nav_link_data('_data/navigation.yml')
-
-    [site.pages, site.documents].each do |pages|
-
-      pages.each do |page|
-        page_url = page.url.gsub(/\.[^.]+$/, '')
-        #puts "page_url: #{page_url}"
-        #puts "page: #{page.relative_path}"
-
-        next if false == markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
-        
-        link_data = nav_links[page_url]
-        if link_data != nil
-          page.data['nav_ndx'] = link_data['nav_ndx'] # page_pagination.html will use this as sort value for navigation ordering
-        end
-
-        next if false == Jekyll_TooltipGen_debug_filter_pages?(page)
-
-        page.data["page_links"] = page_links
-        page.data["page_links_ids_sorted_by_title"] = page_links_ids_sorted_by_title
-
-        page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
-        page_has_description = (page.data["description"] && false == page.data["description"].empty?)
-
-        Jekyll_TooltipGen_hack_description_in(page_has_subtitle, page_has_description, page, Jekyll_TooltipGen_desc_hack_separator)
-
-        # create a template object
-        template = site.liquid_renderer.file(page.path).parse(page.content)
-        # the render method expects this information
-        info = {
-          :registers        => { :site => site, :page => payload['page'] },
-          :strict_filters   => liquid_options["strict_filters"],
-          :strict_variables => liquid_options["strict_variables"],
-        }
-        page.content = template.render!(payload, info)
-
-        Jekyll::TooltipGen.generate_tooltips(page, should_build_persistent_tooltips)
-      end
+    site = page.site
+    
+    if $Jekyll_TooltipGen_markdown_extensions == nil
+      $Jekyll_TooltipGen_markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
+      # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
+      $Jekyll_TooltipGen_page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)   # /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/       'adm-temp-macro-ose#message.yml'
+      # Sort the Jekyll_TooltipGen_page_links dictionary keys based on the "title" values in reverse order case insensitive
+      $Jekyll_TooltipGen_page_links_ids_sorted_by_title = Jekyll::TooltipGen.page_links_ids_sorted_by_title($Jekyll_TooltipGen_page_links)
+      # Create Jekyll_TooltipGen_nav_links dictionary using "url" as key and add nav_ndx to all items based on we can adjust navigation order (in page_pagination.html)
+      # TODO: We can replace the nav_gen shell tool now to handle everything related to link generation at a single place
+      $Jekyll_TooltipGen_nav_links = Jekyll::TooltipGen.gen_nav_link_data('_data/navigation.yml')
     end
+
+    page_url = page.url.gsub(/\.[^.]+$/, '')
+    #puts "page_url: #{page_url}"
+    #puts "page: #{page.relative_path}"
+
+    next if false == $Jekyll_TooltipGen_markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
+    next if false == Jekyll_TooltipGen_debug_filter_pages?(page)
+    
+    if (link_data = $Jekyll_TooltipGen_nav_links[page_url]) != nil
+      page.data['nav_ndx'] = link_data['nav_ndx'] # page_pagination.html will use this as sort value for navigation ordering
+    end
+    page.data["page_links"] = $Jekyll_TooltipGen_page_links
+    page.data["page_links_ids_sorted_by_title"] = $Jekyll_TooltipGen_page_links_ids_sorted_by_title
+
+    page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
+    page_has_description = (page.data["description"] && false == page.data["description"].empty?)
+
+    Jekyll_TooltipGen_hack_description_in(page_has_subtitle, page_has_description, page, Jekyll_TooltipGen_desc_hack_separator)
+
+    # create a template object
+    template = site.liquid_renderer.file(page.path).parse(page.content)
+    liquid_options = site.config["liquid"]
+    # the render method expects this information
+    info = {
+      :registers        => { :site => site, :page => payload['page'] },
+      :strict_filters   => liquid_options["strict_filters"],
+      :strict_variables => liquid_options["strict_variables"],
+    }
+    page.content = template.render!(payload, info)
+
+    Jekyll::TooltipGen.generate_tooltips(page, should_build_persistent_tooltips)
   end
 end
 
 Jekyll::Hooks.register [:pages, :documents], :post_convert do |page|
-
   should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
   should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
 
@@ -448,8 +452,7 @@ Jekyll::Hooks.register [:pages, :documents], :post_convert do |page|
     #puts "page: #{page.relative_path}"
     #Jekyll_TooltipGen_debug_page_info(page, true)
 
-    markdown_extensions = page.site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
-    next if false == markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
+    next if false == $Jekyll_TooltipGen_markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
     next if false == Jekyll_TooltipGen_debug_filter_pages?(page)
     
     page_has_subtitle = (page.data["subtitle"] && false == page.data["subtitle"].empty?)
