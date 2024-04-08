@@ -2,23 +2,25 @@
 
 [gh:gh-doc-pages]: https://syslog-ng.github.io/doc/
 [gh:gh-syslog-ng-doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
-[ref:admin-guide]: admin-guide
-[ref:dev-guide]: dev-guide
-[ref:doc-guide]: doc-guide
+[ref:doc-guide]: doc/_doc-guide
+[ref:admin-guide]: doc/_doc-guide
+[ref:dev-guide]: doc/_doc-guide
+
+# Welcome to the syslog-ng documentation center source repository
+
+Here you can browse, search and contribute to most of the syslog-ng documentation.
 
 ## [Documentation guide][ref:doc-guide]
 
-If you would like to help us to make our documentation better, you can find information about [how to contribute][ref:doc-guide].
+If you would like to help us to make our documentation better, this is [how to contribute][ref:doc-guide].
 
 ## [Administrator guide][ref:admin-guide]
 
-This repository contains the source code of [The syslog-ng Open Source Edition Administration Guide](https://www.syslog-ng.com/technical-documents/list/syslog-ng-open-source-edition/).
-
-If you are an active user of syslog-ng, start here to [learn][ref:admin-guide] about installation, configuration, fine tuning syslog-ng.
+This repository part contains the source code of `The syslog-ng Open Source Edition Administration Guide`.
 
 ## [Developer guide][ref:dev-guide]
 
-Want to add your idea, bug-fix to the fabolous syslog-ng? Take a look at our [developer guide][ref:dev-guide].
+Do you like adding your idea, bug-fix to the fabolous syslog-ng? Help others to do the same, share your knwowledge in the [developer guide][ref:dev-guide].
 
 ## Generated document
 
