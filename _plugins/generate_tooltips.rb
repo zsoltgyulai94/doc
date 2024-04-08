@@ -33,22 +33,33 @@ module Jekyll
         text = text.gsub(/\|/, "&#124;")    # |
        end
 
+      def is_external_url?(url)
+        if url =~ %r{^\w+://}
+          return true
+        end
+        return false
+      end
+
+      def prefixed_url(url, base_url)
+          if false == is_external_url?(url)
+            url = base_url + url
+          end
+          return url
+      end
+
       def make_tooltip(page, page_links, id, url, needs_tooltip, match)
         match_parts = match.split(/\|/)
+        # If the text has an '|' it means it comes from our special autolink/tooltip [[text|id]] markdown block
+        # We have to reparse it a bit and get the id  we must use
         if match_parts.length > 1
           #puts "match_parts: #{match_parts}"
           match = match_parts[0]
           id = match_parts[1]
           url = page_links[id]["url"]
-          external_url = false
-          if url =~ %r{^\w+://}
-            external_url = true
-          else
-            base_url = page.site.config["baseurl"]
-            url = base_url + url
-          end
+          url = prefixed_url(url, page.site.config["baseurl"])
         end
         
+        external_url = is_external_url?(url)
         match = save_from_markdownify(match)
         replacement_text = '<a href="' + url + '" class="nav-link' + (needs_tooltip ? ' content-tooltip' : '') + '"' + (external_url ? ' target="_blank"' : '') + '>' + match + '</a>'
         puts "replacement_text: " + replacement_text
@@ -94,7 +105,7 @@ module Jekyll
 
             title = link_data["title"]
             id = link_data["id"]
-            url = base_url + link_data["url"]
+            url = prefixed_url(link_data["url"], base_url)
             needs_tooltip = (link_data["description"] || has_anchor?(url))
 
             #puts "searching for #{title}"
@@ -249,9 +260,9 @@ module Jekyll
 
         # Just for debugging
         # pp page_links_dictionary
-        # page_links_ids_sorted_by_title(page_links_dictionary).each do |page_id|
-        #   puts page_links_dictionary[page_id]
-        # end
+        page_links_ids_sorted_by_title(page_links_dictionary).each do |page_id|
+          puts page_links_dictionary[page_id]
+        end
 
         #pp page_links_dictionary
         return page_links_dictionary
@@ -298,21 +309,29 @@ end
 
 def Jekyll_TooltipGen_debug_filter_pages?(page)
   debug_pages = {
+    "doc/README.md" => true,
+    "_doc-guide/README.md" => true,
+    "_doc-guide/01_Structure/README.md" => true,
+    "_doc-guide/02_Tools/README.md" => true,
+    "_doc-guide/02_Tools/01_Our_helpers.md" => true,
+    "_dev-guide/README.md" => true,
+    "_admin-guide/README.md" => true,
     "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" => true,
+    # "_admin-guide/050_The_configuration_file/005_Global_and_environmental_variables.md" => true,
     # "_admin-guide/050_The_configuration_file/006_Modules_in_syslog-ng/001_Listing_configuration_options.md" => true,
-    "_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
+    #"_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
     # "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md" => true,
     # "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md" => true,
-    # "_includes/doc/admin-guide/host-from-macro.md" => true,
     # "_admin-guide/070_Destinations/020_Discord/README.md" => true,
     # "_admin-guide/120_Parser/README.md" => true,
     # "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" => true,
     # "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md" => true,
     # "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md" => true,
+    # "_includes/doc/admin-guide/host-from-macro.md" => true,
   }
   debug_ok = true  
   # Comment this line out if not debugging!!!
-  # debug_ok = (debug_pages[page.relative_path] != nil)
+  debug_ok = (debug_pages[page.relative_path] != nil)
   return debug_ok
 end
 
@@ -373,7 +392,7 @@ Jekyll::Hooks.register :site, :pre_render do |site, payload|
     liquid_options = site.config["liquid"]
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
     # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
-    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/adm-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)   # /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/       'adm-temp-macro-ose#message.yml'
+    page_links = Jekyll::TooltipGen.gen_page_link_data('_data/links', /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/)   # /\/(adm|dev|doc)-(([^#]+)|(.*\#{1}.{3,}))\.yml\z/       'adm-temp-macro-ose#message.yml'
     # Sort the page_links dictionary keys based on the "title" values in reverse order case insensitive
     page_links_ids_sorted_by_title = Jekyll::TooltipGen.page_links_ids_sorted_by_title(page_links)
     # Create nav_links dictionary using "url" as key and add nav_ndx to all items based on we can adjust navigation order (in page_pagination.html)

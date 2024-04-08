@@ -52,7 +52,7 @@ module Jekyll
           #puts "page_id: " + page_id + "\npage_url :" + page_url + "\npage_path: " + page_path + "\npage_description: " + page_description
 
           # Find all heading elements (now from h1 to h6)
-          # NOTE: This will not contain the <h1 id="page-title" page title, as that is out of the page.content>
+          # NOTE: This will not contain the <h1 id="page-title"> page title, as that is out of the page.content
           # FIXME: This magic 6 must be maintained together now with navigation.js (and other places?!)
           (1..6).each do |level|
             headings = doc.css("h#{level}")
@@ -74,6 +74,28 @@ module Jekyll
               file_path = "_data/links/#{page_id}##{heading_id}.#{link_ext}"
               write_yaml_file(file_path, link_data)
             end
+          end
+
+          # Enumerate all named anchor elements too
+          # This way we can referenve not automatically created links via our
+          # [[title|id]] or {# include markdown_link ...$} extensions
+          doc.xpath('//a[@name]').each do |anchor|
+            anchor_name = anchor['name']
+            anchor_text = anchor.text
+            anchor_id = page_id + "##{anchor_name}"
+            puts "Anchor name: #{anchor_name}, text: #{anchor_text}, id: #{anchor_id}"
+
+            # Create links data for the heading
+            link_data = {
+              "id" => anchor_id,
+              "url" => page_url + "##{anchor_name}",
+              "title" => '"' + (anchor_text.empty? ? anchor_id : anchor_text) + '"',
+              "description" => '""'
+            }
+
+            # Write data to separate YAML file for each anchor
+            file_path = "_data/links/#{anchor_id}.#{link_ext}"
+            write_yaml_file(file_path, link_data)
           end
 
           # Create links data for the page
@@ -121,7 +143,7 @@ Jekyll::Hooks.register :site, :post_render do |site|
             ids[id] = id
           end
         end
-      end
+      end # pages.each do 
     end    
-  end
-end
+  end # if shoud_build_links
+end # Jekyll::Hooks.register
