@@ -1183,3 +1183,11 @@ doc-guide-nav:
   - title: "Documentation Guide"
     url: /doc-guide/README
     subnav:
+  - title: "Storage Structure"
+    url: /doc-guide/01_Structure/README
+    subnav:
+  - title: "Development Tools"
+    url: /doc-guide/02_Tools/README
+    subnav:
+    - title: "Self made helper tools"
+      url: /doc-guide/02_Tools/01_Our_helpers
