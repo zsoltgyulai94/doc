@@ -83,7 +83,7 @@ module Jekyll
             anchor_name = anchor['name']
             anchor_text = anchor.text
             anchor_id = page_id + "##{anchor_name}"
-            puts "Anchor name: #{anchor_name}, text: #{anchor_text}, id: #{anchor_id}"
+            #puts "Anchor name: #{anchor_name}, text: #{anchor_text}, id: #{anchor_id}"
 
             # Create links data for the heading
             link_data = {
