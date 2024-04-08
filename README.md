@@ -3,8 +3,8 @@
 [gh:gh-doc-pages]: https://syslog-ng.github.io/doc/
 [gh:gh-syslog-ng-doc-issue-tracker]: https://github.com/syslog-ng/doc/issues
 [ref:doc-guide]: doc/_doc-guide
-[ref:admin-guide]: doc/_doc-guide
-[ref:dev-guide]: doc/_doc-guide
+[ref:admin-guide]: doc/_admin-guide
+[ref:dev-guide]: doc/_dev-guide
 
 # Welcome to the syslog-ng documentation center source repository
 
