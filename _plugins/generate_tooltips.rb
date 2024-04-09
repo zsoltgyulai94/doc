@@ -316,18 +316,19 @@ def JekyllTooltipGen_debug_filter_pages?(page)
     "_doc-guide/02_Tools/01_Our_helpers.md" => true,
     "_dev-guide/README.md" => true,
     "_admin-guide/README.md" => true,
+    # "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" => true,
     "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" => true,
-    "_admin-guide/060_Sources/150_snmptrap/000_snmptrap_options.md" => true,
+    # "_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
     # "_admin-guide/050_The_configuration_file/005_Global_and_environmental_variables.md" => true,
     # "_admin-guide/050_The_configuration_file/006_Modules_in_syslog-ng/001_Listing_configuration_options.md" => true,
-    #"_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
-    # "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md" => true,
-    # "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md" => true,
-    # "_admin-guide/070_Destinations/020_Discord/README.md" => true,
-    # "_admin-guide/120_Parser/README.md" => true,
-    # "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" => true,
-    # "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md" => true,
     # "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md" => true,
+    "_admin-guide/060_Sources/150_snmptrap/000_snmptrap_options.md" => true,
+    # "_admin-guide/070_Destinations/020_Discord/README.md" => true,
+    "_admin-guide/070_Destinations/020_Discord/000_Discord_options" => true,
+    # "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md" => true,
+    # "_admin-guide/120_Parser/README.md" => true,
+    # "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md" => true,
+    # "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md" => true,
     # "_includes/doc/admin-guide/host-from-macro.md" => true,
   }
   debug_ok = true  
@@ -392,13 +393,19 @@ $JekyllTooltipGen_markdown_extensions = nil
 $JekyllTooltipGen_page_links = nil
 $JekyllTooltipGen_page_links_ids_sorted_by_title = nil
 $JekyllTooltipGen_nav_links = nil
-$JekyllTooltipGen_should_build_tooltips = false
-$JekyllTooltipGen_should_build_persistent_tooltips = false
+$JekyllTooltipGen_should_build_tooltips = nil
+$JekyllTooltipGen_should_build_persistent_tooltips = nil
 
 # NOTE: Do not use this site based enumeration directly for the page content manipulation as well
 #       as that needs proper per-page payload data (or TODO: figure out how to get it in that case properly)
 #
 Jekyll::Hooks.register :site, :pre_render do |site|
+  if $JekyllTooltipGen_should_build_tooltips == nil
+    $JekyllTooltipGen_should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
+    $JekyllTooltipGen_should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
+  end
+  next if false == $JekyllTooltipGen_should_build_tooltips    
+
   if $JekyllTooltipGen_markdown_extensions == nil
     $JekyllTooltipGen_markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
     # Skip shorter than 3 letter long (e.g. Glossary header) anchor items (for testing: https://rubular.com/)
@@ -408,10 +415,7 @@ Jekyll::Hooks.register :site, :pre_render do |site|
     # Create $JekyllTooltipGen_nav_links dictionary using "url" as key and add nav_ndx to all items based on we can adjust navigation order (in page_pagination.html)
     # TODO: We can replace the nav_gen shell tool now to handle everything related to link generation at a single place
     $JekyllTooltipGen_nav_links = Jekyll::TooltipGen.gen_nav_link_data(JekyllTooltipGen_navigation_yaml)
-    $JekyllTooltipGen_should_build_tooltips = (ENV['JEKYLL_BUILD_TOOLTIPS'] == 'yes')
-    $JekyllTooltipGen_should_build_persistent_tooltips = (ENV['JEKYLL_BUILD_PERSISTENT_TOOLTIPS'] == 'yes')
   end
-  next if false == $JekyllTooltipGen_should_build_tooltips    
 
   [site.pages, site.documents].each do |pages|
     pages.each do |page|
