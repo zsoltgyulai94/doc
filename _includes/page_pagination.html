@@ -1,26 +1,30 @@
 {% comment %}<!-- https://talk.jekyllrb.com/t/previous-and-next-links-with-a-collections/3171/6 -->{% endcomment %}
 
-{% capture the_collection %}{{page.collection}}{% endcapture %}
 {% if page.collection %}
-  {% comment %}<!-- This is a smart one, sorts even based on page.data["nav_ndx"] -->{% endcomment %}
-  {% assign document = site[the_collection] | sort: "nav_ndx" %}
+  {% capture pagecollection %}{{page.collection}}{% endcapture %}
+  {% assign document = site[pagecollection] | sort: "nav_ndx" %}
+  {% comment %}<div>pagecollection = {{ pagecollection }}</div>{% endcomment %}
 {% endif %}
 
 {% for links in document %}
-  {% if links.title == page.title %}
+  {% comment %}<div>collection = {{ links.collection }}, ndx = {{ links.nav_ndx }}, title = {{ links.title }}</div>{% endcomment %}
 
+  {% if links.nav_ndx == page.nav_ndx %}
     {% unless forloop.first %}
       {% assign prevurl = prev.url %}
 
       {% assign prevtitle = prev.title %}
+      {% comment %}<div>prevtitle = {{ prevtitle }}</div>{% endcomment %}
     {% endunless %}
+
+    {% comment %}<div>pagetitle = {{ page.title }}</div>{% endcomment %}
 
     {% unless forloop.last %}
       {% assign next = document[forloop.index] %}
-
       {% assign nexturl = next.url %}
 
       {% assign nexttitle = next.title %}
+      {% comment %}<div>nexttitle = {{ nexttitle }}</div>{% endcomment %}
     {% endunless %}
 
   {% endif %}
@@ -29,7 +33,6 @@
 {% endfor %}
 
 {% if prevurl or nexturl %}
-
 <nav class="pagination">
   <div class="pagination--pager-container">
 
