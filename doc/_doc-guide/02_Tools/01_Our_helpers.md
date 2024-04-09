@@ -95,4 +95,4 @@ Important: Most of the tools are not really prepared runnig outside of their ori
 
 1. generate_tooltips
 
-1. [[ ]]
+1. \[\[title\|id\]\]
