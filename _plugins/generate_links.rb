@@ -26,9 +26,28 @@ module Jekyll
         #puts file_path
       end
 
+      def register_id(page, id, title, ids, titles)
+        if id != nil 
+          if ids[id]
+            puts "Duplicated 'id: #{id}' in file " + page.relative_path
+            #exit 2
+          else
+            ids[id] = id
+          end
+        end
+        if title != nil 
+          if titles[title]
+            puts "Duplicated 'title: #{title}' in file " + page.relative_path
+            #exit 2
+          else
+            titles[title] = title
+          end
+        end
+      end
+
     public
       
-      def generate_links(page)
+      def generate_links(page, ids, titles)
         #puts page.relative_path
         # Must have to get it parsed by jekyll, these links will be part of the site.data.links array as well, do not touch them
         link_ext = 'yml'
@@ -69,6 +88,7 @@ module Jekyll
                 "title" => '"' + heading.text + '"',
                 "description" => '""'
               }
+              #register_id(page, link_data["id"], link_data["title"], ids, titles)
 
               # Write data to separate YAML file for each heading
               file_path = "_data/links/#{page_id}##{heading_id}.#{link_ext}"
@@ -92,6 +112,7 @@ module Jekyll
               "title" => '"' + (anchor_text.empty? ? anchor_id : anchor_text) + '"',
               "description" => '""'
             }
+            #register_id(page, link_data["id"], link_data["title"], ids, titles)
 
             # Write data to separate YAML file for each anchor
             file_path = "_data/links/#{anchor_id}.#{link_ext}"
@@ -106,6 +127,8 @@ module Jekyll
             "title" => '"' + page_title + '"',
             "description" => '"' + page_description + '"'
           }
+          register_id(page, page_link_data["id"], page_link_data["title"], ids, titles)
+
           # Write data to separate YAML file for each page
           page_file_path = "#{page_id}.#{link_ext}"
           page_file_path = "_data/links/" + page_file_path.gsub(/\/|:|\s/, "-").downcase
@@ -128,22 +151,15 @@ Jekyll::Hooks.register :site, :post_render do |site|
 
   if shoud_build_links
     ids = {}
+    titles = {}
     markdown_extensions = site.config['markdown_ext'].split(',').map { |ext| ".#{ext.strip}" }
 
     [site.pages, site.documents].each do |pages|
       pages.each do |page|
         next if (false == markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html")
 
-        id = Jekyll::LinkGen.generate_links(page)
-        if id != nil 
-          if ids[id]
-            puts "Duplicated 'id: #{id}' in file " + page.relative_path
-            #exit 2
-          else
-            ids[id] = id
-          end
-        end
-      end # pages.each do 
+        Jekyll::LinkGen.generate_links(page, ids, titles)
+      end
     end    
   end # if shoud_build_links
 end # Jekyll::Hooks.register
