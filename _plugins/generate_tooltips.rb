@@ -349,7 +349,9 @@ def JekyllTooltipGen_hack_description_in(page_has_subtitle, page_has_description
     end
   end
   if page_has_description || page_has_subtitle
-    page.content = page.content + desc_hack_separator + description 
+    # NOTE: Additional line breaks are essential here othherwise special constructs like tables, liquid notice or code block etc. might break
+    #       Added double \n\n jut to be prepared for the case if there's no \n at all at the file ending
+    page.content = page.content + "\n\n" + desc_hack_separator + description 
   end
 end
 
