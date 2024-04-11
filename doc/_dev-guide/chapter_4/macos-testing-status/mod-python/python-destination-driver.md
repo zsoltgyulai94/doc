@@ -4,6 +4,7 @@ description: >-
   The Python destination allows you to write your own destination in Python. You
   can import external Python modules to process the messages, and send them to
   other services or servers.
+id: dev-macos-mod-sup-python-dest
 ---
 
 ### Important Information <a href="#important-information" id="important-information"></a>

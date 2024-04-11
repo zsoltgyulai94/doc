@@ -1,5 +1,6 @@
 ---
 title: Get familiar with the structure
+id: dev-structure
 ---
 
 In this chapter we are going to introduce you the project and repository architecture that we use

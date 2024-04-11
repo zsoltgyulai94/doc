@@ -1,5 +1,6 @@
 ---
 title: Getting started with implementing Java destinations
+id: dev-tut-java-dest
 ---
 
 Java is one of the most widely used programming languages, and being able to write syslog-ng destinations in Java will allow you to easily interface with any Java codebase.  In this section, you will learn how to create a Java destination for syslog-ng, which takes messages and logs them to a file. This tutorial assumes a basic understanding of Java.

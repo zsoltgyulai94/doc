@@ -1,6 +1,7 @@
 ---
 title: macOS module support status
 description: This testing effort was part of a Google Summer Of Code project, the details of which will be outlined here.
+id: dev-macos-mod-sup-status
 ---
 
 [ref:origin]: https://syslog-macos-testing.gitbook.io/syslog-macos-testing/

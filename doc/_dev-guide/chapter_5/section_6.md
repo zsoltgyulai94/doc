@@ -1,5 +1,6 @@
 ---
 title: Bugs
+id: dev-bugs
 ---
 
 When you report a bug, it is important to share as much relevant

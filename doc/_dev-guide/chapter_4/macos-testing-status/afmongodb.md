@@ -3,6 +3,7 @@ title: afmongodb
 description: >-
   The afmongodb module has only one driver, that is the mongodb() destination
   driver. The mongodb() driver sends messages to a MongoDB database.
+id: dev-macos-mod-sup-afmongodb
 ---
 
 ### Important Information

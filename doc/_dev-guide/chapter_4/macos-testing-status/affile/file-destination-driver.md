@@ -3,6 +3,7 @@ title: file() Destination Driver
 description: >-
   The file driver is one of the most important destination drivers in syslog-ng.
   It allows to output messages to the specified text file, or to a set of files.
+id: dev-macos-mod-sup-file-dest
 ---
 
 ### Status

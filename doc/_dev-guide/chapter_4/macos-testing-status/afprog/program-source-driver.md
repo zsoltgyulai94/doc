@@ -3,6 +3,7 @@ title: program() Source Driver
 description: >-
   The program driver starts an external application and reads messages from the
   standard output (stdout) of the application.
+id: dev-macos-mod-sup-prog_source
 ---
 
 ### Status

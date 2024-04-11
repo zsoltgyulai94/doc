@@ -1,5 +1,6 @@
 ---
 title: Install
+id: dev-install
 ---
 
 You can install your freshly built syslog-ng with `make install`. Note that

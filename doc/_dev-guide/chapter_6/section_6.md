@@ -1,5 +1,6 @@
 ---
 title: Simple Python Source
+id: dev-tut-python-src
 ---
 
 This section contains examples how to write a python source in syslog-ng.

@@ -4,6 +4,7 @@ description: >-
   The Redis module has only one driver, which is the Redis() destination driver.
   The Redis() driver sends messages as name-value pairs to a Redis key-value
   store.
+id: dev-macos-mod-sup-redis
 ---
 
 ### Status

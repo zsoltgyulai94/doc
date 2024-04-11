@@ -3,6 +3,7 @@ title: python-fetcher() Source Driver
 description: >-
   The python-fetcher() source allows you to write your own source in Python. You
   can import external Python modules to receive or fetch the messages.
+id: dev-macos-mod-sup-python-fetch
 ---
 
 ### Important Information <a href="#important-information" id="important-information"></a>

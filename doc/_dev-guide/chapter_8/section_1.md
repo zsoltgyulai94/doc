@@ -1,5 +1,6 @@
 ---
 title: Modules and Plugins
+id: dev-modules-plugins
 ---
 
 Plugins are the individual pieces of functionality used in log paths. Examples include `file`, `csv-parser`, and `base64-encode`. Modules are groups of one or more plugins. The modules that the aforementioned plugins belong to are `affile`, `csvparser`, and `basicfuncs`, respectively.

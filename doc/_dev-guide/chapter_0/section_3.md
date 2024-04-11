@@ -1,5 +1,6 @@
 ---
 title: macOS
+id: dev-inst-macos
 ---
 
 [ref:install]: {{site.baseurl}}/dev-guide/chapter_4/02_section#dependencies

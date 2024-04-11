@@ -1,5 +1,6 @@
 ---
 title: Filter Function
+id: dev-plugin-dev-filter-func
 ---
 
 This section will guide you through the process of creating a filter function, by going through the files of filter-length, a set of filter functions which filter log messages based on the length of their `${MESSAGE}`. `${MESSAGE}` refers to the syslog-ng macro and not MSG as defined by the syslog protocols.

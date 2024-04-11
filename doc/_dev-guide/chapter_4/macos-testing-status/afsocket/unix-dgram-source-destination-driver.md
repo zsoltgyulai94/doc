@@ -4,6 +4,7 @@ description: >-
   The unix-dgram() source driver open an AF_UNIX socket and start listening on
   it for messages. Whereas unix-dgram() destination driver send messages to a
   UNIX domain socket.
+id: dev-macos-mod-sup-unix-dgram
 ---
 
 ### Important Information

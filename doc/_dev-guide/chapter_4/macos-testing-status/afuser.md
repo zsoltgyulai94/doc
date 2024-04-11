@@ -3,6 +3,7 @@ title: afuser
 description: >-
   The afuser module has only one driver, that is the usertty() destination
   driver. The usertty() driver sends messages to a user terminal.
+id: dev-macos-mod-sup-afuser
 ---
 
 ### Status

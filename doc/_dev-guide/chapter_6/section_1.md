@@ -1,5 +1,6 @@
 ---
 title: Getting started with implementing Python destinations
+id: dev-tut-python-dest
 ---
 
 Python is a popular, easy-to-use, high-level language that makes writing code fun and easy. The syslog-ng application supports writing destinations in Python, allowing you to easily extend the capabilities of syslog-ng for your own needs. In this section, you will learn how to create a Python destination for syslog-ng, which takes messages and logs them to a file. This tutorial assumes a basic understanding of Python.

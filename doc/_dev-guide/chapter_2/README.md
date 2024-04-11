@@ -1,5 +1,6 @@
 ---
 title: Compile first
+id: dev-compile-first
 ---
 
 This chapter describes the building and testing process of syslog-ng.

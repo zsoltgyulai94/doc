@@ -1,5 +1,6 @@
 ---
 title: Plugin Development Guide
+id: dev-plugin-dev
 ---
 
 This chapter is a guide for creating syslog-ng plugins.

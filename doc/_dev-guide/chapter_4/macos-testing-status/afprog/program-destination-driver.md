@@ -3,6 +3,7 @@ title: program() Destination Driver
 description: >-
   The program() driver starts an external application or script and sends the
   log messages to its standard input (stdin).
+id: dev-macos-mod-sup-prog_dest
 ---
 
 ### Important Information

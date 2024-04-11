@@ -1,5 +1,6 @@
 ---
 title: Template Function
+id: dev-plugin-dev-tmpl-func
 ---
 
 This section will guide you through the process of creating a template function, by going through the files of `radix-funcs`, a set of template functions that convert numbers between radixes (bases).

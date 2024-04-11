@@ -3,6 +3,7 @@ title: elasticsearch-http
 description: >-
   The elasticsearch-http() destination driver is used to send messages to
   elasticsearch.
+id: dev-macos-mod-sup-elasticsearch-http
 ---
 
 ### Important Information

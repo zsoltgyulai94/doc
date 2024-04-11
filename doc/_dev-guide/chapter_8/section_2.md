@@ -1,5 +1,6 @@
 ---
 title: Source Driver
+id: dev-plugin-dev-src-drv
 ---
 
 This section will guide you through the process of creating a source driver plugin, by going through the files of `static-file`, a source driver that reads existing log messages from a text file.

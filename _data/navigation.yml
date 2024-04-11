@@ -49,7 +49,7 @@ admin-guide-nav:
         url: /admin-guide/020_The_concepts_of_syslog-ng/007_The_structure_of_a_log_message/001_IETF_syslog_messages
       - title: "Enterprise-wide message model (EWMM)"
         url: /admin-guide/020_The_concepts_of_syslog-ng/007_The_structure_of_a_log_message/002_EWMM_messages
-    - title: "Message's representation in syslog-ng OSE"
+    - title: "Message representation in syslog-ng OSE"
       url: /admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation
     - title: "Structuring macros, metadata, and other value-pairs"
       url: /admin-guide/020_The_concepts_of_syslog-ng/009_Structuring_macros/README
@@ -162,7 +162,7 @@ admin-guide-nav:
     - title: "mqtt"
       url: /admin-guide/060_Sources/060_mqtt/README
       subnav:
-      - title: "Prerequisites to using the mqtt() destination"
+      - title: "Prerequisites to using the mqtt() source"
         url: /admin-guide/060_Sources/060_mqtt/000_mqtt_source_prerequisites
       - title: "Limitations to using the mqtt() source"
         url: /admin-guide/060_Sources/060_mqtt/001_mqtt_source_limitations
@@ -289,7 +289,7 @@ admin-guide-nav:
     - title: "elasticsearch-http"
       url: /admin-guide/070_Destinations/030_Elasticsearch-http/README
       subnav:
-      - title: "Batch mode and load balancing"
+      - title: "Batch mode and load balancing with ElasticSearch"
         url: /admin-guide/070_Destinations/030_Elasticsearch-http/000_Batch_mode_and_load_balancing
       - title: "elasticsearch-http() destination options"
         url: /admin-guide/070_Destinations/030_Elasticsearch-http/001_Elasticsearch-http_options
@@ -334,9 +334,9 @@ admin-guide-nav:
     - title: "http-nonjava"
       url: /admin-guide/070_Destinations/090_http_nonjava/README
       subnav:
-      - title: "Batch mode and load balancing"
+      - title: "Batch mode and load balancing with HTTP"
         url: /admin-guide/070_Destinations/090_http_nonjava/000_Batch_mode_and_load_balancing
-      - title: "HTTP destination options"
+      - title: "HTTP-nonjava destination options"
         url: /admin-guide/070_Destinations/090_http_nonjava/001_http_nonjava_options
       - title: "The Azure auth header plugin"
         url: /admin-guide/070_Destinations/090_http_nonjava/002_Azure_auth_header_plugin
@@ -389,7 +389,7 @@ admin-guide-nav:
     - title: "opensearch"
       url: /admin-guide/070_Destinations/155_opensearch/README
       subnav:
-      - title: "Batch mode and load balancing"
+      - title: "Batch mode and load balancing with OpenSearch"
         url: /admin-guide/070_Destinations/155_opensearch/000_batch-mode
       - title: "OpenSearch() destination options "
         url: /admin-guide/070_Destinations/155_opensearch/001_opensearch()-destination-options
@@ -408,7 +408,7 @@ admin-guide-nav:
       subnav:
       - title: "program() destination options"
         url: /admin-guide/070_Destinations/180_Program/000_Program_destination_options
-    - title: "pseudofile()"
+    - title: "pseudofile"
       url: /admin-guide/070_Destinations/190_Pseudofile/README
       subnav:
       - title: "pseudofile() destination options"
@@ -421,7 +421,7 @@ admin-guide-nav:
     - title: "redis"
       url: /admin-guide/070_Destinations/210_Redis/README
       subnav:
-      - title: "Batch mode and load balancing"
+      - title: "Batch mode and load balancing with Redis"
         url: /admin-guide/070_Destinations/210_Redis/000_Batch_mode_in_Redis
       - title: "redis() destination options"
         url: /admin-guide/070_Destinations/210_Redis/001_Redis_options
@@ -473,10 +473,10 @@ admin-guide-nav:
           url: /admin-guide/070_Destinations/270_sql/002_Interaction/001_mssql_specific_interaction_methods
       - title: "sql() destination options"
         url: /admin-guide/070_Destinations/270_sql/003_sql_destination_options
-    - title: "stdout: Send messages to standard output"
+    - title: "stdout"
       url: /admin-guide/070_Destinations/275_stdout/README
       subnav:
-      - title: "stdout options"
+      - title: "stdout() options"
         url: /admin-guide/070_Destinations/275_stdout/000_stdout_options
     - title: "Stomp"
       url: /admin-guide/070_Destinations/280_Stomp/README
@@ -519,11 +519,11 @@ admin-guide-nav:
       subnav:
       - title: "unix-stream() and unix-dgram() destination options"
         url: /admin-guide/070_Destinations/340_unix-stream_unix-dgram/000_unixstream_options
-    - title: "USERTTY"
+    - title: "usertty"
       url: /admin-guide/070_Destinations/350_usertty
-    - title: "WRITE YOUR OWN CUSTOM DESTINATION"
+    - title: "Custom destinations"
       url: /admin-guide/070_Destinations/360_Custom_destinations
-    - title: "CLIENT-SIDE FAILOVER"
+    - title: "Client-side failover"
       url: /admin-guide/070_Destinations/370_Client_side_failover
   - title: "Log - Filter and route log messages"
     url: /admin-guide/080_Log/README
@@ -617,7 +617,7 @@ admin-guide-nav:
           url: /admin-guide/080_Log/030_Filters/005_Filter_functions/011_source
         - title: "tags()"
           url: /admin-guide/080_Log/030_Filters/005_Filter_functions/012_tags
-    - title: "DROPPING MESSAGES"
+    - title: "Dropping messages"
       url: /admin-guide/080_Log/040_Dropping_messages
   - title: "Global options of syslog-ng OSE"
     url: /admin-guide/090_Global_options/README
@@ -637,9 +637,9 @@ admin-guide-nav:
     - title: "Mutual authentication using TLS"
       url: /admin-guide/100_TLS-encrypted_message_transfer/002_Mutual_authentication_using_TLS/README
       subnav:
-      - title: "Configuring TLS on the syslog-ng clients"
+      - title: "Configuring syslog-ng clients with mutual authentication"
         url: /admin-guide/100_TLS-encrypted_message_transfer/002_Mutual_authentication_using_TLS/000_Configuring_mutual_TLS_client
-      - title: "Configuring TLS on the syslog-ng server"
+      - title: "Configuring syslog-ng servers with mutual authentication"
         url: /admin-guide/100_TLS-encrypted_message_transfer/002_Mutual_authentication_using_TLS/001_Configuring_mutual_TLS_server
     - title: "Password-protected keys"
       url: /admin-guide/100_TLS-encrypted_message_transfer/003_Password_protected_keys
@@ -780,6 +780,11 @@ admin-guide-nav:
         url: /admin-guide/120_Parser/014_panos_parser/001_Panos_parser_options
     - title: "Sudo parser"
       url: /admin-guide/120_Parser/015_sudo_parser
+    - title: "PostgreSQL parser"
+      url: /admin-guide/120_Parser/016_PostgreSQL_csvlog_parser/README
+      subnav:
+      - title: "PostgreSQL csvlog parser options"
+        url: /admin-guide/120_Parser/016_PostgreSQL_csvlog_parser/001_PostgreSQL_parser_options
     - title: "MariaDB parser"
       url: /admin-guide/120_Parser/016_mariadb_parser
     - title: "metrics-probe()"
@@ -1007,6 +1012,8 @@ admin-guide-nav:
       url: /admin-guide/200_About/001_Documentation_license
     - title: "Glossary"
       url: /admin-guide/200_About/002_Glossary
+    - title: "Contributor License Agreement"
+      url: /admin-guide/200_About/003_CLA
 
 # dev-guide
 dev-guide-nav:
@@ -1144,7 +1151,7 @@ dev-guide-nav:
       url: /dev-guide/chapter_5/section_5
     - title: "Bugs"
       url: /dev-guide/chapter_5/section_6
-    - title: "Process "
+    - title: "Process"
       url: /dev-guide/chapter_5/section_7
   - title: "Tutorials"
     url: /dev-guide/chapter_6/README

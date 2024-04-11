@@ -3,6 +3,7 @@ title: system
 description: >-
   Syslog-ng OSE can automatically collect the system-specific log messages of
   the host on a number of platforms using the system() driver.
+id: dev-macos-system-drv
 ---
 
 ### Important Information
@@ -67,7 +68,7 @@ source s_local0 {
 };
 
 source s_local1 {
-     -oslog()
+     darwin-oslog()
 };
 
 source s_local2 {

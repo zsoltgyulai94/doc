@@ -3,6 +3,7 @@ title: mod-python
 description: >-
   The python module provides Python scripting support for syslog-ng. It works
   with python3.
+id: dev-macos-mod-sup-python
 ---
 
 ### Plugins

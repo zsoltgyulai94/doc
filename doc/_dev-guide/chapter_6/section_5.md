@@ -1,5 +1,6 @@
 ---
 title: Simple Threaded C Destination
+id: dev-tut-simple-thrd-dest
 ---
 
 In this guide, we will implement a threaded destination driver in C, called `example-destination`.

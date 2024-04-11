@@ -3,6 +3,7 @@ title: syslog() Source/Destination Driver
 description: >-
   The syslog() driver can be used to send and receive messages from the network
   using the standard IETF-syslog protocol.
+id: dev-macos-mod-sup-syslog
 ---
 
 ### Important Information
