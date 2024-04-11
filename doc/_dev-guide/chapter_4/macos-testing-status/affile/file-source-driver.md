@@ -3,6 +3,7 @@ title: file() Source Driver
 description: >-
   The file() source driver is used to collect log messages from plain-text
   files, for example, from the logfiles of an Apache webserver.
+id: dev-macos-mod-sup-file-source
 ---
 
 ### Status

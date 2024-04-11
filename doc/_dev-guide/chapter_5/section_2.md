@@ -1,5 +1,6 @@
 ---
 title: Issues
+id: dev-issues
 ---
 
 [ar:irc]: irc://chat.freenode.net/#syslog-ng

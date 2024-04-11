@@ -4,6 +4,7 @@ description: >-
   The riemann module has only one driver, which is the riemann() destination
   driver. The riemann() driver sends your data (for example, metrics or events)
   to a Riemann monitoring system.
+id: dev-macos-mod-sup-riemann
 ---
 
 ## Status <a href="#status" id="status"></a>

@@ -1,5 +1,6 @@
 ---
 title: Project structure
+id: dev-struct-proj
 ---
 
 The following directories are the most substantial ones:

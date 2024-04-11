@@ -1,6 +1,7 @@
 ---
 title: affile
 description: The affile module provides file source & destination support for syslog-ng.
+id: dev-macos-mod-sup-affile
 ---
 
 ### Plugins

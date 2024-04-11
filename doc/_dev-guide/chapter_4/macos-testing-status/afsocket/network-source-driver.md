@@ -4,6 +4,7 @@ description: >-
   The network() source driver can receive syslog messages conforming to RFC3164
   from the network using the TCP and UDP networking protocols. It belongs in the
   afsocket module.
+id: dev-macos-mod-sup-net-src
 ---
 
 ### **Status**

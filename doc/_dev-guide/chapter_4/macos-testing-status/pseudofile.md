@@ -4,6 +4,7 @@ description: >-
   The pseudofile() destination driver is a very simple driver, aimed at
   delivering messages to special files. It opens and closes the file after each
   write operation, instead of keeping it open.
+id: dev-macos-mod-sup-pseudofile
 ---
 
 ### Status

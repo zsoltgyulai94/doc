@@ -1,5 +1,6 @@
 ---
 title: Debian and Ubuntu
+id: dev-inst-debuan-ubuntu
 ---
 
 [ref:obs-lbudai-36]: https://build.opensuse.org/project/show/home:laszlo_budai:syslog-ng-3.6

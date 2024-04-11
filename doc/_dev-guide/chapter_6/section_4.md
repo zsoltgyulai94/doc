@@ -1,5 +1,6 @@
 ---
 title: Osquery and Elasticsearch
+id: dev-tut-osquery-ellastic
 ---
 
 Osquery is a cross-platform system monitoring tool that exposes information about a system through a SQL interface. Elasticsearch is a distributed schema-free search server based on Lucene. In this tutorial, you will learn first how to send osquery logs to syslog, and then send those logs to Elasticsearch.

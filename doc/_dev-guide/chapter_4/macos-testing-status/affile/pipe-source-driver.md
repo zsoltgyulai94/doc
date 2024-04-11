@@ -3,6 +3,7 @@ title: pipe() Source Driver
 description: >-
   The pipe source driver opens a named pipe with the specified name and listens
   for messages. It is used as the native message delivery protocol on HP-UX.
+id: dev-macos-mod-sup-source-drv
 ---
 
 ### Important Information

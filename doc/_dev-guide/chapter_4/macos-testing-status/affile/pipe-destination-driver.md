@@ -1,6 +1,7 @@
 ---
 title: pipe() Destination Driver
 description: The pipe() driver sends messages to a named pipe like /dev/xconsole.
+id: dev-macos-mod-sup-pipe
 ---
 
 ### Important Information

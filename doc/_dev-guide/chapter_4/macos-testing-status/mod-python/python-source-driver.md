@@ -3,6 +3,7 @@ title: python() Source Driver
 description: >-
   The Python source allows you to write your own source in Python. You can
   import external Python modules to receive or fetch the messages.
+id: dev-macos-mod-sup-python-src
 ---
 
 ### Important Information

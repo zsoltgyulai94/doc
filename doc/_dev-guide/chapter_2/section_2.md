@@ -1,5 +1,6 @@
 ---
 title: Compiling
+id: dev-compile
 ---
 
 This description demonstrates the building steps on the upstream repository, but you can apply these steps

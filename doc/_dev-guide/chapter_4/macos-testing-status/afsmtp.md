@@ -3,6 +3,7 @@ title: afsmtp
 description: >-
   The smtp() driver sends email messages triggered by log messages. The smtp()
   driver uses SMTP, without needing external applications.
+id: dev-macos-mod-sup-afsmtp
 ---
 
 ### Status

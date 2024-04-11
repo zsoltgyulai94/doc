@@ -1,6 +1,7 @@
 ---
 title: stdin() Source Driver
 description: The stdin() driver collects messages from the standard input stream.
+id: dev-macos-mod-sup-stdin
 ---
 
 ### Important Information

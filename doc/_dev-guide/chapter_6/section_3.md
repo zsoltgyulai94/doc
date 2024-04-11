@@ -1,5 +1,6 @@
 ---
 title: Writing an Apache Kafka module in Python
+id: dev-tut-python-kafka
 ---
 
 Apache Kafka is a hugely popular free and open source message broker project. It employs a publish-subscribe messaging model, and can handle hundreds of megabytes of reads and writes per second from thousands of clients. In this section, you will learn how to create a Python destination for syslog-ng, which takes messages and publishes them to Kafka. This tutorial assumes you have a basic understanding of Python and Kafka, and also that you have read the section "Getting started with implementing Python destinations"

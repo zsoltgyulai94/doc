@@ -3,6 +3,7 @@ title: unix-stream() Destination Driver
 description: >-
   The unix-stream() destination driver send messages to a UNIX domain socket in
   either SOCK_STREAM mode.
+id: dev-macos-mod-sup-unix-stream-dest
 ---
 
 ### Important Information

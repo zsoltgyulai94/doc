@@ -1,5 +1,6 @@
 ---
 title: Testing
+id: dev-testing
 ---
 
 ## The make check command

@@ -4,6 +4,7 @@ description: >-
   The wildcard-file() source collects log messages from multiple plain-text
   files from multiple directories.The syslog-ng OSE application notices if a
   file is renamed or replaced with a new file.
+id: dev-macos-mod-sup-wildcard
 ---
 
 ### Status

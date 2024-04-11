@@ -1,6 +1,7 @@
 ---
 title: Using syslog()
 description: We assume the same certificate set-up as outlined in the TLS-Encryption post.
+id: dev-macos-mod-sup-using-syslog
 ---
 
 ### TLS-encryption using syslog() driver

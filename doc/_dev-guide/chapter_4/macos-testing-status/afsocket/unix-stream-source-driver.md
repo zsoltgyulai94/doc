@@ -3,6 +3,7 @@ title: unix-stream() Source Driver
 description: >-
   The unix-stream() driver open an AF_UNIX socket and start listening on it for
   messages. The unix-stream() driver uses SOCK_STREAM semantics.
+id: dev-macos-mod-sup-unix-stream-src
 ---
 
 ### Important Information

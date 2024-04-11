@@ -3,6 +3,7 @@ title: afsql
 description: >-
   The afsql module has only one driver, which is the sql() destination driver.
   The sql() driver sends messages to a SQL database.
+id: dev-macos-mod-sup-afsql
 ---
 
 ### Status

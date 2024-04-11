@@ -1,8 +1,10 @@
 ---
-title: macOS
+title: Building on macOS
+short_title: macOS
 description: >-
-  The syslog-ng application has been resurrected <i class="fas fa-rocket"></i> on macOS by our developer team.<br/>
-  We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
+   The syslog-ng application has been resurrected <i class='fas fa-rocket'></i> on macOS by our developer team.<br/>
+   We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
+id: dev-platform-build-macos
 ---
 
 [ref:compile-first]: {{site.baseurl}}/dev-guide/chapter_2/02_section

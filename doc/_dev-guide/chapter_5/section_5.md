@@ -1,5 +1,6 @@
 ---
 title: Features
+id: dev-features
 ---
 
 [ar:issue-tracker]: https://github.com/balabit/syslog-ng/issues 

@@ -1,5 +1,6 @@
 ---
 title: FeeBSD
+id: dev-inst-freebsd
 ---
 
 ## Introduction

@@ -1,5 +1,6 @@
 ---
 title: Fetching dependencies
+id: dev-comp-deps
 ---
 
 [gh:glib]: http://github.com/GNOME/glib

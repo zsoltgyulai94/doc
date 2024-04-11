@@ -1,5 +1,6 @@
 ---
 title: Git structure
+id: dev-struct-git
 ---
 
 When a lot of people contribute on the same project it is impossible not to use
