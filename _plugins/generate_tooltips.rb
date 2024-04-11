@@ -92,7 +92,7 @@ module Jekyll
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
         # NOTE: Use multi line matching as e.g. code blocks can span to multiple lines
-        special_markdown_blocks_pattern = /(`{1,4}.*?`{1,4}|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
+        special_markdown_blocks_pattern = /(````.*?````|```.*?```|``.*?``|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
         
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
