@@ -3,26 +3,19 @@ title: macOS
 id: dev-inst-macos
 ---
 
-[ref:install]: {{site.baseurl}}/dev-guide/chapter_4/02_section#dependencies
-[ref:compile]: {{site.baseurl}}/dev-guide/chapter_4/02_section
-[ref:freepascal-launchd]: https://wiki.freepascal.org/macOS_daemons_and_agents
-[ref:apple-launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
-[ref:homebrew]: http://brew.sh
-[gh:ose-official]: <http://www.github.com/balabit/syslog-ng>
-
 ### Introduction
 
 The syslog-ng application has been resurrected on macOS by our developer team. We hope our product can be useful for Mac users who want to increase the security of their system through reliable logging.
 
-At present we are not supporting macOS syslog-ng on our [official repository][gh:ose-official] on GitHub. However, you can install pre-built syslog-ng binaries from various sources or can compile yourself following [this guide][ref:compile].
+At present we are not supporting macOS syslog-ng on our [[official repository|gh-syslog-ng]] on GitHub. However, you can install pre-built syslog-ng binaries from various sources or can compile yourself following [[this guide|dev-platform-build-macos#compiling-from-source]].
 
-If you want to install syslog-ng on macOS you can use multiple packaga managers e.g. [homebrew][ref:homebrew]
+If you want to install syslog-ng on macOS you can use multiple packaga managers e.g. Homebrew
 
 ### Homebrew
 
-First, check [this][ref:install] if you have not got Homebrew installed and pre-configured yet.
+First, check [[this|dev-platform-build-macos#dependencies]] if you have not got Homebrew installed and pre-configured yet.
 
-[Homebrew][ref:homebrew] has now different home directories on ARM and X86 systems, also the location could depend on your macOS version. We will reference to its home directory as `${HOMEBREW_PREFIX}` in this document, as if you follow the installation instructions above it will be set already correctly independenty of your system.
+Homebrew has now different home directories on ARM and X86 systems, also the location could depend on your macOS version. We will reference to its home directory as `${HOMEBREW_PREFIX}` in this document, as if you follow the installation instructions above it will be set already correctly independenty of your system.
 
 **Hint**: you can use `export HOMEBREW_PREFIX=$(brew --prefix)` in your scripts or shell environments to get and reference the actual location of your homewbrew installation
 {: .notice--info}
@@ -31,7 +24,7 @@ First, check [this][ref:install] if you have not got Homebrew installed and pre-
 
 The syslog-ng package on macOS in homebrew is organized into a formula called `syslog-ng`.
 
-For checking dependencies of it you can use
+For checking [[dependencies|dev-platform-build-macos#dependencies]] of it you can use
 
 ```shell
 brew deps syslog-ng
@@ -79,7 +72,7 @@ however this is not a persistent state, after a system restart syslog-ng will no
 
 To run it as a daemon that will automatically start at system startup and is kept alive you can use `launchd`
 
-You can find several pages about `launchd` and how to add System or User Launch Daemons, Agents to macOS like [this][ref:freepascal-launchd], the official [Apple Developer page][ref:apple-launchd], or simply `man launchd`, `man launchctl`, and `man launchd.plist`
+You can find several pages about `launchd` and how to add System or User Launch Daemons, Agents to macOS like [[this|freepascal-launchd]], the official [[Apple Developer page|apple-launchd]], or simply `man launchd`, `man launchctl`, and `man launchd.plist`
 
 #### Basic example of how to run it as a System Daemon
 

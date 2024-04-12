@@ -7,35 +7,22 @@ description: >-
 id: dev-platform-build-macos
 ---
 
-[ref:compile-first]: {{site.baseurl}}/dev-guide/chapter_2/02_section
-[ref:test-first]: {{site.baseurl}}/dev-guide/chapter_2/section_3
-[ref:run]: {{site.baseurl}}/dev-guide/chapter_3
-[ref:docs]: http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-latest-guides/en/syslog-ng-ose-guide-admin/html-single/index.html
-[ref:homebrew]: http://brew.sh
-[ref:homebrew-install]: /dev-guide/chapter_0/section_3
-[ref:homebrew-install-detailed]: https://mac.install.guide/homebrew/3.html
-[ref:homebrew-ose-install]: {{site.baseurl}}/dev-guide/chapter_0/section_3/
-[ref:criterion]: https://github.com/Snaipe/Criterion
-[ref:macos-support]: {{site.baseurl}}/dev-guide/chapter_4/macos-testing-status
-[ref:libdbi-update]: {{site.baseurl}}/dev-guide/chapter_4/macos-testing-status/modules/afsql-1#dependencies
-[gh:ose-official]: <http://www.github.com/balabit/syslog-ng>
-
 ## Introduction
 
-At present we are not supporting macOS syslog-ng on our [official repository][gh:ose-official] on GitHub. However, you can compile syslog-ng yourself following this guide.
+At present we are not supporting macOS syslog-ng on our [[official repository|gh-syslog-ng]] on GitHub. However, you can compile syslog-ng yourself following this guide.
 
 **Note:** The guide is tested on ARM macOS Sonoma 14.2.1, Ventura 13.4, and Intel macOS Monterey 12.6.6 machines, we do our bests to keep it update, but your actual system may require additional steps or slightly different settings.
 {: .notice}
 
 ## Compiling from source
 
-Like every project syslog-ng also uses different libraries and build-systems that must be installed for compiling and running properly. These dependencies can be satisfied by compiling every-each libs and tools manually, but it might be preferred to do it the easy way. [Homebrew][ref:homebrew] is a package manager for macOS that has great community and support. You can also use it to install the dependencies you need.
+Like every project syslog-ng also uses different libraries and build-systems that must be installed for compiling and running properly. These dependencies can be satisfied by compiling every-each libs and tools manually, but it might be preferred to do it the easy way. Homebrew is a package manager for macOS that has great community and support. You can also use it to install the dependencies you need.
 
 ### Dependencies
 
-1. [Install Homebrew][ref:homebrew-install] on your system.
+1. [[Install Homebrew|dev-inst-macos#Homebrew]] on your system.
 
-   **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [Here][ref:homebrew-install-detailed] you can find an even more detailed instruction about the topic.
+   **Hint:** Don't forget to set up the homebrew environment, follow the instructions in your terminal! [[Here|homebrew-inst-detailed]] you can find an even more detailed instruction about the topic.
    {: .notice--info}
 
    **Note:** This will install **Command Line Tools for Xcode** as well if not already presented on the system that would also be required anyway for a seamless syslog-ng build.
@@ -72,7 +59,7 @@ Like every project syslog-ng also uses different libraries and build-systems tha
    * criterion
    * gcc@11
 
-**Hint:** If you you have [syslog-ng installed via brew][ref:homebrew-ose-install], as a reference, you can check the dependencies of the brew built version using `brew deps syslog-ng`
+**Hint:** If you you have [[syslog-ng installed via brew|dev-inst-macos#Installation]], as a reference, you can check the dependencies of the brew built version using `brew deps syslog-ng`
 {: .notice--info}
 
 This is how it might look like if you start from the ground:
@@ -120,13 +107,13 @@ brew install \
 > * bison is required to be installed when using homebrew, because the options provided by Apple Developer Tools are incomplete. (for example: missing -W option) The reason is why bison is ?>required to be installed from homebrew is that the -W option is supported only after 2.3.
 > * net-snmp might be needed as well when using homebrew, because the options provided by Apple Developer Tools are bogus a bit. The reason is why net-snmp might be required from homebrew is that the by default provided pkgconfig might give back bogus lib and include values.
 > * openssl - since macOS provides LibreSSL by default, you might need to expand the search path of pkg-config to find the freshly installed openSSL, see bellow. (seems it was an issue only with 1.1.x version of openssl)
-> * libdbi and libdbi-drivers are [maintained and updated][ref:libdbi-update] in syslog-ng OSE repositories, use the latest master version from there
-> * actual state of supported features, and the required dependencies can also be found [here][ref:macos-support].
+> * libdbi and libdbi-drivers are [[maintained and updated|dev-macos-mod-sup-afsql#dependencies]] in syslog-ng OSE repositories, use the latest master version from there
+> * actual state of supported features, and the required dependencies can also be found [[here|dev-macos-mod-sup-status]].
 {: .notice}
 
 ### Preparations
 
-1. Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [just follow the instructions][ref:homebrew-install-detailed] during homebrew installation.
+1. Depending your macOS architecture and version homebrew is using different location for storing its data, so worth using generic references to it, for this, [[just follow the instructions|homebrew-inst-detailed]] during homebrew installation.
 
    In a nutshell, you either have to use `brew shellenv`, or set manually the env like this
 
@@ -164,32 +151,6 @@ brew install \
    **Note:** It could also happen that you must provide here further library inlcude and lib paths, e.g. for openssl 1.1.x, etc.
    {: .notice}
 
-5. If you wanted to use `gcc` then to force usage of the brew installed version you might want to add
-
-   ```shell
-   ln -s ${HOMEBREW_PREFIX}/bin/gcc-11 ${HOMEBREW_PREFIX}/bin/gcc
-   ln -s ${HOMEBREW_PREFIX}/bin/g++-11 ${HOMEBREW_PREFIX}/bin/g++
-   ```
-
-   Double check the result
-
-   ```shell
-   gcc --version
-   ```
-
-   Expect something similar
-
-   ```shell
-   gcc (Homebrew GCC 11.4.0) 11.4.0
-   ```
-
-   **Note:** The result of the default (clang) one that comes from the output of `/usr/bion/gcc` (which you have by default, and is a simple symlink that points to clang)
-   {: .notice}
-
-   ```shell
-   Apple clang version 15.0.0 (clang-1500.1.0.2.5)
-   ```
-
 ### Getting the source
 
 To get the latest master from syslog-ng git you can use
@@ -201,17 +162,9 @@ git clone https://github.com/syslog-ng/syslog-ng .
 
 ### Select the compiler
 
-For gcc
+Latest version of syslog-ng [has dropped support of gcc](https://github.com/syslog-ng/syslog-ng/pull/4897), so now the platform default llvm/clang must be used to complie the source
 
-```shell
-export CC=gcc
-export CXX=g++
-```
-
-**Note:** Some parts will still be compiled with clang at the moment as gcc cannot compile e.g. the latest ObjectivC sources syslog-ng uses
-{: .notice}
-
-For clang (optional, macOS default)
+To make sure clang is used (optional) you can use:
 
 ```shell
 export CC=clang
@@ -236,7 +189,7 @@ mkdir build; cd build
 **Warning:** By a good chance, you might want to install the self built instance first to a custom location to prevent overwriting a possibly already existing brew installation version. In that case pass `--prefix /full_path_of/installdir/` to the `configure` script in the above steps.
 {: .notice--danger}
 
-For a full feature set you can add further \`configure\`\` flags (excluded the not yet supported modules on macOS), for example
+For a full (urrently supported) feature set you can add [[further configure flags]] (excluded the not yet supported modules on macOS), for example
 
 ```shell
 ../configure --enable-all-modules --with-ivykis=system --with-systemd-journal=no --disable-java --disable-java-modules --disable-smtp --disable-mqtt --disable-pacct --disable-grpc    
@@ -248,11 +201,11 @@ For a full feature set you can add further \`configure\`\` flags (excluded the n
 > * for using all the available modules you might have to install further dependencies
 {: .notice}
 
-For more details please see the [actual state of supported features, and the required dependencies][ref:macos-support].
+For more details please see the [[actual state of supported features|dev-macos-mod-sup-status]], and the required [dependencies](#dependencies).
 
 #### Using cmake
 
-For the full (currently) feature set you can use
+For the full feature set you can use
 
 ```shell
 cmake --install-prefix /full_path_of/installdir -B build . -Wno-dev -DIVYKIS_SOURCE=system -DENABLE_JAVA=OFF -DENABLE_JAVA_MODULES=OFF -DENABLE_PYTHON=ON -DENABLE_PYTHON_MODULES=ON -DBUILD_TESTING=OFF -DENABLE_AFSMTP=OFF -DENABLE_MQTT=OFF -DENABLE_PACCT=OFF -DENABLE_CPP=ON -DENABLE_GRPC=OFF --fresh 
@@ -271,9 +224,6 @@ make install
 # make -j4 install
 ```
 
-**Note:** For other options and more information, read the [compile first][ref:compile-first] guide.
-{: .notice}
-
 #### cmake
 
 ```shell
@@ -283,13 +233,13 @@ cmake --build build/. --target install -j4
 
 ### Testing
 
-In order to run the tests, you have to install first the [Criterion][ref:criterion] testing framework (for example: `brew install criterion`), and re-[configure](02_section#configuration) the build. After that use the command below:
+In order to run the tests, you have to install first the Criterion testing framework (for example: `brew install criterion`), and re-[configure](#configuration) the build with testing enabled. After that use the command below:
 
 ```shell
 make check -j4
 ```
 
-**Note:** For more read [testing first][ref:test-first] guide.
+**Note:** For more read [[testing|dev-testing]] guide.
 {: .notice}
 
 ### Run
@@ -298,5 +248,5 @@ make check -j4
 `/full_path_of/installdir`/syslog-ng -F
 ```
 
-**Note:** For more information read the [run first][ref:run] guide and the syslog-ng [documentation][ref:docs]
+**Note:** For more information read the [[run first|dev-run-first]] guide and the syslog-ng [[documentation|adm-guide]]
 {: .notice}

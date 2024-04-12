@@ -87,3 +87,33 @@ jekyll-ruby-gems:
   id: jekyll-ruby-gems
   url: https://jekyllrb.com/docs/ruby-101/
   title: "Jekyll Ruby Gems"
+
+criterion: 
+  id: criterion
+  url: https://github.com/Snaipe/Criterion
+  title: "Criterion"
+
+homebrew: 
+  id: homebrew
+  url: http://brew.sh
+  title: "Homebrew"
+
+homebrew-inst-detailed: 
+  id: homebrew-inst-detailed
+  url: https://mac.install.guide/homebrew/3.html
+  title: "Homebrew"
+
+freepascal-launchd: 
+  id: freepascal-launchd
+  url: https://wiki.freepascal.org/macOS_daemons_and_agents
+  title: "macOS daemons and agents"
+
+apple-launchd:
+  id: apple-launchd
+  url: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
+  title: "Apple launchd"
+
+soc-macos-module-testing:
+  id: soc-macos-module-testing
+  url: https://syslog-macos-testing.gitbook.io/syslog-macos-testing/
+  title: "SOC macOS mudule testing"
