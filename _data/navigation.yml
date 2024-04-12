@@ -303,6 +303,11 @@ admin-guide-nav:
       subnav:
       - title: "bigquery() destination options"
         url: /admin-guide/070_Destinations/045_Google_bigQuery/000_bigquery_dest_options
+    - title: "Google PubSub"
+      url: /admin-guide/070_Destinations/047_Google_PubSub/README
+      subnav:
+      - title: "pubsub() destination options"
+        url: /admin-guide/070_Destinations/047_Google_PubSub/000_pubsub_dest_options
     - title: "graphite"
       url: /admin-guide/070_Destinations/050_Graphite/README
       subnav:
@@ -1044,7 +1049,10 @@ dev-guide-nav:
     - title: "Fetching dependencies"
       url: /dev-guide/chapter_2/section_1
     - title: "Compiling"
-      url: /dev-guide/chapter_2/section_2
+      url: /dev-guide/chapter_2/section_2/README
+      subnav:
+      - title: "Compiling options of syslog-ng"
+        url: /dev-guide/chapter_2/section_2/compile-options
     - title: "Testing"
       url: /dev-guide/chapter_2/section_3
     - title: "Install"
@@ -1058,86 +1066,89 @@ dev-guide-nav:
     url: /dev-guide/chapter_4/README
     subnav:
     - title: "macOS"
-      url: /dev-guide/chapter_4/02_section
-    - title: "macOS module support status"
-      url: /dev-guide/chapter_4/macos-testing-status/README
+      url: /dev-guide/chapter_4/section_2/README
       subnav:
-      - title: "affile"
-        url: /dev-guide/chapter_4/macos-testing-status/affile/README
+      - title: "macOS module support status"
+        url: /dev-guide/chapter_4/section_2/macos-testing-status/README
         subnav:
-        - title: "file() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/file-destination-driver
-        - title: "file() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/file-source-driver
-        - title: "pipe() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/pipe-destination-driver
-        - title: "pipe() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/pipe-source-driver
-        - title: "stdin() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/stdin-source-driver
-        - title: "wildcard\_file() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/affile/wildcard_file-source-driver
-      - title: "afmongodb"
-        url: /dev-guide/chapter_4/macos-testing-status/afmongodb
-      - title: "afprog"
-        url: /dev-guide/chapter_4/macos-testing-status/afprog/README
-        subnav:
-        - title: "program() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afprog/program-destination-driver
-        - title: "program() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afprog/program-source-driver
-      - title: "afsmtp"
-        url: /dev-guide/chapter_4/macos-testing-status/afsmtp
-      - title: "afsocket"
-        url: /dev-guide/chapter_4/macos-testing-status/afsocket/README
-        subnav:
-        - title: "network() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/network-destination-driver
-        - title: "network() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/network-source-driver
-        - title: "syslog() Source/Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/syslog-source-destination-driver
-        - title: "TLS-Encryption"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/README
+        - title: "affile"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/README
           subnav:
-          - title: "Using network()"
-            url: /dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/using-network
-          - title: "Using syslog()"
-            url: /dev-guide/chapter_4/macos-testing-status/afsocket/tls-encryption/using-syslog
-        - title: "unix-dgram() Source/Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/unix-dgram-source-destination-driver
-        - title: "unix-stream() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/unix-stream-destination-driver
-        - title: "unix-stream() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/afsocket/unix-stream-source-driver
-      - title: "afsql"
-        url: /dev-guide/chapter_4/macos-testing-status/afsql
-      - title: "afuser"
-        url: /dev-guide/chapter_4/macos-testing-status/afuser
-      - title: "elasticsearch-http"
-        url: /dev-guide/chapter_4/macos-testing-status/elasticsearch-http
-      - title: "http"
-        url: /dev-guide/chapter_4/macos-testing-status/http
-      - title: "mod-python"
-        url: /dev-guide/chapter_4/macos-testing-status/mod-python/README
-        subnav:
-        - title: "python() Destination Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/mod-python/python-destination-driver
-        - title: "python-fetcher() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/mod-python/python-fetcher-source-driver
-        - title: "python() Source Driver"
-          url: /dev-guide/chapter_4/macos-testing-status/mod-python/python-source-driver
-      - title: "pseudofile"
-        url: /dev-guide/chapter_4/macos-testing-status/pseudofile
-      - title: "redis"
-        url: /dev-guide/chapter_4/macos-testing-status/redis
-      - title: "riemann"
-        url: /dev-guide/chapter_4/macos-testing-status/riemann
-      - title: "system"
-        url: /dev-guide/chapter_4/macos-testing-status/system-source/README
-        subnav:
-        - title: "Collecting local logs"
-          url: /dev-guide/chapter_4/macos-testing-status/system-source/collecting-local-logs
+          - title: "file() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/file-destination-driver
+          - title: "file() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/file-source-driver
+          - title: "pipe() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/pipe-destination-driver
+          - title: "pipe() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/pipe-source-driver
+          - title: "stdin() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/stdin-source-driver
+          - title: "wildcard\_file() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/affile/wildcard_file-source-driver
+        - title: "afmongodb"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afmongodb
+        - title: "afprog"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afprog/README
+          subnav:
+          - title: "program() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afprog/program-destination-driver
+          - title: "program() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afprog/program-source-driver
+        - title: "afsmtp"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afsmtp
+        - title: "afsocket"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/README
+          subnav:
+          - title: "network() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/network-destination-driver
+          - title: "network() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/network-source-driver
+          - title: "syslog() Source/Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/syslog-source-destination-driver
+          - title: "TLS-Encryption"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/tls-encryption/README
+            subnav:
+            - title: "Using network()"
+              url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/tls-encryption/using-network
+            - title: "Using syslog()"
+              url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/tls-encryption/using-syslog
+          - title: "unix-dgram() Source/Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/unix-dgram-source-destination-driver
+          - title: "unix-stream() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/unix-stream-destination-driver
+          - title: "unix-stream() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/afsocket/unix-stream-source-driver
+        - title: "afsql"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afsql
+        - title: "afuser"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/afuser
+        - title: "elasticsearch-http"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/elasticsearch-http
+        - title: "http"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/http
+        - title: "mod-python"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/mod-python/README
+          subnav:
+          - title: "python() Destination Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/mod-python/python-destination-driver
+          - title: "python-fetcher() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/mod-python/python-fetcher-source-driver
+          - title: "python() Source Driver"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/mod-python/python-source-driver
+        - title: "pseudofile"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/pseudofile
+        - title: "redis"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/redis
+        - title: "riemann"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/riemann
+        - title: "system"
+          url: /dev-guide/chapter_4/section_2/macos-testing-status/system-source/README
+          subnav:
+          - title: "Collecting native macOS logs"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/system-source/01_collecting-native-logs
+          - title: "Collecting local macOS logs"
+            url: /dev-guide/chapter_4/section_2/macos-testing-status/system-source/02_collecting-local-logs
   - title: "Contribution"
     url: /dev-guide/chapter_5/README
     subnav:

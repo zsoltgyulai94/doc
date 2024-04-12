@@ -1,5 +1,5 @@
 ---
-title: Collecting local logs
+title: Collecting local macOS logs
 description: >-
   This post explains how you can collect local log messages and provides some
   details about the integration problems.

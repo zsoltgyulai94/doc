@@ -120,7 +120,7 @@ module Jekyll
 
               # Search for known link titles
               # NOTE: Using multi line matching here will not help either if the pattern itself is in the middle broken/spaned to multiple lines, so using whitespace replacements now inside the patter to handle this, see above!
-              full_pattern = /([\s.,;:&'(])(#{pattern})([\s.,;:&')])(?![^<]*?<\/a>)/
+              full_pattern = /(^|[\s.,;:&'(])(#{pattern})([\s.,;:&')]|\z)(?![^<]*?<\/a>)/
               markdown_part = process_markdown_part(page, markdown_part, page_links, full_pattern, id, url, needs_tooltip, true)
             else 
               # Content inside of special Markdown blocks
@@ -309,31 +309,11 @@ end
 
 def JekyllTooltipGen_debug_filter_pages?(page)
   debug_pages = {
-    "doc/README.md" => true,
-    "_doc-guide/README.md" => true,
-    "_doc-guide/01_Structure/README.md" => true,
-    "_doc-guide/02_Tools/README.md" => true,
-    "_doc-guide/02_Tools/01_Our_helpers.md" => true,
-    "_dev-guide/README.md" => true,
-    "_admin-guide/README.md" => true,
-    # "_admin-guide/020_The_concepts_of_syslog-ng/004_Timezones_and_daylight_saving.md" => true,
-    "_admin-guide/020_The_concepts_of_syslog-ng/008_Message_representation.md" => true,
-    # "_admin-guide/040_Quick-start_guide/001_Configuring_syslog-ng_on_server_hosts.md" => true,
-    # "_admin-guide/050_The_configuration_file/005_Global_and_environmental_variables.md" => true,
-    # "_admin-guide/050_The_configuration_file/006_Modules_in_syslog-ng/001_Listing_configuration_options.md" => true,
-    # "_admin-guide/060_Sources/140_Python/001_Python_logmessage_API.md" => true,
-    "_admin-guide/060_Sources/150_snmptrap/000_snmptrap_options.md" => true,
-    # "_admin-guide/070_Destinations/020_Discord/README.md" => true,
-    "_admin-guide/070_Destinations/020_Discord/000_Discord_options" => true,
-    # "_admin-guide/110_Template_and_rewrite/000_Customize_message_format/004_Macros_of_syslog-ng.md" => true,
-    # "_admin-guide/120_Parser/README.md" => true,
-    # "_admin-guide/120_Parser/022_db_parser/001_Using_pattern_databases/README.md" => true,
-    # "_admin-guide/190_The_syslog-ng_manual_pages/005_syslog-ng_manual.md" => true,
-    # "_includes/doc/admin-guide/host-from-macro.md" => true,
+    # "doc/README.md" => true,
   }
   debug_ok = true  
   # Comment this line out if not debugging!!!
-  # debug_ok = (debug_pages[page.relative_path] != nil)
+  # debug_ok = (debug_pages[page.relative_path] != nil && debug_pages[page.relative_path])
   return debug_ok
 end
 
@@ -349,8 +329,8 @@ def JekyllTooltipGen_hack_description_in(page_has_subtitle, page_has_description
     end
   end
   if page_has_description || page_has_subtitle
-    # NOTE: Additional line breaks are essential here othherwise special constructs like tables, liquid notice or code block etc. might break
-    #       Added double \n\n jut to be prepared for the case if there's no \n at all at the file ending
+    # NOTE: Additional line breaks are essential here otherwise special constructs like tables, liquid notice or code block, etc. might break
+    #       Added double \n\n just to be prepared for the case if there's no \n at all at the file ending
     page.content = page.content + "\n\n" + desc_hack_separator + description 
   end
 end
