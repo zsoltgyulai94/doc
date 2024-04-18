@@ -38,6 +38,16 @@ oi-llc:
   url: https://www.oneidentity.com/
   title: "One Identity LLC"
 
+oi-patents:
+  id: oi-patents
+  url: http://www.OneIdentity.com/legal/patents.aspx
+  title: "One Identity Patents"
+
+oi-trademark:
+  id: oi-trademark
+  url: www.OneIdentity.com/legal/trademark-information.aspx
+  title: "One Identity Trademark"
+
 sn-ccanndw-license:
   id: sn-ccanndw-license
   url: https://www.syslog-ng.com/technical-documents/doc/syslog-ng-open-source-edition/3.33/administration-guide/104

@@ -41,10 +41,4 @@ In case you have any question, comment, or feedback, you can:
 * we use github to track all of the [[documentation issues|gh-syslog-ng-doc-issue-tracker]]
 * post your question on the syslog-ng mailing list
 
-<!--
-## Copyright
-
-The documentation of syslog-ng Open Source Edition is under copyright of One Identity LLC, and is published under the Creative Commons Attribution-Noncommercial-No Derivative Works (by-nc-nd) 3.0 license. One Identity LLC reserves the right to publish parts of the documentation that also apply to the syslog-ng Premium Edition product in the documentation of syslog-ng Premium Edition.
--->
-
 {% include doc/admin-guide/copyright.md %}

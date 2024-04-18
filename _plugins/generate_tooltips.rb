@@ -91,9 +91,9 @@ module Jekyll
 
         # Regular expression pattern to match special Markdown blocks
         # Unlike the others this needs grouping as we use do |match| for enumeration
-        # NOTE: Use multi line matching as e.g. code blocks can span to multiple lines
-        special_markdown_blocks_pattern = /(````.*?````|```.*?```|``.*?``|`.*?`|\[\[.*?\]\]|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/m    # TODO: test needs of |\[.*?\][\s]*\:.*?$
-        
+        # NOTE: Use multi line matching partially as e.g. code blocks can span to multiple lines
+        special_markdown_blocks_pattern = /((?m:````.*?````|```.*?```|``.*?``|`.*?`)|\[\[.*?\]\]|\[.*?\]\(.*?\)\{\:.*?\}|\[.*?\]\(.*?\)|\[.*?\]\{.*?\}|^#+\s.*?$)/
+
         # Split the content by special Markdown blocks
         markdown_parts = markdown.split(special_markdown_blocks_pattern)
         #puts markdown_parts
@@ -378,6 +378,12 @@ $JekyllTooltipGen_nav_links = nil
 $JekyllTooltipGen_should_build_tooltips = nil
 $JekyllTooltipGen_should_build_persistent_tooltips = nil
 
+# 1st pass
+#
+# This is used now to 
+#       - set the page nav_ndx correctly to support our custom bottom collection elements navigator
+#       - set additional page data elements that will be used during all the passes
+#
 # NOTE: Do not use this site based enumeration directly for the page content manipulation as well
 #       as that needs proper per-page payload data (or TODO: figure out how to get it in that case properly)
 #
@@ -416,6 +422,12 @@ Jekyll::Hooks.register :site, :pre_render do |site|
   end
 end
 
+# 2nd pass
+#
+# This is used now to 
+#     - add the description to the page end to get it rendred correclty the same way, together with the page content (will be removed/handled in the 3rd pass)
+#     - render the page content manually and create the autolinks and tooltips
+#
 Jekyll::Hooks.register [:pages, :documents], :pre_render do |page, payload|
   next if false == $JekyllTooltipGen_should_build_tooltips    
   next if false == $JekyllTooltipGen_markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
@@ -441,6 +453,11 @@ Jekyll::Hooks.register [:pages, :documents], :pre_render do |page, payload|
   Jekyll::TooltipGen.generate_tooltips(page, $JekyllTooltipGen_should_build_persistent_tooltips)
 end
 
+# 3rd pass
+#
+# This is used now to 
+#     - remove the added hackish description block from the page end and replace the description with the now correctly rendered one
+#
 Jekyll::Hooks.register [:pages, :documents], :post_convert do |page|
   next if false == $JekyllTooltipGen_should_build_tooltips
   next if false == $JekyllTooltipGen_markdown_extensions.include?(File.extname(page.relative_path)) && File.extname(page.relative_path) != ".html"
