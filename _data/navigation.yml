@@ -391,6 +391,11 @@ admin-guide-nav:
       subnav:
       - title: "network() destination options"
         url: /admin-guide/070_Destinations/150_Network/000_Network_destination_options
+    - title: "OpenObserve"
+      url: /admin-guide/070_Destinations/153_OpenObserve/README
+      subnav:
+      - title: "openobserve-log() destination options "
+        url: /admin-guide/070_Destinations/153_OpenObserve/001_OpenObserve-destination-options
     - title: "opensearch"
       url: /admin-guide/070_Destinations/155_opensearch/README
       subnav:

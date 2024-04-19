@@ -100,11 +100,14 @@ module Jekyll
         markdown_parts.each_with_index do |markdown_part, markdown_index|            
           #puts "---------------\nmarkdown_index: " + markdown_index.to_s + "\n" + (markdown_index.even? ? "NONE " : "") + "markdown_part: " + markdown_part
 
-          page.data["page_links_ids_sorted_by_title"].each do |page_id|
-            link_data = page_links[page_id]
-
-            title = link_data["title"]
-            id = link_data["id"]
+          page.data["page_links_ids_sorted_by_title"].each do |page_titles_data|
+            #puts "page_titles_data:  #{page_titles_data}"
+            
+            id = page_titles_data["id"]
+            
+            link_data = page_links[id]
+            # id = link_data["id"] these must match too
+            title = page_titles_data["title"]  # link_data["title"] is an array of titles that all must be already in the page_links_ids_sorted_by_title array
             url = prefixed_url(link_data["url"], base_url)
             needs_tooltip = (link_data["description"] || has_anchor?(url))
 
@@ -212,10 +215,25 @@ module Jekyll
       end # gen_nav_link_data
 
       def page_links_ids_sorted_by_title(page_links)
-        return page_links.keys.sort_by{ |key| page_links[key]['title'].downcase }.reverse
+        sorted_arr = []
+
+        page_links.each do |page_id, page_data|
+          #puts "page_id: #{page_id}, page_data: #{page_data}"
+          titles = page_data["title"]
+
+          titles.each do |title|
+            sorted_arr << page_link_data = {
+              "id" => page_id,
+              "title" => title,
+            }
+          end
+        end
+
+        sorted_arr.sort_by { |page| page["title"].downcase }.reverse
       end
 
       def gen_page_link_data(links_dir, link_files_pattern)
+        link_aliases = YAML.load_file(JekyllTooltipGen_link_aliases_yaml)
         excluded_titles = YAML.load_file(JekyllTooltipGen_excluded_yaml)
         page_links_dictionary = YAML.load_file(JekyllTooltipGen_external_yaml)
         #page_links_dictionary = {}
@@ -244,11 +262,11 @@ module Jekyll
           # Skip excluded titles
           next if is_excluded_title?(excluded_titles, page_title)
 
-          # Create a page_link_data object
+          # Create a new page_link_data object
           page_link_data = {
             "id" => page_id,
             "url" => page_url,
-            "title" => page_title,
+            "title" => [ page_title ],
             "description" => (page_description.length > 0 ? true : false)
           }
 
@@ -258,10 +276,23 @@ module Jekyll
           page_links_dictionary[page_id] = page_link_data
         end
 
+        link_aliases.each do |alias_id, alias_data|
+          # puts "Alias ID: #{alias_id}\nAlias Data: #{alias_data}"
+
+          page_link_data = page_links_dictionary[alias_id]
+          if page_link_data == nil
+            puts "Unknow ID (#{alias_id}) in alias definition"
+            exit 4
+          end
+          _, aliases = alias_data.first
+          page_link_data["title"].concat(aliases)
+          # puts "page_link_data: #{page_link_data}"
+        end
+
         # Just for debugging
         # pp page_links_dictionary
-        page_links_ids_sorted_by_title(page_links_dictionary).each do |page_id|
-          puts page_links_dictionary[page_id]
+        page_links_ids_sorted_by_title(page_links_dictionary).each do |data|
+          #puts data
         end
 
         #pp page_links_dictionary
@@ -368,6 +399,7 @@ end
 JekyllTooltipGen_desc_hack_separator = '<p>%%%description-separator-DO-NOT-REMOVE%%%</p>'
 JekyllTooltipGen_links_folder = '_data/links'
 JekyllTooltipGen_navigation_yaml = '_data/navigation.yml'
+JekyllTooltipGen_link_aliases_yaml = '_data/link_aliases.yml'
 JekyllTooltipGen_excluded_yaml = '_data/excluded_titles.yml'
 JekyllTooltipGen_external_yaml = '_data/external_links.yml'
 
