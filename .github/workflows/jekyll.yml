@@ -52,7 +52,7 @@ jobs:
           
           mkdir -p _data
           # Last param turns off jekyll build for the links, let it be done in the next step, 
-          # together with the real site build, with the same parameters
+          # together with the real site build, and with the same parameters
           #
           ./_tools/navgen "./doc" "./_data/navigation.yml" "no"
           
@@ -75,9 +75,9 @@ jobs:
           # A double build is needed currently as the _data/links/ content must be rendered from the final html output, so
           # the first run cannot use the not yet existing links
           #
-          JEKYLL_BUILD_LINKS='true' bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          JEKYLL_BUILD_LINKS=yes bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
 
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          JEKYLL_BUILD_TOOLTIPS=yes bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
 
           ls -AlR ./_site/assets/js          
         env:
