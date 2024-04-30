@@ -83,14 +83,14 @@ popd >/dev/null
 rm -Rf "${OUTPUT_DIR}" >/dev/null 2>&1
 mkdir -p "${OUTPUT_DIR}"
 
-# lunr is not included and must be presented fors _site generation 
+# lunr is not included and must be presented for _site generation 
 cp -Rf ${VERBOSE} "${INPUT_FOLDER}/lunr" "${OUTPUT_DIR}"
 cp -f ${VERBOSE} "${WORK_DIR}/${OUTPUT_FILE}" "${OUTPUT_FILE}"
 
 echo "Output is written to: ${OUTPUT_DIR}"
 
 if [ -d "_site" ]; then
-    echo "Updating _site as exists"
+    echo "Updating _site as well as exists"
     SITE_JS_DIR="_site/assets/js"
 
     # backup lunr, as it is already a generated final _site version

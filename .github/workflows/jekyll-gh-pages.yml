@@ -50,7 +50,6 @@ jobs:
           echo "Updating navigation.yml"
           pwd
           
-          mkdir -p _data
           # Last param turns off jekyll build for the links, let it be done in the next step, 
           # together with the real site build, and with the same parameters
           #
@@ -88,7 +87,7 @@ jobs:
         # even though most of them are packed in assets/js/main.min.js
         # Re-packing only the required ones and overwrite the assets/js with the minimal result needed
         # For more see the _tools/pack script
-        # TODO: Eliminat this later (probably building purely from local source the minimal-mistakes will solve this)
+        # TODO: Eliminate this later (probably building purely from local source the minimal-mistakes will solve this)
         run: |
           echo "Updating main.min.js and re-pack js scripts"
           pwd
