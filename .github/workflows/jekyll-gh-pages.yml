@@ -9,7 +9,7 @@ name: Deploy Jekyll site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["Jekyll"]
+    branches: ["master" "develop" "Jekyll"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -65,7 +65,7 @@ jobs:
           echo "Updating main.min.js and re-pack js scripts"
           pwd
           
-          ./_tools/pack          
+          ./_tools/pack debug         
           ls -AlR assets/js
 
       - name: Build with Jekyll
@@ -92,7 +92,7 @@ jobs:
           echo "Updating main.min.js and re-pack js scripts"
           pwd
           
-          ./_tools/pack
+          ./_tools/pack debug
           ls -AlR _site/assets/js
 
       - name: Upload artifact

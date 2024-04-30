@@ -9,18 +9,12 @@ OUT_FLAGS="-c -m"
 VERBOSE= #"-v"
 
 INPUT_FOLDER="_js"
-# Order is important here, and is still not yet foolproof as there still might be cross dependencies in a given folder :S
-INPUT_FOLDERS=("plugins" "custom")
-# TODO: Add array support both to input and exclude patterns
-# Original list was assets/js/vendor/jquery/jquery-3.6.0.js assets/js/plugins/jquery.fitvids.js assets/js/plugins/jquery.greedy-navigation.js assets/js/plugins/jquery.magnific-popup.js assets/js/plugins/jquery.ba-throttle-debounce.js assets/js/plugins/smooth-scroll.js assets/js/plugins/gumshoe.js assets/js/_main.js
 INPUT_FILE_PATTERN="*.js"
-# Do not add lunr as its language support, and other features are handled now during content generation via Liquid
-EXCLUDE_FILE_PATTERN="*lunr*"
 OUTPUT_FILE="assets/js/main.min.js"
 OUTPUT_DIR=$(dirname "$OUTPUT_FILE")
 
 generate_package_file() {
-    # TODO: Why the hell the ouptut must be presented if it will be overwritten in a sec?!?!?!?!
+
     echo "Cleaning output target ${OUTPUT_FILE}"
     rm "${OUTPUT_FILE}" >/dev/null 2>&1
     rm "${PACKAGE_FILE}" >/dev/null 2>&1
@@ -28,7 +22,6 @@ generate_package_file() {
     echo "SCRIPT_DIR=${SCRIPT_DIR}"
     echo "INPUT_FOLDER=${INPUT_FOLDER}"
     echo "INPUT_FILE_PATTERNS=${INPUT_FILE_PATTERNS}"
-    echo "EXCLUDE_FILE_PATTERN=${EXCLUDE_FILE_PATTERN}"
     echo "OUTPUT_FILE=${OUTPUT_FILE}"
     echo "OUTPUT_DIR=${OUTPUT_DIR}"
     echo "WORK_DIR=${WORK_DIR}"
@@ -36,14 +29,32 @@ generate_package_file() {
     echo ""
     echo "Preparing packaging input from ${JS_WORK_DIR}"
 
+    # Original list was assets/js/vendor/jquery/jquery-3.6.0.js assets/js/plugins/jquery.fitvids.js assets/js/plugins/jquery.greedy-navigation.js assets/js/plugins/jquery.magnific-popup.js assets/js/plugins/jquery.ba-throttle-debounce.js assets/js/plugins/smooth-scroll.js assets/js/plugins/gumshoe.js assets/js/_main.js
     # NOTE: jquery must be the first now, otherwise packing will fail, and _main.js must be the last otherwise runtime lunr errors can occure
     local MATCHING_FILES MATCHING_FILES="${JS_WORK_DIR}/vendor/jquery/jquery-3.6.0.js"
-	for JS_INPUT_FOLDER in "${INPUT_FOLDERS[@]}"; do
-        MATCHING_FILES="${MATCHING_FILES} $(find "${JS_WORK_DIR}/${JS_INPUT_FOLDER}" -type f \( -name "${INPUT_FILE_PATTERN}" -and -not -name "${EXCLUDE_FILE_PATTERN}" -and -not -name "main.min.js" -and -not -name "_main.js" -and -not -name "jquery-3.6.0.js" \) -exec printf "%s " {} + )"
-    done
+
+    # NOTE: It seems there might be order dependencies here, using fixed file list instead
+    # Order is important here, and is still not yet foolproof as there still might be cross dependencies in a given folder :S
+    # `INPUT_FOLDERS`=("plugins" "custom")
+    # Do not add lunr as its language support, and other features are handled now during content generation via Liquid
+    # EXCLUDE_FILE_PATTERN="*lunr*"
+	# for JS_INPUT_FOLDER in "${INPUT_FOLDERS[@]}"; do
+    #     MATCHING_FILES="${MATCHING_FILES} $(find "${JS_WORK_DIR}/${JS_INPUT_FOLDER}" -type f \( -name "${INPUT_FILE_PATTERN}" -and -not -name "${EXCLUDE_FILE_PATTERN}" -and -not -name "main.min.js" -and -not -name "_main.js" -and -not -name "jquery-3.6.0.js" \) -exec printf "%s " {} + )"
+    # done
+    MATCHING_FILES="${MATCHING_FILES} \
+                    ${JS_WORK_DIR}/plugins/jquery.ba-throttle-debounce.js \
+                    ${JS_WORK_DIR}/plugins/jquery.greedy-navigation.js \
+                    ${JS_WORK_DIR}/plugins/jquery.fitvids.js \
+                    ${JS_WORK_DIR}/plugins/jquery.magnific-popup.js \
+                    ${JS_WORK_DIR}/plugins/gumshoe.js \
+                    ${JS_WORK_DIR}/plugins/smooth-scroll.js \
+                    ${JS_WORK_DIR}/plugins/clipboard.js \
+                    ${JS_WORK_DIR}/custom/copy-to-clipboard-btn.js \
+                    ${JS_WORK_DIR}/custom/navigation.js \
+                    ${JS_WORK_DIR}/custom/custom-init.js"
     MATCHING_FILES="${MATCHING_FILES} ${JS_WORK_DIR}/_main.js" 
-    
     echo -e "\nMATCHING_FILES to pack ${MATCHING_FILES[@]}"
+
     local JS_FILES_PATTERN="${JS_WORK_DIR}/**/${INPUT_FILE_PATTERN}"
 
     sed -e "s|%OUT_FLAGS%|${OUT_FLAGS}|g" \

@@ -10,6 +10,8 @@
 
 Here you can browse, search and contribute to most of the syslog-ng documentation.
 
+[![Deploy Jekyll site to Pages](https://github.com/syslog-ng/doc/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/syslog-ng/doc/actions/workflows/jekyll-gh-pages.yml)
+
 ## [Documentation guide][ref:doc-guide]
 
 If you would like to help us to make our documentation better, this is [how to contribute][ref:doc-guide].
