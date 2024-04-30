@@ -1,13 +1,12 @@
 ---
-title: "Message's representation in syslog-ng OSE"
+title: Message representation in syslog-ng OSE
 id: adm-conc-msg
-subtitle: >-
-    When the syslog-ng OSE application's receives a message, it automatically
-    parses the message. the characters |()[].*?+^$\ are used. The syslog-ng OSE application can automatically
+description: >-
+    When the syslog-ng OSE application receives a message, it automatically
+    parses the message. The syslog-ng OSE application can automatically
     parse log messages that conform to the RFC3164 (BSD or legacy-syslog) or
     the RFC5424 (IETF-syslog) message formats. If syslog-ng OSE cannot parse
-    a message, it results in an error. [[parser]]s are useful {% include markdown_link id='adm-about-glossary#destination' title='destination' withTooltip='yes' %}
-    Again [[destination|adm-about-glossary#bom]] id=bom test
+    a message, it results in an error.
 ---
 
 **TIP:** In case you need to relay messages that cannot be parsed without
@@ -39,7 +38,7 @@ The facility that sent the message.
 
 ## Tags
 
-Custom text labels added to the message' that are mainly used for
+Custom text labels added to the message that are mainly used for
 filtering. None of the current message transport protocols adds tags
 to the log messages. Tags can be added to the log message only
 within syslog-ng OSE. The syslog-ng OSE application automatically
@@ -97,109 +96,3 @@ message is longer (in bytes) than log-msg-size() in UTF-8
 representation, syslog-ng OSE splits the message at an undefined
 location (because the conversion between different encodings is not
 trivial).
-
-**Example:**
-
-```config
-options {
-    stats(
-        freq(1)
-        level(1)
-        lifetime(1000)
-        max-dynamics(10000)
-        syslog-stats(yes)
-        stats()
-    );
-};
-```
-
-dfik wo hiwhf iwhg i
-
-`multi line backticked
-text`
-
-dhkihs
-
----------------------
-
-The severity of the message. `time-zone()` teszt
-
-parser: Parse and segment structured messages
-
-`parser: Parse and segment structured messages`
-
-discord Sending alerts and notifications to Discord
-
-`discord Sending alerts and notifications to Discord`
-
-Timezones and daylight saving
-
-`Timezones and daylight saving`
-
-Slack destination options
-
-[[Slack destination options]]
-
-`Slack destination options`
-
-Slack :destination options
-
-Slack 'destination' options
-
-`Options of the mqtt() destination`
-
-[Parse bar]
-
-Alma [[parser]] korte
-
-[[destination]]
-
-[[destination id=bom|adm-about-glossary#bom]]
-
-[[destination|adm-about-glossary#bom]] id=bom
-
-[[destination||]]
-
-[destination|]
-
-destination|
-
-[destination]
-
-<a href="/doc/admin-guide/200_About/002_Glossary#destination" class="nav-link content-tooltip">that is a destination test</a>
-
-[[another destination|adm-about-glossary#destination]] test
-
-{% include markdown_link id='adm-about-glossary#destination' title='destination apostroph' withTooltip='yes' %}
-
-{% include markdown_link id="adm-about-glossary#destination" title="destination quote" withTooltip="yes" %}
-
-message
-
-[[message]]
-
-For more information, see
-[[Options of the kafka() destination's C implementation]].
-
-For details, see [[The syslog-ng.conf manual page]].
-
-## See also
-
-[[The syslog-ng.conf manual page]]
-
-[[The syslog-ng manual page]]
-
-{% include doc/admin-guide/manpages-footnote.md %}
-
-When encoding is set in a source (using the encoding() option) and the
-message is longer (in bytes) than log-msg-size() in UTF-8
-representation, syslog-ng OSE splits the message at an undefined
-location (because the conversion between different encodings is not
-trivial).
-
-<!-- TODO: The patter spans to multiple lines that case is not handled now -->
-The following is a simple configuration file for syslog-ng Open
-Source Edition that collects incoming log messages and stores them
-in a text file. syslog-ng Open Source Edition.
-
-Aliast testing e.g LEVEL or PRIORITY should work like SDATA
