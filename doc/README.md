@@ -7,6 +7,8 @@ permalink: /
 id: doc-center
 ---
 
+[![Deploy Jekyll site to Pages](https://github.com/syslog-ng/doc/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/syslog-ng/doc/actions/workflows/jekyll-gh-pages.yml)
+
 ## {% include markdown_link id="doc-guide" title="Documentation guide" outOfFrame=true %}
 
 If you would like to help us to make our documentation better, here you can find information about {% include markdown_link id="doc-guide" title="how to contribute" outOfFrame=true %}
