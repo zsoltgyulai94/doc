@@ -50,8 +50,8 @@ jobs:
           echo "Updating navigation.yml"
           pwd
           
-          # Last param turns off jekyll build for the links, let it be done in the next step, 
-          # together with the real site build, and with the same parameters
+          # Last param turns off jekyll build for the links, let it be done in the next step 
+          # with the same parameters we use for the real site build
           #
           ./_tools/navgen "./doc" "./_data/navigation.yml" "no"
           
@@ -88,6 +88,7 @@ jobs:
         # Re-packing only the required ones and overwrite the assets/js with the minimal result needed
         # For more see the _tools/pack script
         # TODO: Eliminate this later (probably building purely from local source the minimal-mistakes will solve this)
+        # TODO: Double-check if it's still needed
         run: |
           echo "Updating main.min.js and re-pack js scripts"
           pwd
